@@ -24,7 +24,7 @@ const App = () => {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/groups' element={<GroupIndex />} />
-          <Route path='/group/:groupId' element={<GroupSingle />} />
+          <Route path='/groups/:groupId' element={<GroupSingle />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
       </BrowserRouter>

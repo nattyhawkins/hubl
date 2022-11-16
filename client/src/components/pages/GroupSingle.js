@@ -2,8 +2,10 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
-
-
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/row'
+import Col from 'react-bootstrap/Col'
+import Card from 'react-bootstrap/Card'
 
 
 
@@ -14,13 +16,15 @@ const GroupSingle = () => {
 
   const { groupId } = useParams()
 
+
   useEffect(() => {
     const getGroup = async () => {
       try {
-        const { data } = await axios.get(`/api/groups/${groupId}`)
+        const { data } = await axios.get(`/api/group/${groupId}`)
         console.log('single group data =>', data)
+        setGroups(data)
       } catch (err) {
-        console.log(err)
+        console.log('yoo', err)
         setErrors(err)
       }
     }
@@ -33,8 +37,15 @@ const GroupSingle = () => {
 
 
   return (
-    <main className='GroupSingle'>
-      <h1>Posts single</h1>
+    <main className='group-single'>
+      <Container className='single-container'>
+        <Row className='single-row'>
+          <Col className='group-card'>
+            <h2>Welcome to {groups.name}</h2>
+          </Col>
+        </Row>
+      </Container>
+      <h1>Group single</h1>
     </main>
   )
 }

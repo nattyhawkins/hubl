@@ -9,6 +9,6 @@ export default [
   },
   {
     name: 'Random',
-    bio: 'Join the random group, for random stuff, by random people',
+    bio: 'Join the random group. For random stuff. By random people',
   }
 ]
