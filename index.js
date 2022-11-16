@@ -1,6 +1,8 @@
 import express from 'express'
 import mongoose from 'mongoose'
 import {} from 'dotenv/config'
+import router from './config/router.js'
+
 
 const app = express()
 
@@ -19,7 +21,7 @@ const startServer = async () => {
     })
 
     //router
-    // app.use(router)
+    app.use(router)
 
     //catch all
     app.use((_req, res) => res.status(404).json({ message: 'Route not found' }))
