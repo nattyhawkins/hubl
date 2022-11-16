@@ -1,10 +1,11 @@
 import { useEffect } from 'react'
 import axios from 'axios'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Home from './components/Home'
-import Group from './components/Group'
-import PostSingle from './components/PostSingle'
-import TheNavbar from './components/TheNavbar'
+import Home from './components/pages/Home'
+import GroupIndex from './components/pages/GroupIndex'
+import GroupSingle from './components/pages/GroupSingle'
+import TheNavbar from './components/common/TheNavbar'
+import NotFound from './components/pages/NotFound'
 
 const App = () => {
 
@@ -22,8 +23,9 @@ const App = () => {
         <TheNavbar />
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/:groupName' element={<Group />} />
-          <Route path='/:groupName/:postId' element={<PostSingle />} />
+          <Route path='/groups' element={<GroupIndex />} />
+          <Route path='/group/:groupId' element={<GroupSingle />} />
+          <Route path='*' element={<NotFound />} />
         </Routes>
       </BrowserRouter>
 

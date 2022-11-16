@@ -10,9 +10,9 @@ router.route('/register')
 router.route('/login')
   .post(loginUser)
 
-// router.route('/groups')
-//   .get(getAllGroups)
-//   .post(secureRoute, addGroup)
+router.route('/groups')
+  .get(getAllGroups)
+  .post(secureRoute, addGroup)
 
 // router.route('/groups/:groupName')
 //   .get(getSingleGroup)
