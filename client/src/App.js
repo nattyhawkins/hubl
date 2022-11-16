@@ -7,7 +7,7 @@ import PostSingle from './components/PostSingle'
 import TheNavbar from './components/TheNavbar'
 
 const App = () => {
-  
+
   // useEffect(() => {
   //   const getData = async () => {
   //     const { data } = await axios.get('/api/products/') // * <-- replace with your endpoint
@@ -18,15 +18,15 @@ const App = () => {
 
   return (
     <>
-      <BrowserRouter>   
+      <BrowserRouter>
         <TheNavbar />
         <Routes>
-          <Route path='/' element={<Home/>} />
-          <Route path='/:groupname' element={<Group/>} />
-          <Route path='/:groupName/:postId' element={<PostSingle/>} />
+          <Route path='/' element={<Home />} />
+          <Route path='/:groupName' element={<Group />} />
+          <Route path='/:groupName/:postId' element={<PostSingle />} />
         </Routes>
       </BrowserRouter>
-  
+
     </>
   )
 }
