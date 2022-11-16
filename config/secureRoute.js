@@ -2,6 +2,7 @@ import { Unauthorised } from './errors.js'
 import {} from 'dotenv/config'
 import user from '../models/user'
 import { sendErrors } from './helpers'
+import jwt from 'jsonwebtoken'
 
 export default async (req, res, next) => {
   try {
