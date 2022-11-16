@@ -25,3 +25,6 @@ const groupSchema = new mongoose.Schema({
   bio: { type: String, maxlength: 500 },
   posts: [postSchema],
 })
+
+
+export default mongoose.model('Group', groupSchema)
