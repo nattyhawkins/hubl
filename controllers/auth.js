@@ -1,4 +1,8 @@
+import { Unauthorised } from '../config/errors.js'
+import { sendErrors } from '../config/helpers.js'
 import User from '../models/user.js'
+import jwt from 'jsonwebtoken'
+import {} from 'dotenv/config'
 
 export const registerUser = async (req, res) => {
   try {
@@ -12,4 +16,26 @@ export const registerUser = async (req, res) => {
     res.status(422).json({ message: err.message })
   }
 
+}
+
+export const loginUser = async (req, res) => {
+  try {
+    console.log('attempt login')
+    const { email, password } = req.body
+    const targetUser = await User.findOne({ email: email })
+    //validate
+    if (!targetUser || !targetUser.validatePassword(password)){
+      throw new Unauthorised()
+    }
+    //token
+    const payload = {
+      sub: targetUser._id,
+      username: targetUser.username,
+    }
+    const token = jwt.sign(payload, process.env.secret, { expiresIn: '7 days' })
+    return res.json({ message: `Weclome back ${targetUser.username}`, token: token })
+  } catch (err) {
+    console.log(err.message)
+    sendErrors(res, err)
+  }
 }

@@ -1,9 +1,6 @@
 import mongoose from 'mongoose'
 
 
-
-
-
 const commentSchema = new mongoose.Schema({
   message: { type: String, maxlength: 500 },
   tags: { type: String },
