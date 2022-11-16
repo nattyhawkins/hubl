@@ -1,7 +1,7 @@
 import { Unauthorised } from './errors.js'
 import {} from 'dotenv/config'
-import user from '../models/user'
-import { sendErrors } from './helpers'
+import User from '../models/user.js'
+import { sendErrors } from './helpers.js'
 import jwt from 'jsonwebtoken'
 
 export default async (req, res, next) => {
@@ -10,7 +10,7 @@ export default async (req, res, next) => {
     if (!auth) throw new Unauthorised('Missing headers')
     const token = auth.replace('Bearer ', '')
     const payload = jwt.verify(token, process.env.secret)
-    const userToLogIn = await user.findById(payload.sub)
+    const userToLogIn = await User.findById(payload.sub)
     if (!userToLogIn) throw new Unauthorised()
 
     // Pass on credentials by saving to a new key on the request
@@ -18,6 +18,6 @@ export default async (req, res, next) => {
 
     next()
   } catch (err) {
-    sendErrors
+    sendErrors(res, err)
   }
 }

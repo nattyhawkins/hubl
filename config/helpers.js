@@ -1,5 +1,6 @@
 import { NotFound, Unauthorised } from './errors.js'
 import { CastError } from 'mongoose'
+// import Group from '../models/group.js'
 
 export const sendErrors = (res, err) => {
   console.log(err)
@@ -19,16 +20,16 @@ export const sendErrors = (res, err) => {
   }
 }
 
-// export const findPost = async (req, res, populate) => {
-//   try {
-//     const { id } = req.params
-//     let tagretPost = await Post.findById(id)
-//     if (!tagretPost) throw new NotFound('Could not find post')
-//     if (populate) for (const item of populate){
-//       tagretPost = await tagretPost.populate(item)
-//     }
-//     return tagretPost
-//   } catch (err) {
-//     sendErrors(res, err)
-//   }
-// }
+export const findDocument = async (Model, idParam, req, res, populate) => {
+  try {
+    const { [idParam]: docId } = req.params
+    let targetGroup = await Model.findById(docId)
+    if (!targetGroup) throw new NotFound('Could not find group')
+    if (populate) for (const item of populate){
+      targetGroup = await targetGroup.populate(item)
+    }
+    return targetGroup
+  } catch (err) {
+    sendErrors(res, err)
+  }
+}
