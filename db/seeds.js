@@ -14,8 +14,11 @@ const seedDataBase = async () => {
     console.log('db dropped')
     const users = await User.create(userData)
     console.log(`🤖 users collection seeded with ${users.length} users!`)
-    const groupWithOwners = groupData.map(post => {
-      return { ...post, owner: users[0]._id }
+    const groupWithOwners = groupData.map(group => {
+      const postsWithOwners = group.posts.map(post => {
+        return { ...post, owner: users[1]._id }
+      })
+      return { ...group, owner: users[0]._id, posts: postsWithOwners }
     })
     const group = await Group.create(groupWithOwners)
     console.log(`🌱 group collection seeded with ${group.length} groups!`)

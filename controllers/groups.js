@@ -25,6 +25,17 @@ export const getAllGroups = async (_req, res) => {
   }
 }
 
+//GET 1 GROUP
+// ? NEED TO ADD comments.owner TO POPULATE comment owners
+export const getSingleGroup = async (req, res) => {
+  try {
+    const group = await findDocument(Group, 'groupId', req, res, ['owner'])
+    return res.json(group)
+  } catch (err) {
+    sendErrors(res, err)
+  }
+}
+
 export const updateGroup = async (req, res) => {
   try {
     const targetGroup = await findDocument(Group, 'groupId', req, res)
@@ -39,15 +50,16 @@ export const updateGroup = async (req, res) => {
   }
 }
 
-// export const deleteGroup = async (req, res) => {
-//   try {
-//     const targetGroup = await findDocument(Group, 'groupId', req, res)
-//     if (targetGroup && targetGroup.owner.equals(req.currentUser._id)){
-//       await targetGroup.remove()
-//       console.log('removed')
-//       return res.sendStatus(204)
-//     }
-//     throw new Unauthorised()
-//   } catch (err) {
-//     sendErrors(res, err)
-//   }
+export const deleteGroup = async (req, res) => {
+  try {
+    const targetGroup = await findDocument(Group, 'groupId', req, res)
+    if (targetGroup && targetGroup.owner.equals(req.currentUser._id)){
+      await targetGroup.remove()
+      console.log('removed')
+      return res.sendStatus(204)
+    }
+    throw new Unauthorised()
+  } catch (err) {
+    sendErrors(res, err)
+  }
+}

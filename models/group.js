@@ -13,7 +13,7 @@ const commentSchema = new mongoose.Schema({
 const postSchema = new mongoose.Schema({
   title: { type: String, required: true, maxlength: 250 },
   message: { type: String, maxlength: 500 },
-  tags: { type: String },
+  tags: [{ type: String }],
   owner: { type: mongoose.Schema.ObjectId, ref: 'User', required: true },
   comments: [commentSchema],
 }, {
