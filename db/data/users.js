@@ -18,8 +18,8 @@ export default [
     passwordConfirmation: '123',
   },
   {
-    username: 'natella4',
-    email: 'natella4@email.com',
+    username: 'natella2',
+    email: 'natella2@email.com',
     password: '123',
     passwordConfirmation: '123',
   },

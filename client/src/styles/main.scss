@@ -1,5 +1,6 @@
 $primary: rgb(134, 125, 255);
-$secondary: rgb(42, 251, 216);
+$secondary: lighten($primary, 10%);
+$button-colour: darken($primary, 5%);
 
 * {
   box-sizing: border-box;
@@ -87,7 +88,7 @@ body {
     border-radius: 15px;
 
     .textBox {
-      background-color: lighten($secondary, 30%);
+      background-color: lighten($secondary, 20%);
       border-radius: 15px;
       padding: 10px;
       margin-bottom: 15px;
@@ -95,10 +96,15 @@ body {
 
     button {
       margin: 0 10px;
-      background-color: darken($primary, 15%);
+      background-color: $button-colour;
       border: 2px solid $primary;
       border-radius: 8px;
       color: white;
+
+      &:hover {
+        cursor: pointer;
+        background-color: lighten($button-colour, 10%);
+      }
     }
   }
 
@@ -136,6 +142,11 @@ body {
 
     .title {
       max-width: 80%;
+
+      h5 {
+        color: lighten($primary, 15%);
+        margin: 10px;
+      }
 
       h1 {
         font-size: 2em;
