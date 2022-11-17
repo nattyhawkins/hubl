@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import PostIndex from './PostIndex.js'
 
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/row'
@@ -11,8 +12,8 @@ import Card from 'react-bootstrap/Card'
 
 const GroupSingle = () => {
 
-  const [groups, setGroups] = useState([])
-  const [errors, setErrors] = useState([])
+  const [group, setGroup] = useState([])
+  const [errors, setErrors] = useState(false)
 
   const { groupId } = useParams()
 
@@ -20,9 +21,9 @@ const GroupSingle = () => {
   useEffect(() => {
     const getGroup = async () => {
       try {
-        const { data } = await axios.get(`/api/group/${groupId}`)
+        const { data } = await axios.get(`/api/groups/${groupId}`)
         console.log('single group data =>', data)
-        setGroups(data)
+        setGroup(data)
       } catch (err) {
         console.log('yoo', err)
         setErrors(err)
@@ -40,9 +41,23 @@ const GroupSingle = () => {
     <main className='group-single'>
       <Container className='single-container'>
         <Row className='single-row'>
-          <Col className='group-card'>
-            <h2>Welcome to {groups.name}</h2>
-          </Col>
+          {group ?
+            <Col className='group-card'>
+              <h2>Welcome to {group.name}</h2>
+              <p>{group.bio}</p>
+              <div>
+                {group.posts && group.posts.map(post => {
+                  const { title, message } = post
+                  return (
+                    <div key={groupId}>
+                      <h3>{title}</h3>
+                      <p> {message} </p>
+                    </div>
+                  )
+                })}
+              </div>
+            </Col>
+            : <h2>error</h2>}
         </Row>
       </Container>
       <h1>Group single</h1>

@@ -42,7 +42,7 @@ const GroupIndex = () => {
             return (
               <Col key={_id}>
                 <Card>
-                  <Link to={`/group/${_id}`}>
+                  <Link to={`/groups/${_id}`}>
                     <h4>{name}</h4>
                   </Link>
                   <div className='card-image'></div>
