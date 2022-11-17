@@ -8,7 +8,7 @@ import { Card, Col, Row, Container } from 'react-bootstrap'
 const GroupSingle = () => {
 
   const [group, setGroup] = useState([])
-  const [errors, setErrors] = useState(false)
+  const [error, setError] = useState(false)
 
   const { groupId } = useParams()
 
@@ -21,7 +21,7 @@ const GroupSingle = () => {
         setGroup(data)
       } catch (err) {
         console.log('yoo', err)
-        setErrors(err)
+        setError(err)
       }
     }
     getGroup()

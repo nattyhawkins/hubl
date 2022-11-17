@@ -15,7 +15,7 @@ const GroupIndex = () => {
 
   const [groups, setGroups] = useState([])
   const [searchedGroups, setSearchedGroups] = useState([])
-  const [errors, setErrors] = useState(false)
+  const [error, setError] = useState(false)
 
   useEffect(() => {
     const getData = async () => {
@@ -26,7 +26,7 @@ const GroupIndex = () => {
         console.log('group index data =>', data)
       } catch (err) {
         console.log(err.message)
-        setErrors(true)
+        setError(true)
       }
     }
     getData()
@@ -61,7 +61,7 @@ const GroupIndex = () => {
             })}
           </Row>
           :
-          errors ? <p>something went wrong...</p> : <p>loading...</p>
+          error ? <p>something went wrong...</p> : <p>loading...</p>
         }
       </Container>
       <h1>group index</h1>
