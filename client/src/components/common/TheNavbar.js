@@ -15,7 +15,6 @@ const TheNavbar = () => {
         <Nav className='navbar'>
           {isAuthenticated() ?
             <>
-              <Nav.Link as={Link} to="/bread/new">Add Bread</Nav.Link>
               <span className='nav-link' onClick={() => handleLogout(navigate)}>Logout</span>
             </>
             :
