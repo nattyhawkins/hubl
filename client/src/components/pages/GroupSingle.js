@@ -47,21 +47,31 @@ const GroupSingle = () => {
               <p>{group.bio}</p>
               <div>
                 {group.posts && group.posts.map(post => {
-                  const { title, message } = post
-                  return (
-                    <div key={groupId}>
-                      <h3>{title}</h3>
-                      <p> {message} </p>
-                    </div>
-                  )
-                })}
+                  const { title, message, _id } = post
+                  {
+                    const commentsFromMap = post.comments.map(comment => {
+                      const { message, _id } = comment
+                      return (
+                        <p key={_id}>{message}</p>
+                      )
+                    })
+                    return (
+                      <div key={_id}>
+                        <h3>{title}</h3>
+                        <p>{message}</p>
+                        <div>{commentsFromMap}</div>
+                      </div>
+                    )
+                  }
+                })
+                }
               </div>
             </Col>
             : <h2>error</h2>}
         </Row>
       </Container>
       <h1>Group single</h1>
-    </main>
+    </main >
   )
 }
 export default GroupSingle

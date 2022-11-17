@@ -16,7 +16,10 @@ const seedDataBase = async () => {
     console.log(`🤖 users collection seeded with ${users.length} users!`)
     const groupWithOwners = groupData.map(group => {
       const postsWithOwners = group.posts.map(post => {
-        return { ...post, owner: users[1]._id }
+        const commentsWithOwners = post.comments.map(comment => {
+          return { ...comment, owner: users[1]._id }
+        })
+        return { ...post, owner: users[1]._id, comments: commentsWithOwners }
       })
       return { ...group, owner: users[0]._id, posts: postsWithOwners }
     })

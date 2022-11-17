@@ -7,7 +7,11 @@ export default [
         title: '(title) Beginners street skate meet up',
         message: '(messsage) Hi! Let everyone know we are organising a street skate event for beginners tomorrow, meeting at Kings Cross 6pm. Cya there!',
         tags: ['tag', 'event', 'beginner', 'street skate'],
-        comments: [],
+        comments: [
+          {
+            message: '(comment) sign me up!!',
+          }
+        ],
       }
     ],
   },
