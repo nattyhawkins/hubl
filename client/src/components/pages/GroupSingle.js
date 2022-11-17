@@ -2,6 +2,7 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Card, Col, Row, Container } from 'react-bootstrap'
+import { v4 as uuid } from 'uuid'
 
 
 
@@ -27,10 +28,9 @@ const GroupSingle = () => {
     getGroup()
   }, [groupId])
 
+  function handleLike(){
 
-
-
-
+  }
 
   return (
     <main className='group-single'>
@@ -50,18 +50,26 @@ const GroupSingle = () => {
             <Row>
               <Container className='mainContainer'>
                 {group.posts && group.posts.map(post => {
-                  const { title, message, tags, _id } = post
-                  // const tagsHTML = tags.map(tag => {
-                  //   return <Card.Subtitle key="">{tag}</Card.Subtitle>
-                  // })
+                  const { title, message, tags, _id, comments } = post
+                  const tagsHTML = tags.map(tag => {
+                    const tagWithId = { tag: tag, id: uuid() }
+                    return <Card.Subtitle key={tagWithId.id} className="tag">#{tagWithId.tag}</Card.Subtitle>
+                  })
                   return (
                     <Card key={_id} className="post">
                       <Card.Body>
-                        <Card.Title>{title}</Card.Title>
-                        <Card.Text>{message}</Card.Text>
-                        {/* <div>
-                          {tagsHTML}
-                        </div> */}
+                        <div className='textBox'>
+                          <Card.Title>{title}</Card.Title>
+                          <Card.Text>{message}</Card.Text>
+                        </div>
+                        <div className='infoBox'>
+                          <button onClick={handleLike} className="">👍 {} Likes</button>
+                          <button className="btn btn-warning">💬 {comments.length} Comments</button>
+                          <div className='tagDiv'>
+                            {tagsHTML}
+                          </div>
+                        </div>
+                        
                         <Card.Text></Card.Text>
                       </Card.Body>
                     </Card>

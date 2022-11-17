@@ -6,8 +6,26 @@ export default [
     passwordConfirmation: '123',
   },
   {
-    username: 'alex1',
-    email: 'alex1@email.com',
+    username: 'crypee_guy',
+    email: 'crypee@email.com',
+    password: '123',
+    passwordConfirmation: '123',
+  },
+  {
+    username: 'quadqueen77',
+    email: 'quadqueen77@email.com',
+    password: '123',
+    passwordConfirmation: '123',
+  },
+  {
+    username: 'natella4',
+    email: 'natella4@email.com',
+    password: '123',
+    passwordConfirmation: '123',
+  },
+  {
+    username: 'harrypotter',
+    email: 'chosen1@email.com',
     password: '123',
     passwordConfirmation: '123',
   }

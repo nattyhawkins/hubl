@@ -1,9 +1,12 @@
+$primary: rgb(134, 125, 255);
+$secondary: rgb(42, 251, 216);
+
 * {
   box-sizing: border-box;
 }
 body{
   min-height: 100vh;
-  background-color: lightgrey;
+  background-color: rgb(251, 246, 246);
 //   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 //   display: flex;
 //   justify-content: center;
@@ -71,20 +74,49 @@ body{
   border: 1px solid grey;
   padding: 0 10px 10px 10px;
   .card{
-    background-color: lightblue;
+    background-color: $secondary;
     padding: 5px;
     margin-top: 10px;
+    border-radius: 15px;
+    .textBox{
+      background-color: lighten($secondary, 30%);
+      border-radius: 15px;
+      padding: 10px;
+      margin-bottom: 15px;
+    }
+    button{
+      margin: 0 10px;
+      background-color: darken($primary, 15%);
+      border: 2px solid $primary;
+      border-radius: 8px;
+      color: white;
+    }
   }
   .card-title{
     font-size: 1.2em;
     font-weight: 900;
   }
+  .infoBox{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    .tagDiv{
+      display: flex;
+      text-align: right;
+      // background-color: lighten($primary, 10%);
+      // padding: 10px;
+      .tag{
+        margin: 5px;
+      }
+    }
+  }
+  
 }
 
 
 //Single Group Page
 .banner{
-  background-color: pink;
+  background-color: $primary;
   padding: 10px 0;
   .bannerContainer {
   
@@ -92,16 +124,22 @@ body{
       max-width: 80%;
       h1{
         font-size: 2em;
+        margin: 0 20px 0 0;
+        color: lighten($primary, 25%);
+      }
+    }
+    .bio{
+      border: 2px solid lighten($primary, 15%);
+      color: lighten($primary, 15%);
+      max-height: calc(200px - 30px);
+      p{
         margin: 0;
       }
     }
-    // .bio p{
-    //   margin-bottom: 0;
-    // }
   }
 }
 
-@media (min-width: 600px){
+@media (min-width: 610px){
   .bannerContainer{
     display: flex;
     justify-content: space-between;
@@ -113,7 +151,7 @@ body{
     .bio{
       max-width: 300px;
       align-self: flex-start;
-      background-color: white;
+
       padding: 0 5px;
       margin-top: 20px;
       font-size: 1.1em;
