@@ -1,5 +1,5 @@
 import { Unauthorised } from '../config/errors.js'
-import { findDocument, sendErrors } from '../config/helpers.js'
+import { findDocument, findPost, sendErrors } from '../config/helpers.js'
 import Group from '../models/group.js'
 
 //POST GROUP
@@ -34,7 +34,7 @@ export const getAllGroups = async (_req, res) => {
 // ? NEED TO ADD comments.owner TO POPULATE comment owners
 export const getSingleGroup = async (req, res) => {
   try {
-    const group = await findDocument(Group, 'groupId', req, res, ['owner'])
+    const group = await findDocument(Group, 'groupId', req, res, ['owner', 'posts.owner'])
     return res.json(group)
   } catch (err) {
     sendErrors(res, err)
@@ -70,15 +70,29 @@ export const deleteGroup = async (req, res) => {
 }
 
 
-// // POSTS
-
-// //GET ALL POSTS
-// export const getAllPosts = async (req, res) => {
-//   try {
-//     const group = await findDocument(Group, 'groupId', req, res, ['owner'])
-//     console.log(group.posts)
-//     return res.json(groups)
-//   } catch (err) {
-//     sendErrors(res, err)
-//   }
-// }
+//Add post
+export const addPost = async (req, res) => {
+  try {
+    const group = await findDocument(Group, 'groupId', req, res, ['owner'])
+    if (group){
+      const ownedPost = { ...req.body, owner: req.currentUser._id }
+      group.posts.push(ownedPost)
+      await group.save()
+      return res.json(ownedPost)
+    }
+  } catch (err) {
+    sendErrors(res, err)
+  }
+}
+//delete post
+export const deletePost = async (req, res) => {
+  try {
+    //below returns an object
+    const groupPost = await findPost(req, res)
+    await groupPost.post.remove()
+    await groupPost.group.save()
+    return res.sendStatus(204)
+  } catch (err) {
+    sendErrors(res, err)
+  }
+}
