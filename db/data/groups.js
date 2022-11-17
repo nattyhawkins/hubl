@@ -5,7 +5,7 @@ export default [
     posts: [
       {
         title: 'Beginners street skate meet up',
-        message: 'Hi! Let everyone know we are organising a street skate event for beginners tomorrow, meeting at Kings Cross 6pm. Cya there!',
+        message: 'Street skate open for beginners tomorrow, meeting at Kings Cross 6pm. Cya there!',
         tags: ['event', 'beginner', 'street skate'],
         comments: [
           {
@@ -17,8 +17,8 @@ export default [
         ],
       },
       {
-        title: 'Beginners equipiment help!',
-        message: 'Hiiiii I want to get into skating and wondering if anyone can hlep with what gear I\'ll need / any good boot brands etc?? thanks!',
+        title: 'Equipment help?!',
+        message: 'Hiiiii can anyone tell me what gear I\'ll need / any good boot brands etc?? thanks!',
         tags: ['event', 'beginner', 'street skate'],
         comments: [
           {

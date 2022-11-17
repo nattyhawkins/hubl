@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import { Card, Col, Row, Container } from 'react-bootstrap'
+import { Link, useParams } from 'react-router-dom'
+import { Card, Col, Row, Container, Nav } from 'react-bootstrap'
 import { v4 as uuid } from 'uuid'
 
 
@@ -40,7 +40,8 @@ const GroupSingle = () => {
             <Row className='banner'>
               <Container className='bannerContainer'>
                 <Col md="6" lg="4" className='title'>
-                  <h1>Welcome to {group.name}</h1>
+                  <h5>Welcome to</h5>
+                  <h1>{group.name}</h1>
                 </Col>
                 <Col md="6" lg="4" offset="3" className="bio justify-end">
                   <p>{group.bio}</p>
@@ -63,8 +64,8 @@ const GroupSingle = () => {
                           <Card.Text>{message}</Card.Text>
                         </div>
                         <div className='infoBox'>
-                          <button onClick={handleLike} className="">👍 {} Likes</button>
-                          <button className="btn btn-warning">💬 {comments.length} Comments</button>
+                          <button onClick={handleLike} className="">👍 Likes</button>
+                          <Link to={`/${groupId}/${_id}`}><button to="/postId/" className="btn btn-warning">💬 {comments.length} Comments</button></Link>
                           <div className='tagDiv'>
                             {tagsHTML}
                           </div>
