@@ -34,7 +34,7 @@ export const getAllGroups = async (_req, res) => {
 // ? NEED TO ADD comments.owner TO POPULATE comment owners
 export const getSingleGroup = async (req, res) => {
   try {
-    const group = await findGroup(req, res, ['owner', 'posts.owner'])
+    const group = await findGroup(req, res, ['owner', 'posts.owner', 'posts.comments.owner'])
     return res.json(group)
   } catch (err) {
     sendErrors(res, err)

@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { Card, Col, Row, Container, Nav } from 'react-bootstrap'
+import { Card, Col, Row, Container, Nav, Collapse } from 'react-bootstrap'
 import { v4 as uuid } from 'uuid'
 
 
@@ -51,27 +51,39 @@ const GroupSingle = () => {
             <Row>
               <Container className='mainContainer'>
                 {group.posts && group.posts.map(post => {
-                  const { title, message, tags, _id, comments } = post
+                  const { title, message, tags, _id, comments, owner } = post
                   const tagsHTML = tags.map(tag => {
                     const tagWithId = { tag: tag, id: uuid() }
                     return <Card.Subtitle key={tagWithId.id} className="tag">#{tagWithId.tag}</Card.Subtitle>
+                  })
+                  const commentHTML = comments.map(comment => {
+                    const { message, _id, owner } = comment
+                    return (
+                      <Card key={_id}>
+                        <Card.Title className="userName">@{owner.username}</Card.Title>
+                        <Card.Text>{message}</Card.Text>
+                      </Card>
+                    )
                   })
                   return (
                     <Card key={_id} className="post">
                       <Card.Body>
                         <div className='textBox'>
-                          <Card.Title>{title}</Card.Title>
+                          <Card.Title><span className='username'>@{owner.username}</span> {title}</Card.Title>
                           <Card.Text>{message}</Card.Text>
                         </div>
                         <div className='infoBox'>
-                          <button onClick={handleLike} className="">👍 Likes</button>
-                          <Link to={`/${groupId}/${_id}`}><button to="/postId/" className="btn btn-warning">💬 {comments.length} Comments</button></Link>
+                          <button onClick={handleLike} >👍 Likes</button>
+                          <button className="btn btn-warning" type='button' data-toggle='collapse' data-target='#comments' aria-expanded='false' aria-controls='comments' >💬 {comments.length} Comments</button>
                           <div className='tagDiv'>
                             {tagsHTML}
                           </div>
                         </div>
-                        
-                        <Card.Text></Card.Text>
+                        <Collapse id='comments'>
+                          <>
+                            {commentHTML}
+                          </>
+                        </Collapse>
                       </Card.Body>
                     </Card>
                   )

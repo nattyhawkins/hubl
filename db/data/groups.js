@@ -17,7 +17,7 @@ export default [
         ],
       },
       {
-        title: 'Equipment help?!',
+        title: 'Equipiment hlep?!',
         message: 'Hiiiii can anyone tell me what gear I\'ll need / any good boot brands etc?? thanks!',
         tags: ['event', 'beginner', 'street skate'],
         comments: [
@@ -28,7 +28,7 @@ export default [
             message: 'helmets are for crypto newbs',
           },
           {
-            message: 'get some hand pads they are life savers!',
+            message: 'go back 2 skl',
           }
         ],
       }
