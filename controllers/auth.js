@@ -2,7 +2,7 @@ import { Unauthorised } from '../config/errors.js'
 import { sendErrors } from '../config/helpers.js'
 import User from '../models/user.js'
 import jwt from 'jsonwebtoken'
-import {} from 'dotenv/config'
+import { } from 'dotenv/config'
 
 export const registerUser = async (req, res) => {
   try {
@@ -21,10 +21,10 @@ export const registerUser = async (req, res) => {
 export const loginUser = async (req, res) => {
   try {
     console.log('attempt login')
-    const { email, password } = req.body
-    const targetUser = await User.findOne({ email: email })
+    const { username, password } = req.body
+    const targetUser = await User.findOne({ username: username })
     //validate
-    if (!targetUser || !targetUser.validatePassword(password)){
+    if (!targetUser || !targetUser.validatePassword(password)) {
       throw new Unauthorised()
     }
     //token

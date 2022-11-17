@@ -1,16 +1,29 @@
 
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Navbar, Container, Nav } from 'react-bootstrap'
+import { isAuthenticated, handleLogout } from '../../helpers/auth'
 
 
 const TheNavbar = () => {
+
+  const navigate = useNavigate()
+
   return (
     <Navbar className='theNavbar'>
       <Container className='navbarContainer'>
         <Navbar.Brand as={Link} to='/' className='logo'>Hubble</Navbar.Brand>
         <Nav className='navbar'>
-          <Nav.Link as={Link} to='/register'>Register</Nav.Link>
-          <Nav.Link as={Link} to='/login'>Login</Nav.Link>
+          {isAuthenticated() ?
+            <>
+              <Nav.Link as={Link} to="/bread/new">Add Bread</Nav.Link>
+              <span className='nav-link' onClick={() => handleLogout(navigate)}>Logout</span>
+            </>
+            :
+            <>
+              <Nav.Link as={Link} to='/register'>Register</Nav.Link>
+              <Nav.Link as={Link} to='/login'>Login</Nav.Link>
+            </>
+          }
         </Nav>
       </Container>
     </Navbar>

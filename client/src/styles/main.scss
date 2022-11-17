@@ -8,8 +8,8 @@ $secondary: rgb(42, 251, 216);
 body {
   min-height: 100vh;
   background-color: rgb(251, 246, 246);
-//   display: flex;
-//   justify-content: center;
+  //   display: flex;
+  //   justify-content: center;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
@@ -79,18 +79,21 @@ body {
   margin: 0 auto;
   border: 1px solid grey;
   padding: 0 10px 10px 10px;
-  .card{
+
+  .card {
     background-color: $secondary;
     padding: 5px;
     margin-top: 10px;
     border-radius: 15px;
-    .textBox{
+
+    .textBox {
       background-color: lighten($secondary, 30%);
       border-radius: 15px;
       padding: 10px;
       margin-bottom: 15px;
     }
-    button{
+
+    button {
       margin: 0 10px;
       background-color: darken($primary, 15%);
       border: 2px solid $primary;
@@ -103,26 +106,29 @@ body {
     font-size: 1.2em;
     font-weight: 900;
   }
-  .infoBox{
+
+  .infoBox {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    .tagDiv{
+
+    .tagDiv {
       display: flex;
       text-align: right;
+
       // background-color: lighten($primary, 10%);
       // padding: 10px;
-      .tag{
+      .tag {
         margin: 5px;
       }
     }
   }
-  
+
 }
 
 
 //Single Group Page
-.banner{
+.banner {
   background-color: $primary;
   padding: 10px 0;
 
@@ -137,19 +143,21 @@ body {
         color: lighten($primary, 25%);
       }
     }
-    .bio{
+
+    .bio {
       border: 2px solid lighten($primary, 15%);
       color: lighten($primary, 15%);
       max-height: calc(200px - 30px);
-      p{
+
+      p {
         margin: 0;
       }
     }
   }
 }
 
-@media (min-width: 610px){
-  .bannerContainer{
+@media (min-width: 610px) {
+  .bannerContainer {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
@@ -219,4 +227,5 @@ button {
   width: 240px;
   margin: 12px 0 25px 0;
   font-weight: 900;
+  cursor: pointer;
 }
