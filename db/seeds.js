@@ -17,11 +17,14 @@ const seedDataBase = async () => {
     const groupWithOwners = groupData.map(group => {
       const postsWithOwners = group.posts.map(post => {
         const commentsWithOwners = post.comments.map(comment => {
-          return { ...comment, owner: users[1]._id }
+          const randomIndex = Math.floor(Math.random() * users.length)
+          return { ...comment, owner: users[randomIndex]._id }
         })
-        return { ...post, owner: users[1]._id, comments: commentsWithOwners }
+        const randomIndex = Math.floor(Math.random() * users.length)
+        return { ...post, owner: users[randomIndex]._id, comments: commentsWithOwners }
       })
-      return { ...group, owner: users[0]._id, posts: postsWithOwners }
+      const randomIndex = Math.floor(Math.random() * users.length)
+      return { ...group, owner: users[randomIndex]._id, posts: postsWithOwners }
     })
     const group = await Group.create(groupWithOwners)
     console.log(`🌱 group collection seeded with ${group.length} groups!`)

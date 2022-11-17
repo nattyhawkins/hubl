@@ -1,12 +1,12 @@
 export default [
   {
-    name: 'Rollerskating',
+    name: 'London Rollerskating Group',
     bio: 'welcome to the rollerskating group, where we discuss the hottest skating trends, brought to you by the one and only N.H.',
     posts: [
       {
         title: 'Beginners street skate meet up',
         message: 'Hi! Let everyone know we are organising a street skate event for beginners tomorrow, meeting at Kings Cross 6pm. Cya there!',
-        tags: ['tag', 'event', 'beginner', 'street skate'],
+        tags: ['event', 'beginner', 'street skate'],
         comments: [
           {
             message: 'sign me up!!',
@@ -15,11 +15,27 @@ export default [
             message: 'does anyone know if i can bring my dog?',
           }
         ],
+      },
+      {
+        title: 'Beginners equipiment help!',
+        message: 'Hiiiii I want to get into skating and wondering if anyone can hlep with what gear I\'ll need / any good boot brands etc?? thanks!',
+        tags: ['event', 'beginner', 'street skate'],
+        comments: [
+          {
+            message: 'Rio rollers!!',
+          },
+          {
+            message: 'helmets are for crypto newbs',
+          },
+          {
+            message: 'get some hand pads they are life savers!',
+          }
+        ],
       }
     ],
   },
   {
-    name: 'Cryptocurrencies',
+    name: 'Crypto for newbs',
     bio: 'Learn more about cryptocurrencies, blockchain and everything related. To the moon!',
     posts: [{
       title: 'What is Cryptocurrency?',
