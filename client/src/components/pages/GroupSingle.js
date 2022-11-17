@@ -50,7 +50,7 @@ const GroupSingle = () => {
                   const { title, message } = post
                   return (
                     <div key={groupId}>
-                      <p >{title}</p>
+                      <h3>{title}</h3>
                       <p> {message} </p>
                     </div>
                   )
