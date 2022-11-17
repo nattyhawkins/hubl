@@ -1,5 +1,5 @@
 import { Unauthorised } from '../config/errors.js'
-import { findGroup, findPost, sendErrors } from '../config/helpers.js'
+import { findGroup, findPost, sendErrors, findComment } from '../config/helpers.js'
 import Group from '../models/group.js'
 
 //POST GROUP
@@ -44,7 +44,7 @@ export const getSingleGroup = async (req, res) => {
 export const updateGroup = async (req, res) => {
   try {
     const targetGroup = await findGroup(req, res)
-    if (targetGroup && targetGroup.owner.equals(req.currentUser._id)){
+    if (targetGroup && targetGroup.owner.equals(req.currentUser._id)) {
       Object.assign(targetGroup, req.body)
       targetGroup.save()
       return res.status(202).json(targetGroup)
@@ -58,7 +58,7 @@ export const updateGroup = async (req, res) => {
 export const deleteGroup = async (req, res) => {
   try {
     const targetGroup = await findGroup(req, res)
-    if (targetGroup && targetGroup.owner.equals(req.currentUser._id)){
+    if (targetGroup && targetGroup.owner.equals(req.currentUser._id)) {
       await targetGroup.remove()
       console.log('removed')
       return res.sendStatus(204)
@@ -73,7 +73,7 @@ export const deleteGroup = async (req, res) => {
 export const addPost = async (req, res) => {
   try {
     const group = await findGroup(req, res, ['owner'])
-    if (group){
+    if (group) {
       const ownedPost = { ...req.body, owner: req.currentUser._id }
       group.posts.push(ownedPost)
       await group.save()
@@ -90,6 +90,64 @@ export const deletePost = async (req, res) => {
     const groupPost = await findPost(req, res)
     await groupPost.post.remove()
     await groupPost.group.save()
+    return res.sendStatus(204)
+  } catch (err) {
+    sendErrors(res, err)
+  }
+}
+
+
+// // get single post
+// export const getSinglePost = async (req, res) => {
+//   try {
+//     const post = await findPost(req, res, ['owner', 'posts.owner'])
+//     return res.json(post)
+//   } catch (err) {
+//     sendErrors(res, err)
+//   }
+// }
+
+
+// update post
+export const updatePost = async (req, res) => {
+  try {
+    const postObject = await findPost(req, res)
+    const { post, group } = postObject
+    console.log('🚗 update post', post)
+    if (post && post.owner.equals(req.currentUser._id)) {
+      Object.assign(post, req.body)
+      group.save()
+      return res.status(202).json(post)
+    }
+    throw new Unauthorised()
+  } catch (err) {
+    sendErrors(res, err)
+  }
+}
+
+
+export const addComment = async (req, res) => {
+  try {
+    const postObject = await findPost(req, res, ['owner'])
+    const { post, group } = postObject
+    if (post) {
+      const ownedComment = { ...req.body, owner: req.currentUser._id }
+      post.comments.push(ownedComment)
+      await group.save()
+      return res.json(ownedComment)
+    }
+  } catch (err) {
+    sendErrors(res, err)
+  }
+}
+
+
+export const deleteComment = async (req, res) => {
+  try {
+    const postObject = await findComment(req, res)
+    const { comment, group } = postObject
+    await comment.remove()
+    await group.save()
     return res.sendStatus(204)
   } catch (err) {
     sendErrors(res, err)

@@ -10,7 +10,7 @@ import Card from 'react-bootstrap/Card'
 
 
 
-const Home = () => {
+const GroupIndex = () => {
 
 
   const [groups, setGroups] = useState([])
@@ -40,10 +40,10 @@ const Home = () => {
           {groups.map(group => {
             const { name, _id, bio } = group
             return (
-              <Col key={_id}>
-                <Card>
-                  <Link to={`${_id}`}>
-                    <h4>{name}</h4>
+              <Col key={_id} sm='6' md='3' className='group-card mb-4 text-decoration-none'>
+                <Card className='text-decoration-none'>
+                  <Link className='text-decoration-none' to={`${_id}`}>
+                    <h2 className='text-decoration-none'>{name}</h2>
                   </Link>
                   <div className='card-image'></div>
                   <Card.Body>
@@ -59,4 +59,4 @@ const Home = () => {
     </main>
   )
 }
-export default Home
+export default GroupIndex
