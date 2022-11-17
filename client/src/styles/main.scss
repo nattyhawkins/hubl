@@ -1,33 +1,37 @@
 * {
   box-sizing: border-box;
 }
-body{
+
+body {
   min-height: 100vh;
   background-color: lightgrey;
-//   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-//   display: flex;
-//   justify-content: center;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
-.bannerContainer, .navbarContainer{
+.bannerContainer,
+.navbarContainer {
   max-width: calc(100% - 100px);
   margin: 0 auto;
 }
-.theNavbar{
+
+.theNavbar {
   position: sticky;
   top: 0;
   z-index: 1100;
   background-color: lightblue;
 }
+
 .navbarContainer {
   background-color: lightblue;
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  .logo{
+
+  .logo {
     font-size: 50px;
   }
-  a{
+
+  a {
     margin: 0 5px;
   }
 }
@@ -65,17 +69,19 @@ body{
 }
 
 // reusable for any main page
-.mainContainer{
+.mainContainer {
   max-width: 1000px;
   margin: 0 auto;
   border: 1px solid grey;
   padding: 0 10px 10px 10px;
-  .card{
+
+  .card {
     background-color: lightblue;
     padding: 5px;
     margin-top: 10px;
   }
-  .card-title{
+
+  .card-title {
     font-size: 1.2em;
     font-weight: 900;
   }
@@ -83,34 +89,39 @@ body{
 
 
 //Single Group Page
-.banner{
+.banner {
   background-color: pink;
   padding: 10px 0;
+
   .bannerContainer {
-  
-    .title{
+
+    .title {
       max-width: 80%;
-      h1{
+
+      h1 {
         font-size: 2em;
         margin: 0;
       }
     }
+
     // .bio p{
     //   margin-bottom: 0;
     // }
   }
 }
 
-@media (min-width: 600px){
-  .bannerContainer{
+@media (min-width: 600px) {
+  .bannerContainer {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
     height: 200px;
-    .title{
+
+    .title {
       font-size: 1.8em;
     }
-    .bio{
+
+    .bio {
       max-width: 300px;
       align-self: flex-start;
       background-color: white;
@@ -119,4 +130,55 @@ body{
       font-size: 1.1em;
     }
   }
+}
+
+
+
+// login and register pages
+
+.login .register {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: white;
+  min-width: 350px;
+  margin-top: 12px;
+  font-weight: 600;
+  padding: 10px 0 10px 0;
+  border: 2px solid black;
+}
+
+.form-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 50px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 240px;
+}
+
+input {
+  border: 1px solid rgba($color: #000000, $alpha: 0.6);
+  border-radius: 5px;
+  padding: 10px;
+  margin: 3px 0 3px 0;
+}
+
+button {
+  background-color: #3897f0;
+  border: none;
+  color: white;
+  padding: 6px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  border-radius: 4px;
+  width: 240px;
+  margin: 12px 0 25px 0;
+  font-weight: 900;
 }
