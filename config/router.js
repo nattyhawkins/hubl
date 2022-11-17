@@ -21,9 +21,9 @@ router.route('/groups/:groupId')
   .put(secureRoute, updateGroup)
   .delete(secureRoute, deleteGroup)
 
-// router.route('/groups/:groupId/posts')
-//   .get(getAllPosts)
-//   .post(secureRoute, addPost)
+router.route('/groups/:groupId/posts')
+// .get(getAllPosts)
+// .post(secureRoute, addPost)
 
 // router.route('/groups/:groupId/posts/:postId')
 //   .get(getSinglePost)

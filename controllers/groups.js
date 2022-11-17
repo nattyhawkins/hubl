@@ -18,6 +18,11 @@ export const addGroup = async (req, res) => {
 export const getAllGroups = async (_req, res) => {
   try {
     const groups = await Group.find().populate('owner')
+    // groups = groups.map(group => {
+    //   const newGroup = { ...group }
+    //   delete newGroup.posts
+    //   return newGroup
+    // })
     console.log(groups)
     return res.json(groups)
   } catch (err) {
@@ -63,3 +68,17 @@ export const deleteGroup = async (req, res) => {
     sendErrors(res, err)
   }
 }
+
+
+// // POSTS
+
+// //GET ALL POSTS
+// export const getAllPosts = async (req, res) => {
+//   try {
+//     const group = await findDocument(Group, 'groupId', req, res, ['owner'])
+//     console.log(group.posts)
+//     return res.json(groups)
+//   } catch (err) {
+//     sendErrors(res, err)
+//   }
+// }
