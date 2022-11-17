@@ -7,23 +7,25 @@ import Row from 'react-bootstrap/row'
 import Col from 'react-bootstrap/Col'
 import Card from 'react-bootstrap/Card'
 
-
+import SearchBar from '../common/SearchBar'
 
 
 const GroupIndex = () => {
 
 
   const [groups, setGroups] = useState([])
-  const [errors, setErrors] = useState([])
+  const [searchedGroups, setSearchedGroups] = useState([])
+  const [errors, setErrors] = useState(false)
 
   useEffect(() => {
     const getData = async () => {
       try {
         const { data } = await axios.get('/api/groups')
         setGroups(data)
+        setSearchedGroups(data)
         console.log('group index data =>', data)
       } catch (err) {
-        console.log(err)
+        console.log(err.message)
         setErrors(true)
       }
     }
@@ -36,24 +38,31 @@ const GroupIndex = () => {
   return (
     <main className='group-index'>
       <Container className='groups-container'>
-        <Row>
-          {groups.map(group => {
-            const { name, _id, bio } = group
-            return (
-              <Col key={_id} sm='6' md='3' className='group-card mb-4 text-decoration-none'>
-                <Card className='text-decoration-none'>
-                  <Link className='text-decoration-none' to={`${_id}`}>
-                    <h2 className='text-decoration-none'>{name}</h2>
-                  </Link>
-                  <div className='card-image'></div>
-                  <Card.Body>
-                    <p>{bio}</p>
-                  </Card.Body>
-                </Card>
-              </Col>
-            )
-          })}
-        </Row>
+        <SearchBar groups={groups}
+          setSearchedGroups={setSearchedGroups}
+          searchedGroups={searchedGroups} />
+        {searchedGroups.length ?
+          <Row>
+            {searchedGroups.map(group => {
+              const { name, _id, bio } = group
+              return (
+                <Col key={_id} sm='6' md='3' className='group-card'>
+                  <Card>
+                    <Link to={`${_id}`}>
+                      <h2>{name}</h2>
+                    </Link>
+                    <div className='card-image'></div>
+                    <Card.Body>
+                      <p>{bio}</p>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              )
+            })}
+          </Row>
+          :
+          errors ? <p>something went wrong...</p> : <p>loading...</p>
+        }
       </Container>
       <h1>group index</h1>
     </main>
