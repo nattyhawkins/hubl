@@ -7,14 +7,14 @@ import Container from 'react-bootstrap/Container'
 
 const TheNavbar = () => {
   return (
-    <Navbar>
+    <Navbar expand='sm'>
       <Container>
         <Navbar.Brand as={Link} to='/' className='intro-navbar'>
           <main className='theNavbar'>
             <h1>LOGO</h1>
           </main>
         </Navbar.Brand>
-        <Nav className='justify-content-end'>
+        <Nav>
           <Nav.Link as={Link} to='/'>Home</Nav.Link>
           <Nav.Link as={Link} to='/groups'>Groups</Nav.Link>
         </Nav>

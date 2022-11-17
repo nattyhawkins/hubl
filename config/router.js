@@ -1,5 +1,5 @@
 import express from 'express'
-import { addGroup, addPost, deleteGroup, deletePost, getAllGroups, getSingleGroup, updateGroup } from '../controllers/groups.js'
+import { addGroup, addPost, deleteGroup, deletePost, getAllGroups, getSingleGroup, updateGroup, updatePost, addComment, deleteComment } from '../controllers/groups.js'
 import { loginUser, registerUser } from '../controllers/auth.js'
 import secureRoute from './secureRoute.js'
 
@@ -25,15 +25,15 @@ router.route('/groups/:groupId/posts')
   .post(secureRoute, addPost)
 
 router.route('/groups/:groupId/posts/:postId')
-//   .get(getSinglePost)
-//   .put(secureRoute, updatePost)
+  // .get(getSinglePost)
+  .put(secureRoute, updatePost)
   .delete(secureRoute, deletePost)
 
-// router.route('/groups/:groupId/posts/:postId/comments')
-//   .post(secureRoute, addComments)
+router.route('/groups/:groupId/posts/:postId/comments')
+  .post(secureRoute, addComment)
 
-// router.route('/groups/:groupId/posts/:postId/comments/:commentId')
-//   .delete(secureRoute, deleteComments)
+router.route('/groups/:groupId/posts/:postId/comments/:commentId')
+  .delete(secureRoute, deleteComment)
 
 // router.route('/profile')
 //   .get(secureRoute, getProfile)
