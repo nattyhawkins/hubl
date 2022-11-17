@@ -1,12 +1,7 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import PostIndex from './PostIndex.js'
-
-import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/row'
-import Col from 'react-bootstrap/Col'
-import Card from 'react-bootstrap/Card'
+import { Card, Col, Row, Container } from 'react-bootstrap'
 
 
 
@@ -40,37 +35,44 @@ const GroupSingle = () => {
   return (
     <main className='group-single'>
       <Container className='single-container'>
-        <Row className='single-row'>
-          {group ?
-            <Col className='group-card'>
-              <h2>Welcome to {group.name}</h2>
-              <p>{group.bio}</p>
-              <div>
+        {group ?
+          <>
+            <Row className='banner'>
+              <Container className='bannerContainer'>
+                <Col md="6" lg="4" className='title'>
+                  <h1>Welcome to {group.name}</h1>
+                </Col>
+                <Col md="6" lg="4" offset="3" className="bio justify-end">
+                  <p>{group.bio}</p>
+                </Col>
+              </Container>
+            </Row>
+            <Row>
+              <Container className='mainContainer'>
                 {group.posts && group.posts.map(post => {
-                  const { title, message, _id } = post
-                  {
-                    const commentsFromMap = post.comments.map(comment => {
-                      const { message, _id } = comment
-                      return (
-                        <p key={_id}>{message}</p>
-                      )
-                    })
-                    return (
-                      <div key={_id}>
-                        <h3>{title}</h3>
-                        <p>{message}</p>
-                        <div>{commentsFromMap}</div>
-                      </div>
-                    )
-                  }
-                })
-                }
-              </div>
-            </Col>
-            : <h2>error</h2>}
-        </Row>
+                  const { title, message, tags, _id } = post
+                  // const tagsHTML = tags.map(tag => {
+                  //   return <Card.Subtitle key="">{tag}</Card.Subtitle>
+                  // })
+                  return (
+                    <Card key={_id} className="post">
+                      <Card.Body>
+                        <Card.Title>{title}</Card.Title>
+                        <Card.Text>{message}</Card.Text>
+                        {/* <div>
+                          {tagsHTML}
+                        </div> */}
+                        <Card.Text></Card.Text>
+                      </Card.Body>
+                    </Card>
+                  )
+                })}
+              </Container>
+            </Row>
+          </>
+          : <h2>error</h2>
+        }
       </Container>
-      <h1>Group single</h1>
     </main >
   )
 }

@@ -1,7 +1,86 @@
 * {
   box-sizing: border-box;
 }
+body{
+  min-height: 100vh;
+}
 
-.theNavbar {
+.bannerContainer, .navbarContainer{
+  max-width: calc(100% - 100px);
+  margin: 0 auto;
+}
+.theNavbar{
+  position: sticky;
+  top: 0;
+  z-index: 1100;
   background-color: lightblue;
+}
+.navbarContainer {
+  background-color: lightblue;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  .logo{
+    font-size: 50px;
+  }
+  a{
+    margin: 0 5px;
+  }
+}
+// reusable for any main page
+.mainContainer{
+  max-width: 1000px;
+  margin: 0 auto;
+  border: 1px solid grey;
+  padding: 0 10px 10px 10px;
+  .card{
+    background-color: lightblue;
+    padding: 5px;
+    margin-top: 10px;
+  }
+  .card-title{
+    font-size: 1.2em;
+    font-weight: 900;
+  }
+}
+
+
+//Single Group Page
+.banner{
+  background-color: pink;
+  padding: 10px 0;
+  .bannerContainer {
+  
+    .title{
+      max-width: 80%;
+      h1{
+        font-size: 2em;
+        margin: 0;
+      }
+    }
+    // .bio p{
+    //   margin-bottom: 0;
+    // }
+  }
+}
+
+@media (min-width: 600px){
+  .bannerContainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    height: 200px;
+    .title{
+      font-size: 1.8em;
+    }
+    .bio{
+      max-width: 300px;
+      align-self: flex-start;
+      background-color: white;
+      padding: 0 5px;
+      margin-top: 20px;
+      font-size: 1.1em;
+    }
+  }
+  
 }
