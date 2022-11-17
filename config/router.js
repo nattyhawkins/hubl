@@ -32,7 +32,7 @@ router.route('/groups/:groupId/posts/:postId')
 // router.route('/groups/:groupId/posts/:postId/comments')
 //   .post(secureRoute, addComments)
 
-// router.route('/groups/:groupId/posts/:postId/comments/:commentsId')
+// router.route('/groups/:groupId/posts/:postId/comments/:commentId')
 //   .delete(secureRoute, deleteComments)
 
 // router.route('/profile')

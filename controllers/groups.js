@@ -1,5 +1,5 @@
 import { Unauthorised } from '../config/errors.js'
-import { findDocument, findPost, sendErrors } from '../config/helpers.js'
+import { findGroup, findPost, sendErrors } from '../config/helpers.js'
 import Group from '../models/group.js'
 
 //POST GROUP
@@ -34,7 +34,7 @@ export const getAllGroups = async (_req, res) => {
 // ? NEED TO ADD comments.owner TO POPULATE comment owners
 export const getSingleGroup = async (req, res) => {
   try {
-    const group = await findDocument(Group, 'groupId', req, res, ['owner', 'posts.owner'])
+    const group = await findGroup(req, res, ['owner', 'posts.owner'])
     return res.json(group)
   } catch (err) {
     sendErrors(res, err)
@@ -43,7 +43,7 @@ export const getSingleGroup = async (req, res) => {
 
 export const updateGroup = async (req, res) => {
   try {
-    const targetGroup = await findDocument(Group, 'groupId', req, res)
+    const targetGroup = await findGroup(req, res)
     if (targetGroup && targetGroup.owner.equals(req.currentUser._id)){
       Object.assign(targetGroup, req.body)
       targetGroup.save()
@@ -57,7 +57,7 @@ export const updateGroup = async (req, res) => {
 
 export const deleteGroup = async (req, res) => {
   try {
-    const targetGroup = await findDocument(Group, 'groupId', req, res)
+    const targetGroup = await findGroup(req, res)
     if (targetGroup && targetGroup.owner.equals(req.currentUser._id)){
       await targetGroup.remove()
       console.log('removed')
@@ -69,11 +69,10 @@ export const deleteGroup = async (req, res) => {
   }
 }
 
-
 //Add post
 export const addPost = async (req, res) => {
   try {
-    const group = await findDocument(Group, 'groupId', req, res, ['owner'])
+    const group = await findGroup(req, res, ['owner'])
     if (group){
       const ownedPost = { ...req.body, owner: req.currentUser._id }
       group.posts.push(ownedPost)

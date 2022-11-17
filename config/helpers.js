@@ -21,10 +21,10 @@ export const sendErrors = (res, err) => {
   }
 }
 
-export const findDocument = async (Model, idParam, req, res, populate) => {
+export const findGroup = async (req, res, populate) => {
   try {
-    const { [idParam]: docId } = req.params
-    let targetGroup = await Model.findById(docId)
+    const { groupId } = req.params
+    let targetGroup = await Group.findById(groupId)
     if (!targetGroup) throw new NotFound('Could not find group')
     if (populate) for (const item of populate){
       targetGroup = await targetGroup.populate(item)
@@ -37,12 +37,13 @@ export const findDocument = async (Model, idParam, req, res, populate) => {
 
 export const findPost = async (req, res) => {
   try {
-    const group = await findDocument(Group, 'groupId', req, res, ['owner', 'posts.owner'])
+    const group = await findGroup(req, res, ['owner', 'posts.owner'])
     if (group){
       const { postId } = req.params
       const targetPost = group.posts.id(postId)
       if (!targetPost) throw new NotFound('Could not find post')
-      if (!req.currentUser._id.equals(targetPost.owner)) throw new Unauthorised()
+      console.log(targetPost.owner)
+      if (!req.currentUser.equals(targetPost.owner)) throw new Unauthorised()
       return { post: targetPost, group: group }
     }
   } catch (err) {
