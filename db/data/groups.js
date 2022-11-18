@@ -19,7 +19,7 @@ export default [
       {
         title: 'Equipiment hlep?!',
         message: 'Hiiiii can anyone tell me what gear I\'ll need / any good boot brands etc?? thanks!',
-        tags: ['event', 'beginner', 'street skate'],
+        tags: ['help', 'equipment'],
         comments: [
           {
             message: 'Rio rollers!!',

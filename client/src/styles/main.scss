@@ -1,5 +1,5 @@
 $primary: rgb(134, 125, 255);
-$secondary: lighten($primary, 10%);
+$secondary: lighten($primary, 15%);
 $button-colour: darken($primary, 5%);
 
 * {
@@ -14,11 +14,11 @@ body {
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
-.bannerContainer,
-.navbarContainer {
-  max-width: calc(100% - 100px);
-  margin: 0 auto;
-}
+// .bannerContainer,
+// .navbarContainer {
+//   // max-width: calc(100% - 30px);
+//   // margin: 0 auto;
+// }
 
 .theNavbar {
   position: sticky;
@@ -78,26 +78,34 @@ body {
 .mainContainer {
   max-width: 1000px;
   margin: 0 auto;
-  border: 1px solid grey;
-  padding: 0 10px 10px 10px;
+  padding: 0 30px;
 
   .card {
     background-color: $secondary;
     padding: 5px;
     margin-top: 10px;
     border-radius: 15px;
+    form{
+      input{
+        width: 100%;
+      }
+    }
 
     .textBox {
-      background-color: lighten($secondary, 20%);
+      background-color: lighten($secondary, 10%);
       border-radius: 15px;
       padding: 10px;
       margin-bottom: 15px;
+      .username{
+        padding-right: 10px;
+        // border-right: 1px solid $secondary;
+      }
+      
     }
-
     button {
       margin: 0 10px;
       background-color: $button-colour;
-      border: 2px solid $primary;
+      // border: 2px solid $primary;
       border-radius: 8px;
       color: white;
 
@@ -126,6 +134,7 @@ body {
       // padding: 10px;
       .tag {
         margin: 5px;
+        color: darken($primary, 15%);
       }
     }
   }
@@ -139,9 +148,9 @@ body {
   padding: 10px 0;
 
   .bannerContainer {
-
+  
     .title {
-      max-width: 80%;
+      // max-width: 80%;
 
       h5 {
         color: lighten($primary, 15%);
@@ -149,17 +158,20 @@ body {
       }
 
       h1 {
-        font-size: 2em;
-        margin: 0 20px 0 0;
+        font-size: 1.8em;
+        margin: 0 20px 10px 0;
         color: lighten($primary, 25%);
       }
     }
 
     .bio {
-      border: 2px solid lighten($primary, 15%);
+      // border: 2px solid lighten($primary, 15%);
+      border-top: 5px solid lighten($primary, 15%);
+      border-right: 5px solid lighten($primary, 15%);
+      // max-width: calc(100% - 40px);
       color: lighten($primary, 15%);
       max-height: calc(200px - 30px);
-
+      // box-shadow: 5px 5px 2px 0px white;
       p {
         margin: 0;
       }
@@ -168,22 +180,24 @@ body {
 }
 
 @media (min-width: 610px) {
+
   .bannerContainer {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
     height: 200px;
 
+    
+
     .title {
-      font-size: 1.8em;
+      font-size: 1.7em;
     }
 
     .bio {
-      max-width: 300px;
       align-self: flex-start;
-
-      padding: 0 5px;
+      max-width: calc(100% - 20px);
       margin-top: 20px;
+      padding: 0 5px;
       font-size: 1.1em;
     }
   }

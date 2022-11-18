@@ -11,7 +11,7 @@ const TheNavbar = () => {
   return (
     <Navbar className='theNavbar'>
       <Container className='navbarContainer'>
-        <Navbar.Brand as={Link} to='/' className='logo'>Hubble</Navbar.Brand>
+        <Navbar.Brand as={Link} to='/' className='logo'>HUBBLE</Navbar.Brand>
         <Nav className='navbar'>
           {isAuthenticated() ?
             <>
