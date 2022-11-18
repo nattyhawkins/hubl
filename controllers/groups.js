@@ -15,15 +15,12 @@ export const addGroup = async (req, res) => {
 }
 
 //GET ALL GROUPS
-export const getAllGroups = async (_req, res) => {
+export const getAllGroups = async (req, res) => {
+
+
   try {
-    const groups = await Group.find().populate('owner')
-    // groups = groups.map(group => {
-    //   const newGroup = { ...group }
-    //   delete newGroup.posts
-    //   return newGroup
-    // })
-    console.log(groups)
+    const groups = await Group.find({}, null, { skip: req.query.skip, limit: 6 }).populate('owner')
+    console.log('getall grps', req.query.skip)
     return res.json(groups)
   } catch (err) {
     sendErrors(res, err)

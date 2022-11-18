@@ -32,7 +32,6 @@ export default [
       ],
     }
     ],
-    page: 1,
   },
   {
     name: 'Crypto for newbs',
@@ -50,7 +49,6 @@ export default [
         }
       ],
     }],
-    page: 1,
   },
   {
     name: 'Random',
@@ -71,7 +69,6 @@ export default [
         }
       ],
     }],
-    page: 2,
   },
   {
     name: 'Bird Watchers',

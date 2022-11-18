@@ -9,7 +9,6 @@ import Register from './components/pages/Register'
 import Login from './components/pages/Login'
 import PostSingle from './components/pages/PostSingle'
 import Footer from './components/common/Footer'
-import Example1 from './components/testing pagination/example1'
 
 const App = () => {
 
