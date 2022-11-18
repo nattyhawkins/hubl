@@ -17,7 +17,7 @@ const TheNavbar = () => {
           {console.log(isAuthenticated())}
           {isAuthenticated() ?
             <>
-              <span className='nav-link' onClick={() => handleLogout(navigate)}>Logout</span>
+              <Link className='nav-link' onClick={() => handleLogout(navigate)}>Logout</Link>
             </>
             :
             <>

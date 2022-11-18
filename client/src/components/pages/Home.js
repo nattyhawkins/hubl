@@ -16,13 +16,24 @@ const GroupIndex = () => {
   const [groups, setGroups] = useState([])
   const [searchedGroups, setSearchedGroups] = useState([])
   const [error, setError] = useState(false)
+  const [skip, setSkip] = useState(0)
+
+  // const [groupFields, setGroupFields] = useState({
+  //   name: '',
+  //   bio: '',
+  // })
+
+
+
+
 
   useEffect(() => {
     const getData = async () => {
       try {
-        const { data } = await axios.get('/api/groups')
+        const { data } = await axios.get(`/api/groups?skip=${skip}`)
         setGroups(data)
         setSearchedGroups(data)
+
         console.log('group index data =>', data)
       } catch (err) {
         console.log(err.message)
@@ -30,9 +41,28 @@ const GroupIndex = () => {
       }
     }
     getData()
-  }, [])
+  }, [skip])
 
-
+  const pageUp = async (e) => {
+    try {
+      const result = skip + 6
+      setSkip(result)
+      console.log('group length', groups.length)
+      console.log('result', skip)
+    } catch (err) {
+      setError(true)
+    }
+  }
+  const pageDown = async (e) => {
+    try {
+      const result = skip - 6
+      setSkip(result)
+      console.log('group length', groups.length)
+      console.log('result', skip)
+    } catch (err) {
+      setError(true)
+    }
+  }
 
 
   return (
@@ -62,6 +92,8 @@ const GroupIndex = () => {
           :
           error ? <p>something went wrong...</p> : <p>loading...</p>
         }
+        <button className='page-btn' onClick={pageUp} disabled={groups.length < 6}>up</button>
+        <button className='page-btn' onClick={pageDown} disabled={skip === 0}>down</button>
       </Container>
     </main>
   )

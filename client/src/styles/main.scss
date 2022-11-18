@@ -86,8 +86,9 @@ body {
     padding: 5px;
     margin-top: 10px;
     border-radius: 15px;
-    form{
-      input{
+
+    form {
+      input {
         width: 100%;
       }
     }
@@ -97,12 +98,14 @@ body {
       border-radius: 15px;
       padding: 10px;
       margin-bottom: 15px;
-      .username{
+
+      .username {
         padding-right: 10px;
         // border-right: 1px solid $secondary;
       }
-      
+
     }
+
     button {
       margin: 0 10px;
       background-color: $button-colour;
@@ -149,7 +152,7 @@ body {
   padding: 10px 0;
 
   .bannerContainer {
-  
+
     .title {
       // max-width: 80%;
 
@@ -172,6 +175,7 @@ body {
       // max-width: calc(100% - 40px);
       color: lighten($primary, 15%);
       max-height: calc(200px - 30px);
+
       // box-shadow: 5px 5px 2px 0px white;
       p {
         margin: 0;
@@ -188,7 +192,7 @@ body {
     align-items: flex-end;
     height: 200px;
 
-    
+
 
     .title {
       font-size: 1.7em;
@@ -254,6 +258,10 @@ button {
   margin: 12px 0 25px 0;
   font-weight: 900;
   cursor: pointer;
+}
+
+.page-btn {
+  color: red;
 }
 
 
