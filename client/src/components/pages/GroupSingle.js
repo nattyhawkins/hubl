@@ -21,14 +21,13 @@ const GroupSingle = () => {
         console.log('single group data =>', data)
         setGroup(data)
       } catch (err) {
-        console.log('yoo', err)
         setError(err)
       }
     }
     getGroup()
   }, [groupId])
 
-  function handleLike(){
+  function handleLike() {
 
   }
 

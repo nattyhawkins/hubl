@@ -8,6 +8,8 @@ import NotFound from './components/pages/NotFound'
 import Register from './components/pages/Register'
 import Login from './components/pages/Login'
 import PostSingle from './components/pages/PostSingle'
+import Footer from './components/common/Footer'
+import Example1 from './components/testing pagination/example1'
 
 const App = () => {
 
@@ -31,6 +33,7 @@ const App = () => {
           <Route path='/:groupId/:postId' element={<PostSingle />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
+        <Footer />
       </BrowserRouter>
 
     </>

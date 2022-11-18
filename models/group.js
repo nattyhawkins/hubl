@@ -24,7 +24,9 @@ const groupSchema = new mongoose.Schema({
   bio: { type: String, maxlength: 500 },
   owner: { type: mongoose.Schema.ObjectId, ref: 'User', required: true },
   posts: [postSchema],
+  page: { type: Number },
 })
+
 
 
 export default mongoose.model('Group', groupSchema)
