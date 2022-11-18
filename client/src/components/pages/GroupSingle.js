@@ -10,14 +10,17 @@ import { getToken } from '../../helpers/auth'
 
 const GroupSingle = () => {
 
-  const [group, setGroup] = useState([])
-  const [error, setError] = useState(false)
+  const [ group, setGroup ] = useState([])
+  const [ error, setError ] = useState(false)
+  const [ refresh, setRefresh ] = useState(false)
 
   const [ postFields , setPostFields ] = useState({
     title: '',
     message: '',
     tags: [],
   })
+
+  // const [ tag, setTag ] = useState('')
 
   const { groupId } = useParams()
 
@@ -33,26 +36,51 @@ const GroupSingle = () => {
       }
     }
     getGroup()
-  }, [groupId])
+    // document.getElementById('tagInput').addEventListener('keypress', function (e) {
+    //   if (e.key === 'Enter') {
+    //     handleTagSubmit()
+    //   }
+    // })
+  }, [groupId, refresh])
 
-  async function handleChange(e){
+
+  // function handleTagChange(e){
+  //   setTag(e.target.value)
+  // }
+
+  // function handleTagSubmit(){
+  //   console.log(tag)
+  //   const tagElement = document.createElement('p')
+    
+  //   tagElement.innerHTML = tag
+  //   document.getElementById('tagDisplay').appendChild(tagElement)
+  //   const newTags = postFields.tags.push(tag)
+  //   setPostFields({ ...postFields, tags: newTags })
+  //   setTag('')
+
+  // }
+
+  function handleChange(e){
     setPostFields({ ...postFields, [e.target.name]: e.target.value })
     if (error) setError('')
   }
 
   async function handleSubmit(e){
     try {
-      // e.preventDefault()
+      e.preventDefault()
       await axios.post(`api/groups/${groupId}/posts`, postFields, { headers: {
         Authorization: `Bearer ${getToken()}`,
       } })
       console.log('post success')
+      setRefresh(!refresh)
+      setPostFields({ title: '', message: '', tags: [] })
     } catch (err) {
       console.log(err.response.data.message)
       setError(err.response.data.message)
     }
   }
 
+  
 
   return (
     <main className='group-single'>
@@ -75,8 +103,8 @@ const GroupSingle = () => {
                 <form onSubmit={handleSubmit}>
                   <input type="text" name="title" onChange={handleChange} value={postFields.title} placeholder="Title..." required/>
                   <input type="text" name="message" onChange={handleChange} value={postFields.message} placeholder="Write a bit more..." required/>
-                  <p></p>
-                  <input type="text" name="tags" onChange={handleChange} value={postFields.tags} placeholder="Tag it"/>
+                  {/* <div id="tagDisplay"></div>
+                  <input id="tagInput" type="text" name="tags" onChange={handleTagChange} value={tag} placeholder="Tag it"/> */}
                   {error && <small className='text-danger'>{error}</small>}
                   <button className="btn" >Send</button>
                 </form>
@@ -98,7 +126,7 @@ const GroupSingle = () => {
                   )
                 })
                 return (
-                  <Post key={_id} _id={_id} message={message} owner={owner} comments={comments} commentHTML={commentHTML} tagesHTML={tagsHTML} title={title} />
+                  <Post key={_id} _id={_id} message={message} owner={owner} comments={comments} commentHTML={commentHTML} tagesHTML={tagsHTML} title={title} groupId={groupId} setRefresh={setRefresh} refresh={refresh}/>
                 )
               })}
             </Container>

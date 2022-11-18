@@ -41,8 +41,6 @@ export const findPost = async (req, res) => {
       const { postId } = req.params
       const targetPost = group.posts.id(postId)
       if (!targetPost) throw new NotFound('Could not find post')
-      console.log(targetPost.owner)
-      if (!req.currentUser.equals(targetPost.owner)) throw new Unauthorised()
       return { post: targetPost, group: group }
     }
   } catch (err) {

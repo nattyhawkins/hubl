@@ -87,10 +87,13 @@ export const addPost = async (req, res) => {
 export const deletePost = async (req, res) => {
   try {
     //below returns an object
-    const groupPost = await findPost(req, res)
-    await groupPost.post.remove()
-    await groupPost.group.save()
-    return res.sendStatus(204)
+    const postObject = await findPost(req, res)
+    const { post, group } = postObject
+    if (post && post.owner.equals(req.currentUser._id)) {
+      await post.remove()
+      await group.save()
+      return res.sendStatus(204)
+    }
   } catch (err) {
     sendErrors(res, err)
   }
@@ -146,6 +149,7 @@ export const deleteComment = async (req, res) => {
   try {
     const postObject = await findComment(req, res)
     const { comment, group } = postObject
+    if (!req.currentUser.equals(comment.owner)) throw new Unauthorised()
     await comment.remove()
     await group.save()
     return res.sendStatus(204)
