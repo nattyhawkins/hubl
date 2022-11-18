@@ -37,7 +37,8 @@ const GroupIndex = () => {
 
   return (
     <main className='group-index'>
-      <Container className='groups-container'>
+      <Container className='groups-container mt-4'>
+        <h1 className='text-center'>Find a group that interests you!</h1>
         <SearchBar groups={groups}
           setSearchedGroups={setSearchedGroups}
           searchedGroups={searchedGroups} />
@@ -46,11 +47,9 @@ const GroupIndex = () => {
             {searchedGroups.map(group => {
               const { name, _id, bio } = group
               return (
-                <Col key={_id} sm='6' md='3' className='group-card'>
+                <Col sm='6' md='3' key={_id} className='group-card mb-4'>
                   <Card>
-                    <Link to={`${_id}`}>
-                      <h2>{name}</h2>
-                    </Link>
+                    <Link className='text-decoration-none text-center' to={`${_id}`}>{name}</Link>
                     <div className='card-image'></div>
                     <Card.Body>
                       <p>{bio}</p>
@@ -64,7 +63,6 @@ const GroupIndex = () => {
           error ? <p>something went wrong...</p> : <p>loading...</p>
         }
       </Container>
-      <h1>group index</h1>
     </main>
   )
 }

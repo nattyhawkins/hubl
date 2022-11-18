@@ -17,7 +17,7 @@ export const getToken = () => {
 export const getPayload = () => {
   const token = getToken()
   if (!token) return false
-  const splitToken = token.split('')
+  const splitToken = token.split('.')
   if (splitToken.length !== 3) return false
   return JSON.parse(Buffer.from(splitToken[1], 'base64'))
 }

@@ -13,6 +13,8 @@ const TheNavbar = () => {
       <Container className='navbarContainer'>
         <Navbar.Brand as={Link} to='/' className='logo'>HUBBLE</Navbar.Brand>
         <Nav className='navbar'>
+          <Nav.Link as={Link} to='/'>Home</Nav.Link>
+          {console.log(isAuthenticated())}
           {isAuthenticated() ?
             <>
               <span className='nav-link' onClick={() => handleLogout(navigate)}>Logout</span>
@@ -29,3 +31,4 @@ const TheNavbar = () => {
   )
 }
 export default TheNavbar
+

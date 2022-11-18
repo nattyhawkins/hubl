@@ -21,10 +21,10 @@ const SearchBar = ({ groups, setSearchedGroups }) => {
 
   return (
     <>
-      <div className='search-function'>
-        <input onChange={handleChange}
+      <div className='search-function text-center'>
+        <input className='text-center m-4' onChange={handleChange}
           type='text'
-          placeholder='search group name here'
+          placeholder='search group'
           name='search'
           value={searchInput.search} />
       </div>
