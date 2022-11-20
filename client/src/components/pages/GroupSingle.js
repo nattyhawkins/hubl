@@ -4,6 +4,7 @@ import { Link, useParams } from 'react-router-dom'
 import { Card, Col, Row, Container, Collapse } from 'react-bootstrap'
 import { v4 as uuid } from 'uuid'
 import Post from './Post'
+import PostForm from '../common/PostForm'
 import { getToken } from '../../helpers/auth'
 
 
@@ -13,12 +14,12 @@ const GroupSingle = () => {
   const [ group, setGroup ] = useState([])
   const [ error, setError ] = useState(false)
   const [ refresh, setRefresh ] = useState(false)
-
   const [ postFields , setPostFields ] = useState({
     title: '',
     message: '',
     tags: [],
   })
+
 
   // const [ tag, setTag ] = useState('')
 
@@ -60,14 +61,12 @@ const GroupSingle = () => {
 
   // }
 
-  function handleChange(e){
-    setPostFields({ ...postFields, [e.target.name]: e.target.value })
-    if (error) setError('')
-  }
-
-  async function handleSubmit(e){
+  
+  //submit brand new post
+  async function handlePostSubmit(e){
     try {
       e.preventDefault()
+
       await axios.post(`api/groups/${groupId}/posts`, postFields, { headers: {
         Authorization: `Bearer ${getToken()}`,
       } })
@@ -99,16 +98,7 @@ const GroupSingle = () => {
           </div>
           <Row>
             <Container className='mainContainer'>
-              <Card className="post">
-                <form onSubmit={handleSubmit}>
-                  <input type="text" name="title" onChange={handleChange} value={postFields.title} placeholder="Title..." required/>
-                  <input type="text" name="message" onChange={handleChange} value={postFields.message} placeholder="Write a bit more..." required/>
-                  {/* <div id="tagDisplay"></div>
-                  <input id="tagInput" type="text" name="tags" onChange={handleTagChange} value={tag} placeholder="Tag it"/> */}
-                  {error && <small className='text-danger'>{error}</small>}
-                  <button className="btn" >Send</button>
-                </form>
-              </Card>
+              <PostForm postFields={postFields} setPostFields={setPostFields} error={error} setError={setError} handlePostSubmit={handlePostSubmit}/>
               {group.posts && group.posts.map(post => {
                 const { title, message, tags, _id, comments, owner } = post
                 
@@ -126,7 +116,7 @@ const GroupSingle = () => {
                   )
                 })
                 return (
-                  <Post key={_id} _id={_id} message={message} owner={owner} comments={comments} commentHTML={commentHTML} tagesHTML={tagsHTML} title={title} groupId={groupId} setRefresh={setRefresh} refresh={refresh}/>
+                  <Post key={_id} postId={_id} post={post} commentHTML={commentHTML} tagesHTML={tagsHTML} groupId={groupId} setRefresh={setRefresh} refresh={refresh} handlePostSubmit={handlePostSubmit} postFields={postFields} setPostFields={setPostFields}/>
                 )
               })}
             </Container>
