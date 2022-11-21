@@ -1,15 +1,17 @@
 import axios from 'axios'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Card, Collapse } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { getToken, isOwner } from '../../helpers/auth'
 import PostForm from '../common/PostForm'
+import moment from 'moment'
 
 
 
 const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refresh }) => {
 
   const [ open, setOpen ] = useState(false)
+  const [ timeElapsed, setTimeElapsed ] = useState(getTimeElapsed())
   const [ toEdit, setToEdit ] = useState(false)
   const [ error, setError ] = useState(false)
   const [ postFields , setPostFields ] = useState({
@@ -20,9 +22,34 @@ const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refres
   const [ comment , setComment ] = useState({
     message: '',
   })
+  
+  useEffect(() => {
+    const tick = setInterval(() => {
+      setTimeElapsed(getTimeElapsed())
+    }, 1000)
+    return () => {
+      clearInterval(tick)
+    }
+  }, [])
+  useEffect(() => {
+    console.log(timeElapsed)
+  }, [timeElapsed])
 
-
-
+  function getTimeElapsed() {
+    const now = new Date()
+    const mins = Math.round((moment(now).format('X') - moment(post.createdAt).format('X')) / 60)
+    const hours = Math.round(mins / 60)
+    const days = Math.round(hours / 24)
+    if (mins < 1) return 'Just now'
+    if (mins < 2) return '1 minute ago'
+    if (mins < 60) return mins + ' minutes ago'
+    if (mins <= 90) return '1 hour ago'
+    if (hours < 24) return `${hours} hours ago`
+    if (hours < 48) return moment(post.createdAt).format('[Yesterday at] LT')
+    if (days < 7) return moment(post.createdAt).format('ddd LT')
+    if (days < 360) return moment(post.createdAt).format('MMM D LT')
+    else return moment(post.createdAt).format('ll LT')
+  }
   //Comments
   function handleChange(e){
     setComment({ ...comment, [e.target.name]: e.target.value })
@@ -103,7 +130,7 @@ const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refres
           <div className="textBox">
             <Card.Title><span className="username">@{post.owner.username}</span> {post.title}</Card.Title>
             <Card.Text>{post.message}</Card.Text>
-            <Card.Text>timestamp</Card.Text>
+            <Card.Text>{timeElapsed}</Card.Text>
           </div>
         }
         <div className="infoBox">

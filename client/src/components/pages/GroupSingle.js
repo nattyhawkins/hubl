@@ -6,6 +6,7 @@ import { v4 as uuid } from 'uuid'
 import Post from './Post'
 import PostForm from '../common/PostForm'
 import { getToken } from '../../helpers/auth'
+import moment from 'moment'
 
 
 
@@ -101,6 +102,10 @@ const GroupSingle = () => {
               <PostForm postFields={postFields} setPostFields={setPostFields} error={error} setError={setError} handlePostSubmit={handlePostSubmit}/>
               {group.posts && group.posts.map(post => {
                 const { title, message, tags, _id, comments, owner } = post
+                const now = new Date()
+
+                console.log(now)
+                const secElapsed = moment(now).format('X') - moment(post.createdAt).format('X')
                 
                 const tagsHTML = tags.map(tag => {
                   const tagWithId = { tag: tag, id: uuid() }
@@ -116,7 +121,7 @@ const GroupSingle = () => {
                   )
                 })
                 return (
-                  <Post key={_id} postId={_id} post={post} commentHTML={commentHTML} tagesHTML={tagsHTML} groupId={groupId} setRefresh={setRefresh} refresh={refresh} handlePostSubmit={handlePostSubmit} postFields={postFields} setPostFields={setPostFields}/>
+                  <Post key={_id} secElapsed={secElapsed} postId={_id} post={post} commentHTML={commentHTML} tagesHTML={tagsHTML} groupId={groupId} setRefresh={setRefresh} refresh={refresh} handlePostSubmit={handlePostSubmit} postFields={postFields} setPostFields={setPostFields}/>
                 )
               })}
             </Container>
