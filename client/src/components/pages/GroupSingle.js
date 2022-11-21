@@ -6,6 +6,10 @@ import { v4 as uuid } from 'uuid'
 import Post from './Post'
 import PostForm from '../common/PostForm'
 import { getToken } from '../../helpers/auth'
+import moment from 'moment'
+import { unixTimestamp } from '../../helpers/general'
+import { isOwner } from '../../helpers/auth'
+import Comments from './Comments'
 
 
 
@@ -65,7 +69,7 @@ const GroupSingle = () => {
   async function handlePostSubmit(e) {
     try {
       e.preventDefault()
-
+      if (!getToken()) throw new Error('Please login')
       await axios.post(`api/groups/${groupId}/posts`, postFields, {
         headers: {
           Authorization: `Bearer ${getToken()}`,
@@ -75,12 +79,10 @@ const GroupSingle = () => {
       setRefresh(!refresh)
       setPostFields({ title: '', message: '', tags: [] })
     } catch (err) {
-      console.log(err.response.data.message)
-      setError(err.response.data.message)
+      console.log(err.message ? err.message : err.response.data.message)
+      setError(err.message ? err.message : err.response.data.message)
     }
   }
-
-
 
   return (
     <main className='group-single'>
@@ -100,24 +102,20 @@ const GroupSingle = () => {
           <Row>
             <Container className='mainContainer'>
               <PostForm postFields={postFields} setPostFields={setPostFields} error={error} setError={setError} handlePostSubmit={handlePostSubmit} />
-              {group.posts && group.posts.map(post => {
-                const { title, message, tags, _id, comments, owner } = post
-
+              {group.posts && group.posts.sort((a, b) => (unixTimestamp(a.createdAt) > unixTimestamp(b.createdAt) ? -1 : 1)).map(post => {
+                const { tags, _id: postId, comments } = post
                 const tagsHTML = tags.map(tag => {
                   const tagWithId = { tag: tag, id: uuid() }
                   return <Card.Subtitle key={tagWithId.id} className="tag">#{tagWithId.tag}</Card.Subtitle>
                 })
-                const commentHTML = comments.map(comment => {
-                  const { message, _id, owner } = comment
+                const commentHTML = comments.sort((a, b) => (unixTimestamp(a.createdAt) > unixTimestamp(b.createdAt) ? -1 : 1)).map(comment => {
+                  const { message, _id: commentId, owner } = comment
                   return (
-                    <Card key={_id} className="textBox">
-                      <Card.Title className="userName">@{owner.username}</Card.Title>
-                      <Card.Text>{message}</Card.Text>
-                    </Card>
+                    <Comments key={commentId} comment={comment} groupId={groupId} postId={postId} setRefresh={setRefresh} refresh={refresh} />
                   )
                 })
                 return (
-                  <Post key={_id} postId={_id} post={post} commentHTML={commentHTML} tagesHTML={tagsHTML} groupId={groupId} setRefresh={setRefresh} refresh={refresh} handlePostSubmit={handlePostSubmit} postFields={postFields} setPostFields={setPostFields} />
+                  <Post key={postId} postId={postId} post={post} commentHTML={commentHTML} tagesHTML={tagsHTML} groupId={groupId} setRefresh={setRefresh} refresh={refresh} />
                 )
               })}
             </Container>

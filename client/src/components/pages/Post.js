@@ -1,15 +1,21 @@
 import axios from 'axios'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Card, Collapse } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
 import { getToken, isOwner } from '../../helpers/auth'
+import { getTimeElapsed } from '../../helpers/general'
 import PostForm from '../common/PostForm'
+import CommentForm from './CommentForm'
 
 
 
 const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refresh }) => {
 
   const [ open, setOpen ] = useState(false)
+  const [ likeStatus, setLikeStatus ] = useState(() => {
+    if (getToken() && post.likes.some(like => isOwner(like.owner))) return 202
+    return 204
+  })
+  const [ timeElapsed, setTimeElapsed ] = useState(getTimeElapsed(post.createdAt))
   const [ toEdit, setToEdit ] = useState(false)
   const [ error, setError ] = useState(false)
   const [ postFields , setPostFields ] = useState({
@@ -17,30 +23,33 @@ const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refres
     message: '',
     tags: [],
   })
-  const [ comment , setComment ] = useState({
+  const [ commentField , setCommentField ] = useState({
     message: '',
   })
+  
+  useEffect(() => {
+    const tick = setInterval(() => {
+      setTimeElapsed(getTimeElapsed(post.createdAt))
+    }, 1000)
+    return () => {
+      clearInterval(tick)
+    }
+  }, [])
 
-
-
-  //Comments
-  function handleChange(e){
-    setComment({ ...comment, [e.target.name]: e.target.value })
-    if (error) setError('')
-  }
   async function handleCommentSubmit(e){
     try {
       e.preventDefault()
-      await axios.post(`api/groups/${groupId}/posts/${postId}/comments`, comment, { headers: {
+      if (!getToken()) throw new Error('Please login')
+      await axios.post(`api/groups/${groupId}/posts/${postId}/comments`, commentField, { headers: {
         Authorization: `Bearer ${getToken()}`,
       } })
       console.log('post comment success')
       setRefresh(!refresh)
-      setComment({ message: '' })
+      setCommentField({ message: '' })
       setOpen(true)
     } catch (err) {
-      console.log(err.response.data.message)
-      setError(err.response.data.message)
+      console.log(err.message ? err.message : err.response.data.message)
+      setError(err.message ? err.message : err.response.data.message)
     }
   }
 
@@ -69,7 +78,6 @@ const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refres
       setError(err.response.data.message)
     }
   }
-
   //delete post
   async function deletePost(e){
     try {
@@ -85,7 +93,31 @@ const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refres
       setError(err.response.data.message)
     }
   }
-  
+
+  async function handleLike(e){
+    //if not logged, set error
+    try {
+      // const likeField = { likes: post.likes + 1 }
+      if (!getToken()) throw new Error('Please login')
+      e.preventDefault()
+      const { status } = await axios.post(`api/groups/${groupId}/posts/${postId}/likes`, { }, { headers: {
+        Authorization: `Bearer ${getToken()}`,
+      } })
+      setLikeStatus(status)
+      console.log('like success')
+      setRefresh(!refresh)
+    } catch (err) {
+      console.log(err.message ? err.message : err.response.data.message)
+      setError(err.message ? err.message : err.response.data.message)
+    }
+  }
+  // useEffect(() => {
+  //   console.log(likeStatus)
+  //   const likeButton = document.querySelector('.likeBtn')
+  //   if (likeStatus.status === 204) likeButton.classList.remove('liked')
+  //   likeButton.classList.add('liked')
+  //   setRefresh(!refresh)
+  // }, [likeStatus])
 
   return (
     <Card key={postId} className="post">
@@ -93,8 +125,8 @@ const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refres
         {/* If owner show edit & delete */}
         {isOwner(post.owner._id) &&
           <div className="d-flex justify-content-end">
-            <button className="me-2" onClick={editPost}>Edit</button>
-            <button onClick={deletePost}>Delete</button>
+            <button className="me-2 subtle" onClick={editPost}>Edit</button>
+            <button className="subtle" onClick={deletePost}>Delete</button>
           </div>
         }
         {toEdit ? 
@@ -103,21 +135,33 @@ const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refres
           <div className="textBox">
             <Card.Title><span className="username">@{post.owner.username}</span> {post.title}</Card.Title>
             <Card.Text>{post.message}</Card.Text>
-            <Card.Text>timestamp</Card.Text>
+            <Card.Text>{timeElapsed}</Card.Text>
           </div>
         }
         <div className="infoBox">
-          <button >👍 Likes</button>
+          {likeStatus === 204 ? 
+            <button className="likeBtn" onClick={handleLike}>
+              {post.likes.length === 0 ? <>👍 Be the first to like</>
+                :
+                post.likes.length === 1 ? <>👍 1 Like</>
+                  :
+                  <>👍 {post.likes.length} Likes</>
+              }</button>
+            :
+            <button className="likeBtn liked" onClick={handleLike}>
+              {post.likes.length === 0 ? <>👍 Be the first to like</>
+                :
+                post.likes.length === 1 ?  <>👍 1 Like</>
+                  :
+                  <>👍 {post.likes.length} Likes</>
+              }</button>
+          }
           <button className="btn" onClick={() => setOpen(!open)} aria-controls={postId} aria-expanded={open} >💬 {post.comments.length} Comments</button>
           <div className="tagDiv">
             {tagsHTML}
           </div>
         </div>
-        <form onSubmit={handleCommentSubmit}>
-          <input type="text" name="message" onChange={handleChange} value={comment.message} placeholder="Comment..." required/>
-          {error && <small className='text-danger'>{error}</small>}
-          <button className="btn" >Send</button>
-        </form>
+        <CommentForm commentField={commentField} setCommentField={setCommentField} error={error} setError={setError} handleCommentSubmit={handleCommentSubmit} />
         <Collapse in={open}>
           <div id={postId}>
             {commentHTML}

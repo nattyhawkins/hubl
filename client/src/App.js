@@ -7,7 +7,6 @@ import TheNavbar from './components/common/TheNavbar'
 import NotFound from './components/pages/NotFound'
 import Register from './components/pages/Register'
 import Login from './components/pages/Login'
-import PostSingle from './components/pages/PostSingle'
 import Footer from './components/common/Footer'
 
 const App = () => {
@@ -29,7 +28,6 @@ const App = () => {
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
           <Route path='/:groupId' element={<GroupSingle />} />
-          <Route path='/:groupId/:postId' element={<PostSingle />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
         <Footer />

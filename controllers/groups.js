@@ -142,12 +142,66 @@ export const addComment = async (req, res) => {
 
 export const deleteComment = async (req, res) => {
   try {
-    const postObject = await findComment(req, res)
-    const { comment, group } = postObject
+    const commentObject = await findComment(req, res)
+    const { comment, group } = commentObject
     if (!req.currentUser.equals(comment.owner)) throw new Unauthorised()
     await comment.remove()
     await group.save()
     return res.sendStatus(204)
+  } catch (err) {
+    sendErrors(res, err)
+  }
+}
+
+export const updateComment = async (req, res) => {
+  try {
+    const commentObject = await findComment(req, res)
+    const { comment, group } = commentObject
+    if (comment && comment.owner.equals(req.currentUser._id)) {
+      Object.assign(comment, req.body)
+      group.save()
+      return res.status(202).json(comment)
+    }
+    throw new Unauthorised()
+  } catch (err) {
+    sendErrors(res, err)
+  }
+}
+
+// Like post
+export const likePost = async (req, res) => {
+  try {
+    const postObject = await findPost(req, res)
+    const { post, group } = postObject
+    console.log('🚗 Liking post', post)
+    if (post) {
+      const existingLike = post.likes.find(like => like.owner.equals(req.currentUser._id))
+      if (existingLike){
+        await existingLike.remove()
+        await group.save()
+        return res.sendStatus(204)
+      }
+      const ownedLike = { ...req.body, owner: req.currentUser._id }
+      post.likes.push(ownedLike)
+      await group.save()
+      return res.json(ownedLike)
+    }
+  } catch (err) {
+    sendErrors(res, err)
+  }
+}
+
+export const likeComment = async (req, res) => {
+  try {
+    const commentObject = await findComment(req, res)
+    const { comment, group } = commentObject
+    console.log('🚗 Liking comment', comment)
+    if (comment) {
+      const ownedLike = { ...req.body, owner: req.currentUser._id }
+      comment.likes.push(ownedLike)
+      await group.save()
+      return res.json(ownedLike)
+    }
   } catch (err) {
     sendErrors(res, err)
   }
