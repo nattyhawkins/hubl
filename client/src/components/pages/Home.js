@@ -16,7 +16,7 @@ const GroupIndex = () => {
 
 
   const [groups, setGroups] = useState([])
-  // const [groupNumber, setGroupNumber] = useState(0)
+  const [groupNumber, setGroupNumber] = useState(null)
   const [searchedGroups, setSearchedGroups] = useState([])
   const [error, setError] = useState(false)
   const [skip, setSkip] = useState(0)
@@ -34,6 +34,8 @@ const GroupIndex = () => {
         const { data } = await axios.get(`/api/groups?skip=${skip}&limit=6`)
         setGroups(data)
         setSearchedGroups(data)
+        console.log('skip', skip)
+        console.log(groupNumber - (groupNumber % 6))
       } catch (err) {
         console.log(err.message)
         setError(true)
@@ -43,20 +45,19 @@ const GroupIndex = () => {
   }, [skip])
 
 
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     try {
-  //       const { data } = await axios.get('/api/groups')
-  //       console.log('whats this', data.length)
-  //       // setGroupNumber(data.length)
-  //       setSearchedGroups(data)
-  //     } catch (err) {
-  //       console.log(err.message)
-  //       setError(true)
-  //     }
-  //   }
-  //   getData()
-  // }, [])
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const { data } = await axios.get('/api/groups')
+        console.log('whats this', data.length)
+        setGroupNumber(data.length)
+      } catch (err) {
+        console.log(err.message)
+        setError(true)
+      }
+    }
+    getData()
+  }, [])
 
 
 
@@ -84,9 +85,6 @@ const GroupIndex = () => {
       setError(true)
     }
   }
-
-
-
 
   return (
     <main className='group-index'>
@@ -122,7 +120,8 @@ const GroupIndex = () => {
           className='btn-right'
           style={{ backgroundImage: `url(${arrow})` }}
           onClick={pageUp}
-          disabled={groups.length < 6}
+          disabled={skip === (groupNumber - (groupNumber % 6))}
+
         />
       </Container>
       <h2 className='text-center mt-5'>Add your own group:</h2>
