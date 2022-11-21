@@ -92,7 +92,7 @@ const GroupIndex = () => {
           :
           error ? <p>something went wrong...</p> : <p>loading...</p>
         }
-        <button className='page-btn' onClick={pageUp} disabled={groups.length < 6}>up</button>
+        <button className='page-btn' onClick={pageUp} disabled={skip === 14 - (14 % 6)}>up</button>
         <button className='page-btn' onClick={pageDown} disabled={skip === 0}>down</button>
       </Container>
     </main>

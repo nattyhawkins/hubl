@@ -1,17 +1,21 @@
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { Card, Collapse } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
 import { getToken, isOwner } from '../../helpers/auth'
+import { getTimeElapsed } from '../../helpers/general'
 import PostForm from '../common/PostForm'
-import moment from 'moment'
+import CommentForm from './CommentForm'
 
 
 
 const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refresh }) => {
 
   const [ open, setOpen ] = useState(false)
-  const [ timeElapsed, setTimeElapsed ] = useState(getTimeElapsed())
+  const [ likeStatus, setLikeStatus ] = useState(() => {
+    if (getToken() && post.likes.some(like => isOwner(like.owner))) return 202
+    return 204
+  })
+  const [ timeElapsed, setTimeElapsed ] = useState(getTimeElapsed(post.createdAt))
   const [ toEdit, setToEdit ] = useState(false)
   const [ error, setError ] = useState(false)
   const [ postFields , setPostFields ] = useState({
@@ -19,55 +23,33 @@ const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refres
     message: '',
     tags: [],
   })
-  const [ comment , setComment ] = useState({
+  const [ commentField , setCommentField ] = useState({
     message: '',
   })
   
   useEffect(() => {
     const tick = setInterval(() => {
-      setTimeElapsed(getTimeElapsed())
+      setTimeElapsed(getTimeElapsed(post.createdAt))
     }, 1000)
     return () => {
       clearInterval(tick)
     }
   }, [])
-  useEffect(() => {
-    console.log(timeElapsed)
-  }, [timeElapsed])
 
-  function getTimeElapsed() {
-    const now = new Date()
-    const mins = Math.round((moment(now).format('X') - moment(post.createdAt).format('X')) / 60)
-    const hours = Math.round(mins / 60)
-    const days = Math.round(hours / 24)
-    if (mins < 1) return 'Just now'
-    if (mins < 2) return '1 minute ago'
-    if (mins < 60) return mins + ' minutes ago'
-    if (mins <= 90) return '1 hour ago'
-    if (hours < 24) return `${hours} hours ago`
-    if (hours < 48) return moment(post.createdAt).format('[Yesterday at] LT')
-    if (days < 7) return moment(post.createdAt).format('ddd LT')
-    if (days < 360) return moment(post.createdAt).format('MMM D LT')
-    else return moment(post.createdAt).format('ll LT')
-  }
-  //Comments
-  function handleChange(e){
-    setComment({ ...comment, [e.target.name]: e.target.value })
-    if (error) setError('')
-  }
   async function handleCommentSubmit(e){
     try {
       e.preventDefault()
-      await axios.post(`api/groups/${groupId}/posts/${postId}/comments`, comment, { headers: {
+      if (!getToken()) throw new Error('Please login')
+      await axios.post(`api/groups/${groupId}/posts/${postId}/comments`, commentField, { headers: {
         Authorization: `Bearer ${getToken()}`,
       } })
       console.log('post comment success')
       setRefresh(!refresh)
-      setComment({ message: '' })
+      setCommentField({ message: '' })
       setOpen(true)
     } catch (err) {
-      console.log(err.response.data.message)
-      setError(err.response.data.message)
+      console.log(err.message ? err.message : err.response.data.message)
+      setError(err.message ? err.message : err.response.data.message)
     }
   }
 
@@ -96,7 +78,6 @@ const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refres
       setError(err.response.data.message)
     }
   }
-
   //delete post
   async function deletePost(e){
     try {
@@ -112,7 +93,31 @@ const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refres
       setError(err.response.data.message)
     }
   }
-  
+
+  async function handleLike(e){
+    //if not logged, set error
+    try {
+      // const likeField = { likes: post.likes + 1 }
+      if (!getToken()) throw new Error('Please login')
+      e.preventDefault()
+      const { status } = await axios.post(`api/groups/${groupId}/posts/${postId}/likes`, { }, { headers: {
+        Authorization: `Bearer ${getToken()}`,
+      } })
+      setLikeStatus(status)
+      console.log('like success')
+      setRefresh(!refresh)
+    } catch (err) {
+      console.log(err.message ? err.message : err.response.data.message)
+      setError(err.message ? err.message : err.response.data.message)
+    }
+  }
+  // useEffect(() => {
+  //   console.log(likeStatus)
+  //   const likeButton = document.querySelector('.likeBtn')
+  //   if (likeStatus.status === 204) likeButton.classList.remove('liked')
+  //   likeButton.classList.add('liked')
+  //   setRefresh(!refresh)
+  // }, [likeStatus])
 
   return (
     <Card key={postId} className="post">
@@ -120,8 +125,8 @@ const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refres
         {/* If owner show edit & delete */}
         {isOwner(post.owner._id) &&
           <div className="d-flex justify-content-end">
-            <button className="me-2" onClick={editPost}>Edit</button>
-            <button onClick={deletePost}>Delete</button>
+            <button className="me-2 subtle" onClick={editPost}>Edit</button>
+            <button className="subtle" onClick={deletePost}>Delete</button>
           </div>
         }
         {toEdit ? 
@@ -134,17 +139,29 @@ const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refres
           </div>
         }
         <div className="infoBox">
-          <button >👍 Likes</button>
+          {likeStatus === 204 ? 
+            <button className="likeBtn" onClick={handleLike}>
+              {post.likes.length === 0 ? <>👍 Be the first to like</>
+                :
+                post.likes.length === 1 ? <>👍 1 Like</>
+                  :
+                  <>👍 {post.likes.length} Likes</>
+              }</button>
+            :
+            <button className="likeBtn liked" onClick={handleLike}>
+              {post.likes.length === 0 ? <>👍 Be the first to like</>
+                :
+                post.likes.length === 1 ?  <>👍 1 Like</>
+                  :
+                  <>👍 {post.likes.length} Likes</>
+              }</button>
+          }
           <button className="btn" onClick={() => setOpen(!open)} aria-controls={postId} aria-expanded={open} >💬 {post.comments.length} Comments</button>
           <div className="tagDiv">
             {tagsHTML}
           </div>
         </div>
-        <form onSubmit={handleCommentSubmit}>
-          <input type="text" name="message" onChange={handleChange} value={comment.message} placeholder="Comment..." required/>
-          {error && <small className='text-danger'>{error}</small>}
-          <button className="btn" >Send</button>
-        </form>
+        <CommentForm commentField={commentField} setCommentField={setCommentField} error={error} setError={setError} handleCommentSubmit={handleCommentSubmit} />
         <Collapse in={open}>
           <div id={postId}>
             {commentHTML}

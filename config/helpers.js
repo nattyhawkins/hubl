@@ -50,17 +50,23 @@ export const findPost = async (req, res) => {
 
 export const findComment = async (req, res) => {
   try {
-    const postObject = await findPost(req, res, ['owner', 'posts.owner'])
+    const postObject = await findPost(req, res, ['owner', 'posts.owner', 'posts.comments.owner'])
     const { post, group } = postObject
     if (post) {
       const { commentId } = req.params
       const targetComment = post.comments.id(commentId)
-      if (!targetComment) throw new NotFound('could not find comment')
-      console.log(targetComment.owner)
-      if (!req.currentUser.equals(targetComment.owner)) throw new Unauthorised()
+      if (!targetComment) throw new NotFound('Could not find comment')
       return { comment: targetComment, post: post, group: group }
     }
   } catch (err) {
     sendErrors(res, err)
   }
 }
+
+// export const findLike = (res) => {
+//   try {
+    
+//   } catch (err) {
+//     sendErrors(res, err)
+//   }
+// }

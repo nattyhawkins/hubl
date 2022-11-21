@@ -1,9 +1,15 @@
 import mongoose from 'mongoose'
 
+const likeSchema = new mongoose.Schema({
+  owner: { type: mongoose.Schema.ObjectId, ref: 'User', required: true, unique: true },
+}, {
+  timestamps: true,
+})
 
 const commentSchema = new mongoose.Schema({
   message: { type: String, maxlength: 500 },
   owner: { type: mongoose.Schema.ObjectId, ref: 'User', required: true },
+  likes: [likeSchema],
 }, {
   timestamps: true,
 })
@@ -15,6 +21,7 @@ const postSchema = new mongoose.Schema({
   tags: [{ type: String }],
   owner: { type: mongoose.Schema.ObjectId, ref: 'User', required: true },
   comments: [commentSchema],
+  likes: [likeSchema],
 }, {
   timestamps: true,
 })
