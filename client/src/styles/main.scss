@@ -1,4 +1,4 @@
-$primary: rgb(134, 125, 255);
+$primary: rgb(170, 168, 204);
 $secondary: lighten($primary, 15%);
 $button-colour: darken($primary, 5%);
 
@@ -8,33 +8,26 @@ $button-colour: darken($primary, 5%);
 
 body {
   min-height: 100vh;
-  background-color: rgb(251, 246, 246);
-  //   display: flex;
-  //   justify-content: center;
+  background-color: $primary;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
-// .bannerContainer,
-// .navbarContainer {
-//   // max-width: calc(100% - 30px);
-//   // margin: 0 auto;
-// }
 
 .theNavbar {
   position: sticky;
   top: 0;
   z-index: 1100;
-  background-color: lightblue;
+  background-color: $primary;
 }
 
 .navbarContainer {
-  background-color: lightblue;
+  background-color: $secondary;
   display: flex;
   justify-content: space-between;
   align-items: baseline;
 
   .logo {
-    font-size: 50px;
+    font-size: 30px;
   }
 
   a {
@@ -43,12 +36,25 @@ body {
 }
 
 //HOME
-.group-index {
+
+
+.groups-container {
+  // border: 2px solid brown;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 2px solid red;
+  width: calc(100% - 40px);
+}
+
+.groups-row {
+  min-width: calc(100% - 75px);
+  height: 450px;
+  align-items: center;
+  // border: 2px solid orange;
+}
+
+.group-index {
+  // border: 2px solid red;
 }
 
 .group-card {
@@ -56,23 +62,39 @@ body {
     border: 5px solid rgb(77, 77, 77);
     border-radius: 18px;
     background-color: lighten($primary, 15%);
-    // color: black;
-    // width: calc(100%);
-    height: 100%;
-    // margin: 5px;
-    // padding: 5px;
+    background-size: cover;
+    background-position: center;
+    min-width: 200px;
+    height: 75px;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+  }
+
+  .card-img {
+    // opacity: 0.5;
   }
 
   p {
-    font-size: 10px;
+    font-size: 15px;
   }
 
-  h2 {
-    font-size: 20px;
-    color: rgb(17, 17, 200);
-    margin-bottom: -10px;
-    padding: 10px;
+  .group-name {
+    font-size: 5.2vw;
+    color: white;
+    font-weight: 900;
+    text-align: center;
+    text-shadow: black 4px 4px 3px,
+
+      0.07em 0 black,
+      0 0.07em black,
+      -0.07em 0 black,
+      0 -0.07em black;
   }
+}
+
+.group-form {
+  background-color: $secondary;
 }
 
 // reusable for any main page
@@ -145,7 +167,6 @@ body {
 
 }
 
-
 //Single Group Page
 .banner {
   background-color: $primary;
@@ -208,8 +229,6 @@ body {
   }
 }
 
-
-
 // login and register pages
 
 .login .register {
@@ -244,33 +263,50 @@ input {
   margin: 3px 0 3px 0;
 }
 
-button {
+.btn-left {
+  height: 75px;
+  width: 75px;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  transform: rotate(180deg);
+  border: none;
+  background-color: $primary;
+  margin-right: 15px;
+}
+
+.btn-right {
+  height: 75px;
+  width: 75px;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  border: none;
+  background-color: $primary;
+  margin-left: 15px;
+}
+
+.group-create-btn {
   background-color: #3897f0;
   border: none;
   color: white;
-  padding: 6px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 15px;
-  border-radius: 4px;
+  padding: 12px;
+  border-radius: 9px;
   width: 240px;
   margin: 12px 0 25px 0;
   font-weight: 900;
-  cursor: pointer;
 }
-
-.page-btn {
-  color: red;
-}
-
 
 footer {
-  background-color: rgb(167, 167, 167);
+  background-color: darken($secondary, 30%);
   text-align: center;
   font-size: 15px;
-  color: rgb(0, 0, 0);
-  padding-top: 10px;
+  color: rgb(54, 54, 54);
+  padding: 10px 0 10px 0;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  right: 0;
 
   p {
     margin: 0;

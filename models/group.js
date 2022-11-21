@@ -20,11 +20,11 @@ const postSchema = new mongoose.Schema({
 })
 
 const groupSchema = new mongoose.Schema({
-  name: { type: String, required: true, unique: true, maxlength: 250 },
+  name: { type: String, required: true, unique: true, maxlength: 50 },
   bio: { type: String, maxlength: 500 },
+  image: { type: String },
   owner: { type: mongoose.Schema.ObjectId, ref: 'User', required: true },
   posts: [postSchema],
-  page: { type: Number },
 })
 
 

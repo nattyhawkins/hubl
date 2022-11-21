@@ -2,6 +2,7 @@ export default [
   {
     name: 'London Rollerskating Group',
     bio: 'welcome to the rollerskating group, where we discuss the hottest skating trends, brought to you by the one and only N.H.',
+    image: 'https://i.pinimg.com/564x/d4/aa/55/d4aa55c431b1437783081fbc8c4b3c5b.jpg',
     posts: [{
       title: 'Beginners street skate meet up',
       message: 'Street skate open for beginners tomorrow, meeting at Kings Cross 6pm. Cya there!',
@@ -36,6 +37,7 @@ export default [
   {
     name: 'Crypto for newbs',
     bio: 'Learn more about cryptocurrencies, blockchain and everything related. To the moon!',
+    image: 'https://i.pinimg.com/564x/99/90/ae/9990ae34eef0f6df7723dc660090f2bf.jpg',
     posts: [{
       title: 'What is Cryptocurrency?',
       message: 'Cryptocurrency is a new kind of internet money. You can use it to buy things online, and you can send it instantly to other users anywhere in the world, at very low cost, needing nothing more than a smartphone and an internet connection.',
@@ -53,6 +55,7 @@ export default [
   {
     name: 'Random',
     bio: 'Join the random group, for random stuff, by random people',
+    image: 'https://i.pinimg.com/564x/27/87/62/2787629fe39ee0bb053b9d1cf1906d33.jpg',
     posts: [{
       title: 'Random title for random things',
       message: 'Random text with random meanings',
@@ -73,6 +76,7 @@ export default [
   {
     name: 'Bird Watchers',
     bio: 'In this group we watch birds, also know as birding.',
+    image: 'https://i.pinimg.com/564x/4f/28/29/4f282971000538f74710538d0d1444a1.jpg',
     posts: [
       {
         title: 'Birding this weekend! Everyone welcome!',
@@ -111,6 +115,7 @@ export default [
   {
     name: 'Rare Stone Collectors',
     bio: 'Interested in collecting rare stones? Or simply want to be part of an exciting community that discusses rocks? You have come to the right place.',
+    image: 'https://i.pinimg.com/564x/28/c0/b7/28c0b7a5b8623a72e7ddea5133218661.jpg',
     posts: [
       {
         title: 'LOOK WHAT I FOUND!!',
@@ -130,6 +135,7 @@ export default [
   {
     name: 'TV Group',
     bio: 'Hey fellow couch potatoes! Here we discuss your favorite movies and series, come join us :)',
+    image: 'https://i.pinimg.com/564x/29/ad/fe/29adfe8d2b21fe52a34215a63c9919da.jpg',
     posts: [
       {
         title: 'What is your favorite cooking show?',
@@ -162,6 +168,7 @@ export default [
   {
     name: 'Cooking Group',
     bio: 'everything surrounding cooking',
+    image: 'https://i.pinimg.com/564x/d5/16/af/d516af03c386f6f4e1a6b4156ae694d5.jpg',
     posts: [
       {
         title: 'Cook-Off',
@@ -194,7 +201,7 @@ export default [
   },
   // DUPLICATES:
   {
-    name: 'London Rollerskating Group',
+    name: 'London Rollerskating Group 2',
     bio: 'welcome to the rollerskating group, where we discuss the hottest skating trends, brought to you by the one and only N.H.',
     posts: [
       {
@@ -211,7 +218,7 @@ export default [
         ],
       },
       {
-        title: 'Equipiment hlep?!',
+        title: 'Equipiment hlep?! 2',
         message: 'Hiiiii can anyone tell me what gear I\'ll need / any good boot brands etc?? thanks!',
         tags: ['help', 'equipment'],
         comments: [
@@ -229,7 +236,7 @@ export default [
     ],
   },
   {
-    name: 'Crypto for newbs',
+    name: 'Crypto for newbs 2',
     bio: 'Learn more about cryptocurrencies, blockchain and everything related. To the moon!',
     posts: [{
       title: 'What is Cryptocurrency?',
@@ -246,7 +253,7 @@ export default [
     }],
   },
   {
-    name: 'Random',
+    name: 'Random 2',
     bio: 'Join the random group, for random stuff, by random people',
     posts: [{
       title: 'Random title for random things',
@@ -266,7 +273,7 @@ export default [
     }],
   },
   {
-    name: 'Bird Watchers',
+    name: 'Bird Watchers 2',
     bio: 'In this group we watch birds, also know as birding.',
     posts: [
       {
@@ -283,7 +290,7 @@ export default [
         ],
       },
       {
-        title: 'I need help identifying this bird!!',
+        title: 'I need help identifying this bird!! 2',
         message: 'I think I have discovered a new bird species! Comment on my post and I will send you a pic in your DMs',
         tags: ['new', 'bird', 'species', 'help'],
         comments: [
@@ -304,7 +311,7 @@ export default [
     ],
   },
   {
-    name: 'Rare Stone Collectors',
+    name: 'Rare Stone Collectors 2',
     bio: 'Interested in collecting rare stones? Or simply want to be part of an exciting community that discusses rocks? You have come to the right place.',
     posts: [
       {
@@ -323,7 +330,7 @@ export default [
     ],
   },
   {
-    name: 'TV Group',
+    name: 'TV Group 2',
     bio: 'Hey fellow couch potatoes! Here we discuss your favorite movies and series, come join us :)',
     posts: [
       {
@@ -355,7 +362,7 @@ export default [
     ],
   },
   {
-    name: 'Cooking Group',
+    name: 'Cooking Group 2',
     bio: 'everything surrounding cooking',
     posts: [
       {

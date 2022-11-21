@@ -8,33 +8,32 @@ import Col from 'react-bootstrap/Col'
 import Card from 'react-bootstrap/Card'
 
 import SearchBar from '../common/SearchBar'
+import arrow from '../../assets/arrows.png'
+import GroupForm from '../common/GroupForm'
 
 
 const GroupIndex = () => {
 
 
   const [groups, setGroups] = useState([])
+  // const [groupNumber, setGroupNumber] = useState(0)
   const [searchedGroups, setSearchedGroups] = useState([])
   const [error, setError] = useState(false)
   const [skip, setSkip] = useState(0)
-
-  // const [groupFields, setGroupFields] = useState({
-  //   name: '',
-  //   bio: '',
-  // })
-
-
+  const [groupFields, setGroupFields] = useState({
+    name: '',
+    bio: '',
+    image: '',
+  })
 
 
 
   useEffect(() => {
     const getData = async () => {
       try {
-        const { data } = await axios.get(`/api/groups?skip=${skip}`)
+        const { data } = await axios.get(`/api/groups?skip=${skip}&limit=6`)
         setGroups(data)
         setSearchedGroups(data)
-
-        console.log('group index data =>', data)
       } catch (err) {
         console.log(err.message)
         setError(true)
@@ -43,48 +42,75 @@ const GroupIndex = () => {
     getData()
   }, [skip])
 
-  const pageUp = async (e) => {
+
+  // useEffect(() => {
+  //   const getData = async () => {
+  //     try {
+  //       const { data } = await axios.get('/api/groups')
+  //       console.log('whats this', data.length)
+  //       // setGroupNumber(data.length)
+  //       setSearchedGroups(data)
+  //     } catch (err) {
+  //       console.log(err.message)
+  //       setError(true)
+  //     }
+  //   }
+  //   getData()
+  // }, [])
+
+
+
+  const pageUp = async () => {
     try {
       const result = skip + 6
       setSkip(result)
-      console.log('group length', groups.length)
-      console.log('result', skip)
     } catch (err) {
       setError(true)
     }
   }
-  const pageDown = async (e) => {
+  const pageDown = async () => {
     try {
       const result = skip - 6
       setSkip(result)
-      console.log('group length', groups.length)
-      console.log('result', skip)
     } catch (err) {
       setError(true)
     }
   }
+
+  const skipReset = async () => {
+    try {
+      setSkip(0)
+    } catch (err) {
+      setError(true)
+    }
+  }
+
+
 
 
   return (
     <main className='group-index'>
-      <Container className='groups-container mt-4'>
-        <h1 className='text-center'>Find a group that interests you!</h1>
-        <SearchBar groups={groups}
-          setSearchedGroups={setSearchedGroups}
-          searchedGroups={searchedGroups} />
+      <h2 className='text-center'>Find a group that interests you!</h2>
+      <SearchBar groups={groups}
+        setSearchedGroups={setSearchedGroups}
+        searchedGroups={searchedGroups} />
+      <Container className='groups-container'>
+        <button className='btn-left'
+          style={{ backgroundImage: `url(${arrow})` }}
+          onClick={pageDown}
+          disabled={skip === 0}
+        />
         {searchedGroups.length ?
-          <Row>
+          <Row className='groups-row text-center'>
             {searchedGroups.map(group => {
-              const { name, _id, bio } = group
+              const { name, _id, image } = group
               return (
-                <Col sm='6' md='3' key={_id} className='group-card mb-4'>
-                  <Card>
-                    <Link className='text-decoration-none text-center' to={`${_id}`}>{name}</Link>
-                    <div className='card-image'></div>
-                    <Card.Body>
-                      <p>{bio}</p>
-                    </Card.Body>
-                  </Card>
+                <Col md='4' key={_id} className='group-card' >
+                  <Link className='text-decoration-none' to={`${_id}`}>
+                    <Card className='card-img' style={{ backgroundImage: `url(${image})` }}>
+                      <div className='group-name'>{name}</div>
+                    </Card>
+                  </Link>
                 </Col>
               )
             })}
@@ -92,10 +118,24 @@ const GroupIndex = () => {
           :
           error ? <p>something went wrong...</p> : <p>loading...</p>
         }
-        <button className='page-btn' onClick={pageUp} disabled={groups.length < 6}>up</button>
-        <button className='page-btn' onClick={pageDown} disabled={skip === 0}>down</button>
+        <button
+          className='btn-right'
+          style={{ backgroundImage: `url(${arrow})` }}
+          onClick={pageUp}
+          disabled={groups.length < 6}
+        />
       </Container>
-    </main>
+      <h2 className='text-center mt-5'>Add your own group:</h2>
+      <div className='mt-4 mb-5  text-center'>
+        <GroupForm
+          className='group-form'
+          groupFields={groupFields}
+          setGroupFields={setGroupFields}
+          error={error}
+          setError={setError}
+        />
+      </div>
+    </main >
   )
 }
 export default GroupIndex

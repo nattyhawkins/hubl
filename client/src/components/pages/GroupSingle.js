@@ -11,10 +11,10 @@ import { getToken } from '../../helpers/auth'
 
 const GroupSingle = () => {
 
-  const [ group, setGroup ] = useState([])
-  const [ error, setError ] = useState(false)
-  const [ refresh, setRefresh ] = useState(false)
-  const [ postFields , setPostFields ] = useState({
+  const [group, setGroup] = useState([])
+  const [error, setError] = useState(false)
+  const [refresh, setRefresh] = useState(false)
+  const [postFields, setPostFields] = useState({
     title: '',
     message: '',
     tags: [],
@@ -30,7 +30,6 @@ const GroupSingle = () => {
     const getGroup = async () => {
       try {
         const { data } = await axios.get(`/api/groups/${groupId}`)
-        console.log('single group data =>', data)
         setGroup(data)
       } catch (err) {
         setError(err)
@@ -52,7 +51,7 @@ const GroupSingle = () => {
   // function handleTagSubmit(){
   //   console.log(tag)
   //   const tagElement = document.createElement('p')
-    
+
   //   tagElement.innerHTML = tag
   //   document.getElementById('tagDisplay').appendChild(tagElement)
   //   const newTags = postFields.tags.push(tag)
@@ -61,15 +60,17 @@ const GroupSingle = () => {
 
   // }
 
-  
+
   //submit brand new post
-  async function handlePostSubmit(e){
+  async function handlePostSubmit(e) {
     try {
       e.preventDefault()
 
-      await axios.post(`api/groups/${groupId}/posts`, postFields, { headers: {
-        Authorization: `Bearer ${getToken()}`,
-      } })
+      await axios.post(`api/groups/${groupId}/posts`, postFields, {
+        headers: {
+          Authorization: `Bearer ${getToken()}`,
+        },
+      })
       console.log('post success')
       setRefresh(!refresh)
       setPostFields({ title: '', message: '', tags: [] })
@@ -79,7 +80,7 @@ const GroupSingle = () => {
     }
   }
 
-  
+
 
   return (
     <main className='group-single'>
@@ -98,10 +99,10 @@ const GroupSingle = () => {
           </div>
           <Row>
             <Container className='mainContainer'>
-              <PostForm postFields={postFields} setPostFields={setPostFields} error={error} setError={setError} handlePostSubmit={handlePostSubmit}/>
+              <PostForm postFields={postFields} setPostFields={setPostFields} error={error} setError={setError} handlePostSubmit={handlePostSubmit} />
               {group.posts && group.posts.map(post => {
                 const { title, message, tags, _id, comments, owner } = post
-                
+
                 const tagsHTML = tags.map(tag => {
                   const tagWithId = { tag: tag, id: uuid() }
                   return <Card.Subtitle key={tagWithId.id} className="tag">#{tagWithId.tag}</Card.Subtitle>
@@ -116,7 +117,7 @@ const GroupSingle = () => {
                   )
                 })
                 return (
-                  <Post key={_id} postId={_id} post={post} commentHTML={commentHTML} tagesHTML={tagsHTML} groupId={groupId} setRefresh={setRefresh} refresh={refresh} handlePostSubmit={handlePostSubmit} postFields={postFields} setPostFields={setPostFields}/>
+                  <Post key={_id} postId={_id} post={post} commentHTML={commentHTML} tagesHTML={tagsHTML} groupId={groupId} setRefresh={setRefresh} refresh={refresh} handlePostSubmit={handlePostSubmit} postFields={postFields} setPostFields={setPostFields} />
                 )
               })}
             </Container>
