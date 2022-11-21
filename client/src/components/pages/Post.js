@@ -46,7 +46,7 @@ const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refres
 
   //Updating Post
   async function editPost(e){
-    setToEdit(true)
+    setToEdit(!toEdit)
     setPostFields({
       title: post.title,
       message: post.message,
@@ -103,6 +103,7 @@ const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refres
           <div className="textBox">
             <Card.Title><span className="username">@{post.owner.username}</span> {post.title}</Card.Title>
             <Card.Text>{post.message}</Card.Text>
+            <Card.Text>timestamp</Card.Text>
           </div>
         }
         <div className="infoBox">

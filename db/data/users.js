@@ -28,5 +28,29 @@ export default [
     email: 'chosen1@email.com',
     password: '123',
     passwordConfirmation: '123',
+  },
+  {
+    username: 'regina_phalange',
+    email: 'smellycat@email.com',
+    password: '123',
+    passwordConfirmation: '123',
+  },
+  {
+    username: 'mr.chanandlerbong',
+    email: 'mrbong@email.com',
+    password: '123',
+    passwordConfirmation: '123',
+  },
+  {
+    username: 'marjorybaxter',
+    email: 'margorybaxter@email.com',
+    password: '123',
+    passwordConfirmation: '123',
+  },
+  {
+    username: 'im_old_greeeg',
+    email: 'baileys@email.com',
+    password: '123',
+    passwordConfirmation: '123',
   }
 ]
