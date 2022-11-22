@@ -33,7 +33,7 @@ const GroupIndex = ({ groupId }) => {
         const { data } = await axios.get(`/api/groups?${search}&skip=${skip}&limit=6`)
         setGroups(data)
         setSearchedGroups(data)
-        console.log('skip', skip)
+        console.log('data', data)
         console.log(groupNumber - (groupNumber % 6))
       } catch (err) {
         console.log(err.message)
