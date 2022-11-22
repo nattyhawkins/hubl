@@ -34,19 +34,21 @@ body {
   }
 }
 
-
 .uni-btn {
   background-color: #3897f0;
   border: none;
   color: white;
   padding: 12px;
   border-radius: 9px;
-  width: 240px;
-  margin: 12px 0 25px 0;
+  width: 200px;
   font-weight: 900;
 }
 
 //HOME
+.group-search {
+  height: 40px;
+}
+
 .group-index {
   display: flex;
   flex-direction: column;
@@ -301,7 +303,7 @@ body {
   display: flex;
   align-items: center;
   flex-direction: column;
-  margin: 50px;
+  margin: 10px;
 }
 
 .form {

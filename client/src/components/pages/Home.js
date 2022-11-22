@@ -126,7 +126,7 @@ const GroupIndex = ({ groupId }) => {
 
           />
         </Container>
-        <button className='add-grp-btn uni-btn text-center m-5' onClick={() => setOpen(!open)} aria-controls={groupId} aria-expanded={open}>Add your own group</button>
+        <button className='uni-btn text-center m-5' onClick={() => setOpen(!open)} aria-controls={groupId} aria-expanded={open}>Add your own group</button>
         <Collapse in={open}>
           <div className='adding-group'>
             <div className='mt-4 mb-5 text-center'>
