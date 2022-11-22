@@ -2,19 +2,16 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 
-import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/row'
-import Col from 'react-bootstrap/Col'
-import Card from 'react-bootstrap/Card'
+import { Container, Row, Col, Card, Collapse } from 'react-bootstrap/'
 
 import SearchBar from '../common/SearchBar'
 import arrow from '../../assets/arrows.png'
 import GroupForm from '../common/GroupForm'
 
 
-const GroupIndex = () => {
+const GroupIndex = ({ groupId }) => {
 
-
+  const [open, setOpen] = useState(false)
   const [groups, setGroups] = useState([])
   const [groupNumber, setGroupNumber] = useState(null)
   const [searchedGroups, setSearchedGroups] = useState([])
@@ -26,12 +23,14 @@ const GroupIndex = () => {
     image: '',
   })
 
+  const [search, setSearch] = useState('')
+
 
 
   useEffect(() => {
     const getData = async () => {
       try {
-        const { data } = await axios.get(`/api/groups?skip=${skip}&limit=6`)
+        const { data } = await axios.get(`/api/groups?${search}&skip=${skip}&limit=6`)
         setGroups(data)
         setSearchedGroups(data)
         console.log('skip', skip)
@@ -42,7 +41,7 @@ const GroupIndex = () => {
       }
     }
     getData()
-  }, [skip])
+  }, [skip, search])
 
 
   useEffect(() => {
@@ -87,54 +86,62 @@ const GroupIndex = () => {
   }
 
   return (
-    <main className='group-index'>
-      <h2 className='text-center'>Find a group that interests you!</h2>
-      <SearchBar groups={groups}
-        setSearchedGroups={setSearchedGroups}
-        searchedGroups={searchedGroups} />
-      <Container className='groups-container'>
-        <button className='btn-left'
-          style={{ backgroundImage: `url(${arrow})` }}
-          onClick={pageDown}
-          disabled={skip === 0}
-        />
-        {searchedGroups.length ?
-          <Row className='groups-row text-center'>
-            {searchedGroups.map(group => {
-              const { name, _id, image } = group
-              return (
-                <Col md='4' key={_id} className='group-card' >
-                  <Link className='text-decoration-none' to={`${_id}`}>
-                    <Card className='card-img' style={{ backgroundImage: `url(${image})` }}>
-                      <div className='group-name'>{name}</div>
-                    </Card>
-                  </Link>
-                </Col>
-              )
-            })}
-          </Row>
-          :
-          error ? <p>something went wrong...</p> : <p>loading...</p>
-        }
-        <button
-          className='btn-right'
-          style={{ backgroundImage: `url(${arrow})` }}
-          onClick={pageUp}
-          disabled={groups.length < 6 || skip === groupNumber - 6}
+    <>
+      <main className='group-index'>
+        <h2 className='text-center'>Find a group that interests you!</h2>
+        <SearchBar groups={groups}
+          setSearchedGroups={setSearchedGroups}
+          searchedGroups={searchedGroups}
+          search={search}
+          setSearch={setSearch} />
+        <Container className='groups-container'>
+          <button className='btn-left'
+            style={{ backgroundImage: `url(${arrow})` }}
+            onClick={pageDown}
+            disabled={skip === 0}
+          />
+          {searchedGroups.length ?
+            <Row className='groups-row text-center'>
+              {searchedGroups.map(group => {
+                const { name, _id, image } = group
+                return (
+                  <Col md='4' key={_id} className='group-card' >
+                    <Link className='text-decoration-none' to={`${_id}`}>
+                      <Card style={{ backgroundImage: `url(${image})` }}>
+                        <div className='group-name'>{name}</div>
+                      </Card>
+                    </Link>
+                  </Col>
+                )
+              })}
+            </Row>
+            :
+            error ? <p>something went wrong...</p> : <p>loading...</p>
+          }
+          <button
+            className='btn-right'
+            style={{ backgroundImage: `url(${arrow})` }}
+            onClick={pageUp}
+            disabled={groups.length < 6 || skip === groupNumber - 6}
 
-        />
-      </Container>
-      <h2 className='text-center mt-5'>Add your own group:</h2>
-      <div className='mt-4 mb-5  text-center'>
-        <GroupForm
-          className='group-form'
-          groupFields={groupFields}
-          setGroupFields={setGroupFields}
-          error={error}
-          setError={setError}
-        />
-      </div>
-    </main >
+          />
+        </Container>
+        <button className='add-grp-btn uni-btn text-center m-5' onClick={() => setOpen(!open)} aria-controls={groupId} aria-expanded={open}>Add your own group</button>
+        <Collapse in={open}>
+          <div className='adding-group'>
+            <div className='mt-4 mb-5 text-center'>
+              <GroupForm
+                className='group-form'
+                groupFields={groupFields}
+                setGroupFields={setGroupFields}
+                error={error}
+                setError={setError}
+              />
+            </div>
+          </div>
+        </Collapse>
+      </main >
+    </>
   )
 }
 export default GroupIndex

@@ -16,9 +16,14 @@ export const addGroup = async (req, res) => {
 
 //GET ALL GROUPS
 export const getAllGroups = async (req, res) => {
+  let filteredGroups
   try {
+    const allGroups = await Group.find({}).populate('owner')
+    if (req.query.search) {
+      filteredGroups = allGroups.filter(group => group.name.toLowerCase().includes(req.query.search.toLowerCase()))
+      // return res.json(filteredGroups)
+    }
     const groups = await Group.find({}, null, { skip: req.query.skip, limit: req.query.limit }).populate('owner')
-    console.log('getall grps', req.query.skip)
     return res.json(groups)
   } catch (err) {
     sendErrors(res, err)
@@ -176,7 +181,7 @@ export const likePost = async (req, res) => {
     console.log('🚗 Liking post', post)
     if (post) {
       const existingLike = post.likes.find(like => like.owner.equals(req.currentUser._id))
-      if (existingLike){
+      if (existingLike) {
         await existingLike.remove()
         await group.save()
         return res.sendStatus(204)
@@ -199,7 +204,7 @@ export const likeComment = async (req, res) => {
     console.log('🚗 Liking comment', comment)
     if (comment) {
       const existingLike = comment.likes.find(like => like.owner.equals(req.currentUser._id))
-      if (existingLike){
+      if (existingLike) {
         await existingLike.remove()
         await group.save()
         return res.sendStatus(204)
