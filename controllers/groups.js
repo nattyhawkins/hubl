@@ -1,6 +1,7 @@
-import { Unauthorised } from '../config/errors.js'
+import { Unauthorised, NotFound } from '../config/errors.js'
 import { findGroup, findPost, sendErrors, findComment } from '../config/helpers.js'
 import Group from '../models/group.js'
+import user from '../models/user.js'
 
 //POST GROUP
 export const addGroup = async (req, res) => {
@@ -17,8 +18,13 @@ export const addGroup = async (req, res) => {
 //GET ALL GROUPS
 export const getAllGroups = async (req, res) => {
   try {
-    const groups = await Group.find({}, null, { skip: req.query.skip, limit: req.query.limit }).populate('owner')
-    console.log('getall grps', req.query.skip)
+    let filteredGroups
+    const allGroups = await Group.find({}).populate('owner')
+    if (req.query.search) {
+      filteredGroups = allGroups.filter(group => group.name.toLowerCase().includes(req.query.search.toLowerCase()))
+      // return res.json(filteredGroups)
+    }
+    const groups = await Group.find({ }, null, { skip: req.query.skip, limit: req.query.limit }).populate('owner')
     return res.json(groups)
   } catch (err) {
     sendErrors(res, err)
@@ -176,7 +182,7 @@ export const likePost = async (req, res) => {
     console.log('🚗 Liking post', post)
     if (post) {
       const existingLike = post.likes.find(like => like.owner.equals(req.currentUser._id))
-      if (existingLike){
+      if (existingLike) {
         await existingLike.remove()
         await group.save()
         return res.sendStatus(204)
@@ -199,7 +205,7 @@ export const likeComment = async (req, res) => {
     console.log('🚗 Liking comment', comment)
     if (comment) {
       const existingLike = comment.likes.find(like => like.owner.equals(req.currentUser._id))
-      if (existingLike){
+      if (existingLike) {
         await existingLike.remove()
         await group.save()
         return res.sendStatus(204)
@@ -210,6 +216,20 @@ export const likeComment = async (req, res) => {
       return res.json(ownedLike)
     }
   } catch (err) {
+    sendErrors(res, err)
+  }
+}
+
+
+//profile
+
+export const getProfile = async (req, res) => {
+  try {
+    const loggedInUser = await user.findById(req.currentUser._id).populate(['myGroups', 'myPosts'])
+    if (!loggedInUser) throw new NotFound('Uh oh, User not found!')
+    return res.json(loggedInUser)
+  } catch (err) {
+    console.log(err)
     sendErrors(res, err)
   }
 }

@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 
 const likeSchema = new mongoose.Schema({
-  owner: { type: mongoose.Schema.ObjectId, ref: 'User', required: true, unique: true },
+  owner: { type: mongoose.Schema.ObjectId, ref: 'User', required: true },
 }, {
   timestamps: true,
 })

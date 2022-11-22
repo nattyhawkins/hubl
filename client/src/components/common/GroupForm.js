@@ -8,7 +8,6 @@ const GroupForm = ({ groupFields, setGroupFields, error, setError }) => {
 
 
   const navigate = useNavigate()
-  // const { _id } = useParams()
 
 
   function handleChange(e) {
@@ -42,28 +41,28 @@ const GroupForm = ({ groupFields, setGroupFields, error, setError }) => {
     <Card className='group-form'>
       <form onSubmit={handleSubmit}>
         <input
-          className='text-center'
+          className='group-input'
           type='text'
           name='name'
           onChange={handleChange}
           value={groupFields.name}
-          placeholder='group name'
+          placeholder='Group Name'
           required />
-        <input
-          className='text-center'
+        <textarea
+          className='text-area'
           type='text'
           name='bio'
           onChange={handleChange}
           value={groupFields.bio}
-          placeholder='some info'
+          placeholder='Group Description'
           required />
         <input
-          className='text-center'
+          className='group-input'
           type='text'
           name='image'
           onChange={handleChange}
           value={groupFields.image}
-          placeholder='link a picture' />
+          placeholder='Link a picture' />
         {error && <small className='text-danger'>{error}</small>}
         <br />
         <button className='group-create-btn'>Create Group</button>

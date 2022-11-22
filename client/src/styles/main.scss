@@ -1,4 +1,4 @@
-$primary: rgb(164, 162, 199);
+$primary: rgb(24, 219, 241);
 $secondary: lighten($primary, 15%);
 $accent: rgb(21, 255, 0);
 $button-colour: darken($primary, 5%);
@@ -12,7 +12,6 @@ body {
   background-color: rgb(244, 244, 244);
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
-
 
 .theNavbar {
   position: sticky;
@@ -36,13 +35,27 @@ body {
   }
 }
 
-//HOME
 
+.uni-btn {
+  background-color: #3897f0;
+  border: none;
+  color: white;
+  padding: 12px;
+  border-radius: 9px;
+  width: 240px;
+  margin: 12px 0 25px 0;
+  font-weight: 900;
+}
+
+//HOME
+.group-index {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 .groups-container {
-  // border: 2px solid brown;
   display: flex;
-  justify-content: center;
   align-items: center;
   width: calc(100% - 40px);
 }
@@ -50,17 +63,11 @@ body {
 .groups-row {
   min-width: calc(100% - 75px);
   height: 450px;
-  align-items: center;
-  // border: 2px solid orange;
-}
-
-.group-index {
-  // border: 2px solid red;
 }
 
 .group-card {
   .card {
-    border: 5px solid rgb(77, 77, 77);
+    border: 1px solid rgba(0, 0, 0, 0.5);
     border-radius: 18px;
     background-color: lighten($primary, 15%);
     background-size: cover;
@@ -69,15 +76,7 @@ body {
     height: 75px;
     display: flex;
     justify-content: center;
-    margin: 0 auto;
-  }
-
-  .card-img {
-    // opacity: 0.5;
-  }
-
-  p {
-    font-size: 15px;
+    margin-bottom: 1px;
   }
 
   .group-name {
@@ -87,16 +86,63 @@ body {
     text-align: center;
     text-shadow: black 4px 4px 3px,
 
-      0.07em 0 black,
-      0 0.07em black,
-      -0.07em 0 black,
-      0 -0.07em black;
+      0.08em 0 rgb(0, 0, 0),
+      0 0.08em rgb(0, 0, 0),
+      -0.08em 0 rgb(0, 0, 0),
+      0 -0.08em rgb(0, 0, 0);
   }
+}
+
+.btn-left {
+  height: 75px;
+  width: 75px;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  transform: rotate(180deg);
+  border: none;
+  background-color: $primary;
+  margin-right: 15px;
+}
+
+.btn-right {
+  height: 75px;
+  width: 75px;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  border: none;
+  background-color: $primary;
+  margin-left: 15px;
 }
 
 .group-form {
   background-color: $secondary;
+
+  .text-area {
+    height: 100px;
+    width: 300px;
+    padding: 10px;
+  }
+
+  .group-input {
+    margin: 10px;
+    width: 300px;
+  }
+
+  .group-create-btn {
+    background-color: #3897f0;
+    border: none;
+    color: white;
+    padding: 12px;
+    border-radius: 9px;
+    width: 240px;
+    margin: 12px 0 25px 0;
+    font-weight: 900;
+  }
 }
+
+
 
 // reusable for any main page
 .mainContainer {
@@ -192,7 +238,7 @@ body {
       h1 {
         font-size: 1.8em;
         margin: 0 20px 10px 0;
-        color: lighten($primary, 25%);
+        color: lighten($primary, 30%);
       }
     }
 
@@ -201,7 +247,7 @@ body {
       border-top: 5px solid lighten($primary, 15%);
       border-right: 5px solid lighten($primary, 15%);
       // max-width: calc(100% - 40px);
-      color: lighten($primary, 15%);
+      color: lighten($primary, 25%);
       max-height: calc(200px - 30px);
 
       // box-shadow: 5px 5px 2px 0px white;
@@ -268,40 +314,6 @@ input {
   border-radius: 5px;
   padding: 10px;
   margin: 3px 0 3px 0;
-}
-
-.btn-left {
-  height: 75px;
-  width: 75px;
-  background-position: center;
-  background-size: contain;
-  background-repeat: no-repeat;
-  transform: rotate(180deg);
-  border: none;
-  background-color: $primary;
-  margin-right: 15px;
-}
-
-.btn-right {
-  height: 75px;
-  width: 75px;
-  background-position: center;
-  background-size: contain;
-  background-repeat: no-repeat;
-  border: none;
-  background-color: $primary;
-  margin-left: 15px;
-}
-
-.group-create-btn {
-  background-color: #3897f0;
-  border: none;
-  color: white;
-  padding: 12px;
-  border-radius: 9px;
-  width: 240px;
-  margin: 12px 0 25px 0;
-  font-weight: 900;
 }
 
 footer {

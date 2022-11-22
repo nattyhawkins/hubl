@@ -8,6 +8,7 @@ import NotFound from './components/pages/NotFound'
 import Register from './components/pages/Register'
 import Login from './components/pages/Login'
 import Footer from './components/common/Footer'
+import Profile from './components/pages/Profile'
 
 const App = () => {
 
@@ -25,6 +26,7 @@ const App = () => {
         <TheNavbar />
         <Routes>
           <Route path='/' element={<Home />} />
+          <Route path='/profile' element={<Profile />} />
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
           <Route path='/:groupId' element={<GroupSingle />} />
