@@ -1,7 +1,8 @@
 import { Card } from 'react-bootstrap'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { getToken } from '../../helpers/auth.js'
+// import { Unauthorised } from '../../../../config/errors.js'
 
 
 const GroupForm = ({ groupFields, setGroupFields, error, setError }) => {
@@ -19,6 +20,9 @@ const GroupForm = ({ groupFields, setGroupFields, error, setError }) => {
   async function handleSubmit(e) {
     try {
       e.preventDefault()
+      console.log('grppp', groupFields)
+      if (!getToken()) throw new Error('Please login to create a group')
+      // if (e.target.name === groupFields.name) throw new Error('Group already exists')
       const { data } = await axios.post('api/groups', groupFields, {
         headers: {
           Authorization: `Bearer ${getToken()}`,
@@ -28,8 +32,8 @@ const GroupForm = ({ groupFields, setGroupFields, error, setError }) => {
       setGroupFields({ name: '', bio: '', image: '' })
       navigate(`/${data._id}`)
     } catch (err) {
-      console.log('EDIT FAIL ->', err.response.data.message)
-      setError(err.response.data.message)
+      console.log('EDIT FAIL ->', err.message ? err.message : err.response.data.message)
+      setError(err.message ? err.message : err.response.data.message)
     }
   }
 
@@ -48,6 +52,7 @@ const GroupForm = ({ groupFields, setGroupFields, error, setError }) => {
           value={groupFields.name}
           placeholder='Group Name'
           required />
+        <br />
         <textarea
           className='text-area'
           type='text'
@@ -56,6 +61,7 @@ const GroupForm = ({ groupFields, setGroupFields, error, setError }) => {
           value={groupFields.bio}
           placeholder='Group Description'
           required />
+        <br />
         <input
           className='group-input'
           type='text'
@@ -63,6 +69,7 @@ const GroupForm = ({ groupFields, setGroupFields, error, setError }) => {
           onChange={handleChange}
           value={groupFields.image}
           placeholder='Link a picture' />
+        <br />
         {error && <small className='text-danger'>{error}</small>}
         <br />
         <button className='group-create-btn'>Create Group</button>

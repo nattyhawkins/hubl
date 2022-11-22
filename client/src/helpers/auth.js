@@ -10,7 +10,6 @@ export const setToken = (token) => {
 }
 
 export const getToken = () => {
-
   return localStorage.getItem(tokenName)
 }
 

@@ -1,4 +1,4 @@
-$primary: rgb(24, 219, 241);
+$primary: rgb(255, 236, 195);
 $secondary: lighten($primary, 15%);
 $accent: rgb(21, 255, 0);
 $button-colour: darken($primary, 5%);
@@ -11,6 +11,8 @@ body {
   min-height: 100vh;
   background-color: rgb(244, 244, 244);
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  position: relative;
+  margin: 0;
 }
 
 .theNavbar {
@@ -35,19 +37,21 @@ body {
   }
 }
 
-
 .uni-btn {
   background-color: #3897f0;
   border: none;
   color: white;
   padding: 12px;
   border-radius: 9px;
-  width: 240px;
-  margin: 12px 0 25px 0;
+  width: 200px;
   font-weight: 900;
 }
 
 //HOME
+.group-search {
+  height: 40px;
+}
+
 .group-index {
   display: flex;
   flex-direction: column;
@@ -77,19 +81,23 @@ body {
     display: flex;
     justify-content: center;
     margin-bottom: 1px;
+    padding: 10px;
   }
 
   .group-name {
-    font-size: 5.2vw;
+    font-size: 5.0vw;
     color: white;
     font-weight: 900;
     text-align: center;
-    text-shadow: black 4px 4px 3px,
-
-      0.08em 0 rgb(0, 0, 0),
-      0 0.08em rgb(0, 0, 0),
-      -0.08em 0 rgb(0, 0, 0),
-      0 -0.08em rgb(0, 0, 0);
+    text-shadow: black 0px 0px 40px,
+      0.07em 0 black,
+      0 0.07em black,
+      -0.07em 0 black,
+      0 -0.07em black,
+      -0.07em -0.07em black,
+      -0.07em 0.07em black,
+      0.07em -0.07em black,
+      0.07em 0.07em black;
   }
 }
 
@@ -266,8 +274,6 @@ body {
     align-items: flex-end;
     height: 200px;
 
-
-
     .title {
       font-size: 1.7em;
     }
@@ -280,6 +286,75 @@ body {
       font-size: 1.1em;
     }
   }
+
+  .group-card {
+
+    .group-name {
+      font-size: 30px;
+    }
+  }
+}
+
+
+@media (min-width: 768px) {
+
+  .group-index {
+    margin-top: 35px;
+  }
+
+  .search-function {
+    margin: 20px;
+
+    .group-search {
+      min-width: 350px;
+    }
+  }
+
+  .groups-row {
+    align-items: center;
+  }
+
+  .group-card {
+    .card {
+      min-width: 200px;
+      height: 200px;
+      padding: 10px;
+    }
+
+    .group-name {
+      font-size: 35px;
+    }
+  }
+
+  .group-form {
+    background-color: $secondary;
+
+    .text-area {
+      height: 100px;
+      width: 400px;
+      padding: 10px;
+    }
+
+    .group-input {
+      margin: 10px;
+      width: 400px;
+    }
+
+    .group-create-btn {
+      background-color: #3897f0;
+      border: none;
+      color: white;
+      padding: 12px;
+      border-radius: 9px;
+      width: 240px;
+      margin: 12px 0 25px 0;
+      font-weight: 900;
+    }
+  }
+
+
+
+
 }
 
 // login and register pages
@@ -300,7 +375,7 @@ body {
   display: flex;
   align-items: center;
   flex-direction: column;
-  margin: 50px;
+  margin: 10px;
 }
 
 .form {
@@ -321,13 +396,10 @@ footer {
   text-align: center;
   font-size: 15px;
   color: rgb(54, 54, 54);
-  padding: 10px 0 10px 0;
-  position: fixed;
-  left: 0;
+  padding: 15px 0 0 0;
+  height: 50px;
+  position: absolute;
   bottom: 0;
+  left: 0;
   right: 0;
-
-  p {
-    margin: 0;
-  }
 }

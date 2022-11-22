@@ -22,9 +22,12 @@ export const getAllGroups = async (req, res) => {
     const allGroups = await Group.find({}).populate('owner')
     if (req.query.search) {
       filteredGroups = allGroups.filter(group => group.name.toLowerCase().includes(req.query.search.toLowerCase()))
-      // return res.json(filteredGroups)
     }
-    const groups = await Group.find({ }, null, { skip: req.query.skip, limit: req.query.limit }).populate('owner')
+    console.log('filtered', filteredGroups)
+    const groupMap = filteredGroups ? filteredGroups.map(group => group.name) : []
+    console.log('is this it?', groupMap)
+    const filter = groupMap.length > 0 ? { name: groupMap } : {}
+    const groups = await Group.find(filter, null, { skip: req.query.skip, limit: req.query.limit }).populate('owner')
     return res.json(groups)
   } catch (err) {
     sendErrors(res, err)
