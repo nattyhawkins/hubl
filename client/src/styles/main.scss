@@ -1,5 +1,6 @@
-$primary: rgb(170, 168, 204);
+$primary: rgb(164, 162, 199);
 $secondary: lighten($primary, 15%);
+$accent: rgb(21, 255, 0);
 $button-colour: darken($primary, 5%);
 
 * {
@@ -8,7 +9,7 @@ $button-colour: darken($primary, 5%);
 
 body {
   min-height: 100vh;
-  background-color: $primary;
+  background-color: rgb(244, 244, 244);
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
@@ -130,7 +131,7 @@ body {
 
     button {
       margin: 0 10px;
-      background-color: $button-colour;
+      background-color: darken($button-colour, 20%);
       // border: 2px solid $primary;
       border-radius: 8px;
       color: white;
@@ -141,9 +142,9 @@ body {
       }
     }
     .liked{
-      background-color: green;
+      background-color: lighten($button-colour, 20%);
       &:hover {
-        background-color: lighten(green, 10%);
+        background-color: $button-colour;
       }
     }
   }

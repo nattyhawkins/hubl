@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { useState, useEffect } from 'react'
-import { Card, Collapse } from 'react-bootstrap'
+import { Button, Card, Collapse } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 import { getToken, isOwner } from '../../helpers/auth'
 import { getTimeElapsed } from '../../helpers/general'
 import PostForm from '../common/PostForm'
@@ -27,6 +28,7 @@ const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refres
     message: '',
   })
   
+  //time since posting
   useEffect(() => {
     const tick = setInterval(() => {
       setTimeElapsed(getTimeElapsed(post.createdAt))
@@ -110,6 +112,11 @@ const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refres
     }
   }
 
+  function openComments() {
+    setOpen(!open)
+
+  }
+
   return (
     <Card key={postId} className="post">
       <Card.Body>
@@ -130,31 +137,32 @@ const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refres
           </div>
         }
         <div className="infoBox">
-          {likeStatus === 204 ? 
-            <button className="likeBtn" onClick={handlePostLike}>
-              {post.likes.length === 0 ? <>👍 Be the first to like</>
+          <div className="d-flex">
+            {likeStatus === 204 ? 
+              <Button variant="outline-secondary" className="likeBtn" onClick={handlePostLike}>👍</Button>
+              :
+              <Button variant="outline-secondary" className="likeBtn liked" onClick={handlePostLike}>❤️</Button>
+            }
+            <Card.Text>
+              {post.likes.length === 0 ? <> Be the first to like</>
                 :
-                post.likes.length === 1 ? <>👍 1 Like</>
+                post.likes.length === 1 ? <> 1 Like</>
                   :
-                  <>👍 {post.likes.length} Likes</>
-              }</button>
-            :
-            <button className="likeBtn liked" onClick={handlePostLike}>
-              {post.likes.length === 0 ? <>👍 Be the first to like</>
-                :
-                post.likes.length === 1 ?  <>👍 1 Like</>
-                  :
-                  <>👍 {post.likes.length} Likes</>
-              }</button>
-          }
-          <button className="btn" onClick={() => setOpen(!open)} aria-controls={postId} aria-expanded={open} >💬 {post.comments.length} Comments</button>
+                  <>{post.likes.length} Likes</>
+              }
+            </Card.Text>
+          </div>
+          <a href={`#${postId}`}><button className="btn" onClick={() => setOpen(!open)} aria-controls={postId} aria-expanded={open} >💬 {post.comments.length} Comments</button></a>
           <div className="tagDiv">
             {tagsHTML}
           </div>
         </div>
         <CommentForm commentField={commentField} setCommentField={setCommentField} error={error} setError={setError} handleCommentSubmit={handleCommentSubmit} />
+        <a id={postId} ></a>
         <Collapse in={open}>
+          
           <div id={postId}>
+            
             {commentHTML}
           </div>
         </Collapse>
