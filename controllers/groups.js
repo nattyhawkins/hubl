@@ -168,7 +168,7 @@ export const updateComment = async (req, res) => {
   }
 }
 
-// Like post
+// handles both liking and unliking of post
 export const likePost = async (req, res) => {
   try {
     const postObject = await findPost(req, res)
@@ -191,12 +191,19 @@ export const likePost = async (req, res) => {
   }
 }
 
+//handles both liking and unliking of comment depending if owner already exists in likes array
 export const likeComment = async (req, res) => {
   try {
     const commentObject = await findComment(req, res)
     const { comment, group } = commentObject
     console.log('🚗 Liking comment', comment)
     if (comment) {
+      const existingLike = comment.likes.find(like => like.owner.equals(req.currentUser._id))
+      if (existingLike){
+        await existingLike.remove()
+        await group.save()
+        return res.sendStatus(204)
+      }
       const ownedLike = { ...req.body, owner: req.currentUser._id }
       comment.likes.push(ownedLike)
       await group.save()

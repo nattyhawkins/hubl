@@ -120,7 +120,7 @@ const GroupIndex = () => {
           className='btn-right'
           style={{ backgroundImage: `url(${arrow})` }}
           onClick={pageUp}
-          disabled={skip === (groupNumber - (groupNumber % 6))}
+          disabled={groups.length < 6 || skip === groupNumber - 6}
 
         />
       </Container>

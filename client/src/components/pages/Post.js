@@ -94,10 +94,8 @@ const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refres
     }
   }
 
-  async function handleLike(e){
-    //if not logged, set error
+  async function handlePostLike(e){
     try {
-      // const likeField = { likes: post.likes + 1 }
       if (!getToken()) throw new Error('Please login')
       e.preventDefault()
       const { status } = await axios.post(`api/groups/${groupId}/posts/${postId}/likes`, { }, { headers: {
@@ -111,13 +109,6 @@ const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refres
       setError(err.message ? err.message : err.response.data.message)
     }
   }
-  // useEffect(() => {
-  //   console.log(likeStatus)
-  //   const likeButton = document.querySelector('.likeBtn')
-  //   if (likeStatus.status === 204) likeButton.classList.remove('liked')
-  //   likeButton.classList.add('liked')
-  //   setRefresh(!refresh)
-  // }, [likeStatus])
 
   return (
     <Card key={postId} className="post">
@@ -140,7 +131,7 @@ const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refres
         }
         <div className="infoBox">
           {likeStatus === 204 ? 
-            <button className="likeBtn" onClick={handleLike}>
+            <button className="likeBtn" onClick={handlePostLike}>
               {post.likes.length === 0 ? <>👍 Be the first to like</>
                 :
                 post.likes.length === 1 ? <>👍 1 Like</>
@@ -148,7 +139,7 @@ const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refres
                   <>👍 {post.likes.length} Likes</>
               }</button>
             :
-            <button className="likeBtn liked" onClick={handleLike}>
+            <button className="likeBtn liked" onClick={handlePostLike}>
               {post.likes.length === 0 ? <>👍 Be the first to like</>
                 :
                 post.likes.length === 1 ?  <>👍 1 Like</>
