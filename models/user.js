@@ -60,11 +60,11 @@ userSchema.virtual('myPosts', {
   get: (res, _vir, user) => {
     // console.log('my posts on group 1', res[0].posts)
     return res.map(group => {
-      const posties = group.posts.filter(post => {
+      const myPostsArray = group.posts.filter(post => {
         return post.owner.equals(user._id)
       })
-      console.log('look here', posties)
-      return posties
+      console.log('look here', myPostsArray)
+      return myPostsArray
     }) 
 
   },

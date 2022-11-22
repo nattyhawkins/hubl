@@ -122,7 +122,7 @@ const GroupSingle = () => {
             </Container>
           </Row>
         </>
-        : <h2>error</h2>
+        : <h1>{ error.message }</h1>
       }
 
     </main >

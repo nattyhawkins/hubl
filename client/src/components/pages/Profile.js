@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import { Col, Container, Row } from 'react-bootstrap'
+import { Card, Col, Container, Row } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 import { getToken } from '../../helpers/auth'
 
 const Profile = () => {
@@ -26,25 +27,42 @@ const Profile = () => {
 
   return (
     <main className='group-single'>
-      {profile && 
-      <> 
-        <div className='banner'>
-          <Container className='bannerContainer'>
-            <Col className='col-md-8 title'>
-              <h1>{profile.username}</h1>
-              
-            </Col>
-            <Col className="col-md-4 bio justify-end">
-              <p>Potential bio editting</p>
-            </Col>
-          </Container>
-        </div>
-        <Row>
-          <Container className='mainContainer'>
-            <Row></Row>
-          </Container>
-        </Row>
-      </>}
+      {profile &&
+        <> 
+          <div className='banner'>
+            <Container className='bannerContainer'>
+              <Col className='col-md-8 title'>
+                <h1>{profile.username}</h1>
+                
+              </Col>
+              <Col className="col-md-4 bio justify-end">
+                <p>Potential bio editting</p>
+              </Col>
+            </Container>
+          </div>
+          <Row>
+            <Container className='mainContainer'>
+              <Row>
+                <Container>
+                  {profile.myGroups.map(group => {
+                    const { name, image, _id: groupId } = group
+                    return (
+                      <Col md='4' key={groupId} className='group-card' >
+                        <Link className='text-decoration-none' to={`${groupId}`}>
+                          <Card style={{ backgroundImage: `url(${image})` }}>
+                            <div className='group-name'>{name}</div>
+                          </Card>
+                        </Link>
+                      </Col>
+                    )
+
+                  })}
+                </Container>
+              </Row>
+            </Container>
+          </Row>
+        </>
+      }
 
     </main >
   )
