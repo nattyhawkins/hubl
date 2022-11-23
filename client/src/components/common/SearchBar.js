@@ -36,7 +36,7 @@ const SearchBar = ({ groups, setSearchedGroups, search, setSearch }) => {
         <form onSubmit={handleSearch}>
           <input className='text-center mb-2 group-search' onChange={handleInput}
             type='search'
-            placeholder='search group'
+            placeholder='search for a group'
             name='search'
             value={searchInput} />
         </form>

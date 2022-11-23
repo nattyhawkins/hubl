@@ -1,5 +1,3 @@
-import { useEffect } from 'react'
-import axios from 'axios'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Home from './components/pages/Home'
 import GroupSingle from './components/pages/GroupSingle'
@@ -26,7 +24,6 @@ const App = () => {
         </Routes>
         <Footer />
       </BrowserRouter>
-
     </>
   )
 }

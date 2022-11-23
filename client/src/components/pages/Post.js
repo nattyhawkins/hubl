@@ -11,23 +11,23 @@ import CommentForm from './CommentForm'
 
 const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refresh }) => {
 
-  const [ open, setOpen ] = useState(false)
-  const [ likeStatus, setLikeStatus ] = useState(() => {
+  const [open, setOpen] = useState(false)
+  const [likeStatus, setLikeStatus] = useState(() => {
     if (getToken() && post.likes.some(like => isOwner(like.owner))) return 202
     return 204
   })
-  const [ timeElapsed, setTimeElapsed ] = useState(getTimeElapsed(post.createdAt))
-  const [ toEdit, setToEdit ] = useState(false)
-  const [ error, setError ] = useState(false)
-  const [ postFields , setPostFields ] = useState({
+  const [timeElapsed, setTimeElapsed] = useState(getTimeElapsed(post.createdAt))
+  const [toEdit, setToEdit] = useState(false)
+  const [error, setError] = useState(false)
+  const [postFields, setPostFields] = useState({
     title: '',
     message: '',
     tags: [],
   })
-  const [ commentField , setCommentField ] = useState({
+  const [commentField, setCommentField] = useState({
     message: '',
   })
-  
+
   //time since posting
   useEffect(() => {
     const tick = setInterval(() => {
@@ -38,13 +38,15 @@ const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refres
     }
   }, [])
 
-  async function handleCommentSubmit(e){
+  async function handleCommentSubmit(e) {
     try {
       e.preventDefault()
       if (!getToken()) throw new Error('Please login')
-      await axios.post(`api/groups/${groupId}/posts/${postId}/comments`, commentField, { headers: {
-        Authorization: `Bearer ${getToken()}`,
-      } })
+      await axios.post(`api/groups/${groupId}/posts/${postId}/comments`, commentField, {
+        headers: {
+          Authorization: `Bearer ${getToken()}`,
+        },
+      })
       console.log('post comment success')
       setRefresh(!refresh)
       setCommentField({ message: '' })
@@ -56,7 +58,7 @@ const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refres
   }
 
   //Updating Post
-  async function editPost(e){
+  async function editPost(e) {
     setToEdit(!toEdit)
     setPostFields({
       title: post.title,
@@ -65,12 +67,14 @@ const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refres
     })
   }
   //submit edit post
-  async function handlePostSubmit(e){
+  async function handlePostSubmit(e) {
     try {
       e.preventDefault()
-      await axios.put(`api/groups/${groupId}/posts/${postId}`, postFields, { headers: {
-        Authorization: `Bearer ${getToken()}`,
-      } })
+      await axios.put(`api/groups/${groupId}/posts/${postId}`, postFields, {
+        headers: {
+          Authorization: `Bearer ${getToken()}`,
+        },
+      })
       console.log('Edit post success')
       setRefresh(!refresh)
       setToEdit(false)
@@ -81,12 +85,14 @@ const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refres
     }
   }
   //delete post
-  async function deletePost(e){
+  async function deletePost(e) {
     try {
       e.preventDefault()
-      await axios.delete(`api/groups/${groupId}/posts/${postId}`, { headers: {
-        Authorization: `Bearer ${getToken()}`,
-      } })
+      await axios.delete(`api/groups/${groupId}/posts/${postId}`, {
+        headers: {
+          Authorization: `Bearer ${getToken()}`,
+        },
+      })
       console.log('delete post success')
       setRefresh(!refresh)
       setPostFields({ title: '', message: '', tags: [] })
@@ -96,13 +102,15 @@ const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refres
     }
   }
 
-  async function handlePostLike(e){
+  async function handlePostLike(e) {
     try {
       if (!getToken()) throw new Error('Please login')
       e.preventDefault()
-      const { status } = await axios.post(`api/groups/${groupId}/posts/${postId}/likes`, { }, { headers: {
-        Authorization: `Bearer ${getToken()}`,
-      } })
+      const { status } = await axios.post(`api/groups/${groupId}/posts/${postId}/likes`, {}, {
+        headers: {
+          Authorization: `Bearer ${getToken()}`,
+        },
+      })
       setLikeStatus(status)
       console.log('like success')
       setRefresh(!refresh)
@@ -127,9 +135,9 @@ const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refres
             <button className="subtle" onClick={deletePost}>Delete</button>
           </div>
         }
-        {toEdit ? 
-          <PostForm postFields={postFields} setPostFields={setPostFields} error={error} setError={setError} handlePostSubmit={handlePostSubmit}/>
-          :  
+        {toEdit ?
+          <PostForm postFields={postFields} setPostFields={setPostFields} error={error} setError={setError} handlePostSubmit={handlePostSubmit} />
+          :
           <div className="textBox">
             <Card.Title><Link to={`/profile/${post.owner._id}`}className="username">@{post.owner.username}</Link> {post.title}</Card.Title>
             <Card.Text>{post.message}</Card.Text>
@@ -138,7 +146,7 @@ const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refres
         }
         <div className="infoBox">
           <div className="d-flex">
-            {likeStatus === 204 ? 
+            {likeStatus === 204 ?
               <Button variant="outline-secondary" className="likeBtn" onClick={handlePostLike}>👍</Button>
               :
               <Button variant="outline-secondary" className="likeBtn liked" onClick={handlePostLike}>❤️</Button>
@@ -160,9 +168,9 @@ const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refres
         <CommentForm commentField={commentField} setCommentField={setCommentField} error={error} setError={setError} handleCommentSubmit={handleCommentSubmit} />
         <a id={postId} ></a>
         <Collapse in={open}>
-          
+
           <div id={postId}>
-            
+
             {commentHTML}
           </div>
         </Collapse>

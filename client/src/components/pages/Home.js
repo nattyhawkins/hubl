@@ -5,8 +5,10 @@ import { Link } from 'react-router-dom'
 import { Container, Row, Col, Card, Collapse } from 'react-bootstrap/'
 
 import SearchBar from '../common/SearchBar'
-import arrow from '../../assets/arrows.png'
+import arrow from '../../assets/arrow-white.png'
 import GroupForm from '../common/GroupForm'
+import ImageUpload from '../common/ImageUpload'
+
 
 
 const GroupIndex = ({ groupId }) => {
@@ -22,6 +24,7 @@ const GroupIndex = ({ groupId }) => {
     name: '',
     bio: '',
     image: '',
+    groupImage: '',
   })
 
   const [search, setSearch] = useState('')
@@ -32,10 +35,8 @@ const GroupIndex = ({ groupId }) => {
     const getData = async () => {
       try {
         const { data } = await axios.get(`/api/groups?${search}&skip=${skip}&limit=6`)
-        setGroups(data)
         setSearchedGroups(data)
         console.log('data', data)
-        console.log(groupNumber - (groupNumber % 6))
       } catch (err) {
         console.log(err.message)
         setError(true)
@@ -50,7 +51,7 @@ const GroupIndex = ({ groupId }) => {
       try {
         const { data } = await axios.get('/api/groups')
         console.log('whats this', data.length)
-        setGroupNumber(data.length)
+        setGroups(data)
       } catch (err) {
         console.log(err.message)
         setError(true)
@@ -109,6 +110,7 @@ const GroupIndex = ({ groupId }) => {
                   <Col md='4' key={_id} className='group-card' >
                     <Link className='text-decoration-none' to={`/${_id}`}>
                       <Card style={{ backgroundImage: `url(${image})` }}>
+                        <div></div>
                         <div className='group-name'>{name}</div>
                       </Card>
                     </Link>
@@ -123,20 +125,19 @@ const GroupIndex = ({ groupId }) => {
             className='btn-right'
             style={{ backgroundImage: `url(${arrow})` }}
             onClick={pageUp}
-            disabled={groups.length < 6 || skip === groupNumber - 6}
-
+            disabled={searchedGroups.length < 6 || skip === groups.length - 6}
           />
         </Container>
-        <button className='uni-btn text-center m-5' onClick={() => setOpen(!open)} aria-controls={groupId} aria-expanded={open}>Add your own group</button>
+        <button className='uni-btn text-center add-btn' onClick={() => setOpen(!open)} aria-controls={groupId} aria-expanded={open}>Add your own group</button>
         <Collapse in={open}>
           <div className='adding-group'>
             <div className='mt-4 mb-5 text-center'>
               <GroupForm
-                className='group-form'
                 groupFields={groupFields}
                 setGroupFields={setGroupFields}
                 error={error}
                 setError={setError}
+                groups={groups}
               />
             </div>
           </div>

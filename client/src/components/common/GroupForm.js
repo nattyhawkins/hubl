@@ -2,10 +2,10 @@ import { Card } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { getToken } from '../../helpers/auth.js'
-// import { Unauthorised } from '../../../../config/errors.js'
+import ImageUpload from './ImageUpload'
 
 
-const GroupForm = ({ groupFields, setGroupFields, error, setError }) => {
+const GroupForm = ({ groupFields, setGroupFields, error, setError, groups }) => {
 
 
   const navigate = useNavigate()
@@ -22,7 +22,7 @@ const GroupForm = ({ groupFields, setGroupFields, error, setError }) => {
       e.preventDefault()
       console.log('grppp', groupFields)
       if (!getToken()) throw new Error('Please login to create a group')
-      // if (e.target.name === groupFields.name) throw new Error('Group already exists')
+      if (groups.some(group => group.name === groupFields.name)) throw new Error('Group already exists')
       const { data } = await axios.post('api/groups', groupFields, {
         headers: {
           Authorization: `Bearer ${getToken()}`,
@@ -69,10 +69,14 @@ const GroupForm = ({ groupFields, setGroupFields, error, setError }) => {
           onChange={handleChange}
           value={groupFields.image}
           placeholder='Link a picture' />
+        <ImageUpload
+          groupFields={groupFields}
+          setGroupFields={setGroupFields}
+        />
         <br />
         {error && <small className='text-danger'>{error}</small>}
         <br />
-        <button className='group-create-btn'>Create Group</button>
+        <button className='uni-btn group-create-btn'>Create Group</button>
       </form>
     </Card>
   )
