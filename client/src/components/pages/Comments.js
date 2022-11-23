@@ -6,12 +6,12 @@ import { getTimeElapsed } from '../../helpers/general'
 import CommentForm from './CommentForm'
 
 
-const Comments = ({ comment, groupId, postId, setRefresh, refresh  }) => {
+const Comments = ({ comment, groupId, postId, setRefresh, refresh }) => {
   const { owner, message, _id: commentId } = comment
-  const [ timeElapsed, setTimeElapsed ] = useState(getTimeElapsed(comment.createdAt))
-  const [ toEdit, setToEdit ] = useState(false)
-  const [ error, setError ] = useState(false)
-  const [ commentField , setCommentField ] = useState({
+  const [timeElapsed, setTimeElapsed] = useState(getTimeElapsed(comment.createdAt))
+  const [toEdit, setToEdit] = useState(false)
+  const [error, setError] = useState(false)
+  const [commentField, setCommentField] = useState({
     message: '',
   })
 
@@ -24,20 +24,22 @@ const Comments = ({ comment, groupId, postId, setRefresh, refresh  }) => {
     }
   }, [])
   //Edit comment
-  async function editComment(e){
+  async function editComment(e) {
     setToEdit(!toEdit)
     setCommentField({
       message: comment.message,
     })
   }
   //submit editted comment
-  async function handleCommentSubmit(e){
+  async function handleCommentSubmit(e) {
     try {
       e.preventDefault()
       if (!getToken()) throw new Error('Please login')
-      await axios.put(`api/groups/${groupId}/posts/${postId}/comments/${commentId}`, commentField, { headers: {
-        Authorization: `Bearer ${getToken()}`,
-      } })
+      await axios.put(`api/groups/${groupId}/posts/${postId}/comments/${commentId}`, commentField, {
+        headers: {
+          Authorization: `Bearer ${getToken()}`,
+        },
+      })
       console.log('Edit comment success')
       setRefresh(!refresh)
       setToEdit(false)
@@ -48,12 +50,14 @@ const Comments = ({ comment, groupId, postId, setRefresh, refresh  }) => {
     }
   }
   //delete comment
-  async function deleteComment(e){
+  async function deleteComment(e) {
     try {
       e.preventDefault()
-      await axios.delete(`api/groups/${groupId}/posts/${postId}/comments/${commentId}`, { headers: {
-        Authorization: `Bearer ${getToken()}`,
-      } })
+      await axios.delete(`api/groups/${groupId}/posts/${postId}/comments/${commentId}`, {
+        headers: {
+          Authorization: `Bearer ${getToken()}`,
+        },
+      })
       console.log('delete comment success')
       setRefresh(!refresh)
       setCommentField({ message: '' })
@@ -62,16 +66,16 @@ const Comments = ({ comment, groupId, postId, setRefresh, refresh  }) => {
       setError(err.response.data.message)
     }
   }
-    
+
   return (
     <Card className="textBox">
-      {isOwner(owner._id) && 
-      <div className="d-flex justify-content-end">
-        <button className="me-2 subtle" onClick={editComment}>Edit</button>
-        <button className="subtle" onClick={deleteComment}>Delete</button>
-      </div>}
-      <Card.Title className="userName">@{owner.username}</Card.Title>
-      {toEdit ? 
+      {isOwner(owner._id) &&
+        <div className="d-flex justify-content-end">
+          <button className="me-2 subtle" onClick={editComment}>Edit</button>
+          <button className="subtle" onClick={deleteComment}>Delete</button>
+        </div>}
+      <Card.Title className="username">@{owner.username}</Card.Title>
+      {toEdit ?
         <CommentForm commentField={commentField} setCommentField={setCommentField} error={error} setError={setError} handleCommentSubmit={handleCommentSubmit} />
         :
         <>

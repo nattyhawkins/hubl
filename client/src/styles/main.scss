@@ -1,5 +1,5 @@
-$primary: rgb(255, 236, 195);
-$secondary: lighten($primary, 15%);
+$primary: rgb(0, 0, 0);
+$secondary: rgb(122, 0, 79);
 $button-colour: darken($primary, 5%);
 
 * {
@@ -19,13 +19,22 @@ body {
   top: 0;
   z-index: 1100;
   background-color: $primary;
+  border-bottom: 2px solid grey;
+}
+
+h2 {
+  color: white;
+  // text-shadow: 1px 1px white;
+  font-weight: 900;
 }
 
 .navbarContainer {
-  background-color: $secondary;
+  // background-color: lighten($primary, 15%);
+  // background-color: $primary;
   display: flex;
   justify-content: space-between;
   align-items: baseline;
+
 
   .logo {
     font-size: 30px;
@@ -33,11 +42,12 @@ body {
 
   a {
     margin: 0 5px;
+    color: white;
   }
 }
 
 .uni-btn {
-  background-color: #3897f0;
+  background-color: $secondary;
   border: none;
   color: white;
   padding: 12px;
@@ -49,6 +59,7 @@ body {
 //HOME
 .group-search {
   height: 40px;
+  margin: 20px;
 }
 
 .group-index {
@@ -66,11 +77,16 @@ body {
 .groups-row {
   min-width: calc(100% - 75px);
   height: 450px;
+  margin: 10px 0 10px 0;
 }
 
 .group-card {
+
+  ::before {
+    filter: grayscale(100%)
+  }
+
   .card {
-    border: 1px solid rgba(0, 0, 0, 0.5);
     border-radius: 18px;
     background-color: lighten($primary, 15%);
     background-size: cover;
@@ -79,7 +95,7 @@ body {
     height: 75px;
     display: flex;
     justify-content: center;
-    margin-bottom: 1px;
+    margin-bottom: 2px;
     padding: 10px;
   }
 
@@ -123,29 +139,33 @@ body {
   margin-left: 15px;
 }
 
+.add-btn {
+  margin: 50px 0 70px 0;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
 .group-form {
   background-color: $secondary;
+  margin-bottom: 60px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
 
   .text-area {
     height: 100px;
     width: 300px;
     padding: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
   }
 
   .group-input {
     margin: 10px;
     width: 300px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
   }
 
   .group-create-btn {
-    background-color: #3897f0;
-    border: none;
-    color: white;
-    padding: 12px;
-    border-radius: 9px;
-    width: 240px;
-    margin: 12px 0 25px 0;
-    font-weight: 900;
+    background-color: $primary;
+    margin-bottom: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
   }
 }
 
@@ -158,10 +178,11 @@ body {
   padding: 0 30px;
 
   .card {
-    background-color: $secondary;
+    background-color: lighten($primary, 20%);
     padding: 5px;
     margin-top: 10px;
     border-radius: 15px;
+    // border: 1px solid $secondary;
 
     form {
       input {
@@ -169,17 +190,18 @@ body {
       }
     }
 
+
     .textBox {
-      background-color: lighten($secondary, 10%);
+      background-color: rgba(255, 255, 255, 0.7);
       border-radius: 15px;
       padding: 10px;
       margin-bottom: 15px;
 
       .username {
         padding-right: 10px;
+        color: $secondary;
         // border-right: 1px solid $secondary;
       }
-
     }
 
     button {
@@ -196,10 +218,10 @@ body {
     }
 
     .liked {
-      background-color: green;
+      background-color: $secondary;
 
       &:hover {
-        background-color: lighten(green, 10%);
+        background-color: lighten($secondary, 10%);
       }
     }
   }
@@ -231,33 +253,36 @@ body {
 
 //Single Group Page
 .banner {
-  background-color: $primary;
   padding: 10px 0;
 
   .bannerContainer {
+    background-color: $secondary;
+    color: white;
+    border-radius: 15px;
 
     .title {
       // max-width: 80%;
 
       h5 {
-        color: lighten($primary, 15%);
+        // color: lighten($primary, 15%);
         margin: 10px;
       }
 
       h1 {
         font-size: 1.8em;
         margin: 0 20px 10px 0;
-        color: lighten($primary, 25%);
+        // color: lighten($primary, 25%);
       }
     }
 
     .bio {
       // border: 2px solid lighten($primary, 15%);
-      border-top: 5px solid lighten($primary, 15%);
-      border-right: 5px solid lighten($primary, 15%);
+      border-top: 5px solid white;
+      border-right: 5px solid white;
       // max-width: calc(100% - 40px);
-      color: lighten($primary, 15%);
+      color: rgba(255, 255, 255, 0.5);
       max-height: calc(200px - 30px);
+      padding-top: 12px;
 
       // box-shadow: 5px 5px 2px 0px white;
       p {
@@ -313,6 +338,7 @@ body {
 
   .groups-row {
     align-items: center;
+    margin-left: -10px;
   }
 
   .group-card {
@@ -340,17 +366,6 @@ body {
       margin: 10px;
       width: 400px;
     }
-
-    .group-create-btn {
-      background-color: #3897f0;
-      border: none;
-      color: white;
-      padding: 12px;
-      border-radius: 9px;
-      width: 240px;
-      margin: 12px 0 25px 0;
-      font-weight: 900;
-    }
   }
 
 
@@ -361,28 +376,60 @@ body {
 // login and register pages
 
 .login .register {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  background-color: white;
-  min-width: 350px;
-  margin-top: 12px;
-  font-weight: 600;
-  padding: 10px 0 10px 0;
-  border: 2px solid black;
+  // display: fixed;
+  // top: 50%;
+  // left: 50%;
+  // background-color: white;
+  // min-width: 350px;
+  // margin-top: 12px;
+  // font-weight: 900;
+  // padding: 10px 0 10px 0;
+  // border: 2px solid black;
 }
+
+// .login .register {
+//   display: flex;
+//   align-items: center;
+//   flex-direction: column;
+//   background-color: white;
+//   min-width: 350px;
+//   margin-top: 12px;
+//   font-weight: 600;
+//   padding: 10px 0 10px 0;
+//   border: 2px solid black;
+// }
 
 .form-container {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  margin: 10px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 30em;
+  height: 18em;
+  margin-top: -9em;
+  margin-left: -15em;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background-color: $secondary;
 }
 
+// .form-container {
+//   display: flex;
+//   align-items: center;
+//   flex-direction: column;
+//   margin: 10px;
+// }
+
 .form {
-  display: flex;
-  flex-direction: column;
+  // display: flex;
+  // flex-direction: column;
+  // align-items: center;
+  // justify-content: center;
   width: 240px;
+
+  .login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 input {
@@ -393,10 +440,10 @@ input {
 }
 
 footer {
-  background-color: darken($secondary, 30%);
+  // background-color: $secondary;
   text-align: center;
   font-size: 15px;
-  color: rgb(54, 54, 54);
+  color: rgba(255, 255, 255, 0.5);
   padding: 15px 0 0 0;
   height: 50px;
   position: absolute;

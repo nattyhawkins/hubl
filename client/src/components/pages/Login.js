@@ -5,7 +5,7 @@ import { setToken } from '../../helpers/auth.js'
 
 
 import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
+
 
 
 
@@ -40,29 +40,31 @@ const Login = () => {
 
   return (
     <main>
-      <Container className='login form-container'>
-        <h1>Welcome Back!</h1>
-        <div className='flex-center'></div>
-        <form onSubmit={handleSubmit} className='form'>
-          <input
-            type='text'
-            name='username'
-            placeholder='Username *'
-            onChange={handleChange}
-            value={formFields.username}
-            required
-          />
-          <input
-            type='password'
-            name='password'
-            placeholder='Password *'
-            onChange={handleChange}
-            value={formFields.password}
-            required
-          />
-          <button>Log in</button>
-        </form>
-        {error && <small className='text-danger'>{error}</small>}
+      <h1>Welcome Back!</h1>
+      <Container className='form-container'>
+        <div className='login-container'>
+
+          <form onSubmit={handleSubmit} className='form'>
+            <input
+              type='text'
+              name='username'
+              placeholder='Username *'
+              onChange={handleChange}
+              value={formFields.username}
+              required
+            />
+            <input
+              type='password'
+              name='password'
+              placeholder='Password *'
+              onChange={handleChange}
+              value={formFields.password}
+              required
+            />
+            <button>Log in</button>
+          </form>
+          {error && <small className='text-danger'>{error}</small>}
+        </div>
       </Container>
     </main>
   )

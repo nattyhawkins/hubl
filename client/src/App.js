@@ -1,5 +1,3 @@
-import { useEffect } from 'react'
-import axios from 'axios'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Home from './components/pages/Home'
 import GroupSingle from './components/pages/GroupSingle'
@@ -10,14 +8,6 @@ import Login from './components/pages/Login'
 import Footer from './components/common/Footer'
 
 const App = () => {
-
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     const { data } = await axios.get('/api/products/') // * <-- replace with your endpoint
-  //     console.log(data)
-  //   }
-  //   getData()
-  // })
 
   return (
     <>
@@ -32,7 +22,6 @@ const App = () => {
         </Routes>
         <Footer />
       </BrowserRouter>
-
     </>
   )
 }
