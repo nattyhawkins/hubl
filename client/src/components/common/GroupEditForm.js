@@ -43,6 +43,7 @@ const GroupEditForm = ({ groupFields, setGroupFields, error, setError, groups, h
         <ImageUpload
           groupFields={groupFields}
           setGroupFields={setGroupFields}
+          imageKey={'groupImage'}
         />
         <br />
         {error && <small className='text-danger'>{error}</small>}

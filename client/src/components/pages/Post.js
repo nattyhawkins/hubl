@@ -120,10 +120,6 @@ const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refres
     }
   }
 
-  function openComments() {
-    setOpen(!open)
-
-  }
 
   return (
     <Card key={postId} className='post'>

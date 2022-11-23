@@ -16,7 +16,7 @@ const Profile = () => {
   const [ error, setError ] = useState(null)
   const [refresh, setRefresh] = useState(false)
   const { userId } = useParams()
-  const [editProfile, setEditProfile] = useState(false)
+  const [toEditProfile, setToEditProfile] = useState(false)
   const [profileFields, setProfileFields] = useState({
     bio: '',
     image: '',
@@ -54,9 +54,10 @@ const Profile = () => {
           Authorization: `Bearer ${getToken()}`,
         },
       })
-      console.log('profile updated!!')
-      setProfileFields({ bio: '' })
+      console.log('profile updated!!', data)
+      setProfileFields({ bio: '', image: '' })
       setRefresh(!refresh)
+      setToEditProfile(false)
     } catch (err) {
       console.log('EDIT FAIL ->', err.message ? err.message : err.response.data.message)
       setError(err.message ? err.message : err.response.data.message)
@@ -67,6 +68,13 @@ const Profile = () => {
     setProfileFields({ ...profileFields, [e.target.name]: e.target.value })
     if (error) setError('')
   }
+  async function editProfile() {
+    setToEditProfile(!toEditProfile)
+    setProfileFields({    
+      bio: profile.bio,
+      image: profile.image,
+    })
+  }
 
   return (
     <main className='group-single profile'>
@@ -75,23 +83,24 @@ const Profile = () => {
           <div className='banner'>
             <Container className='bannerContainer'>
               <Col >
-                {editProfile ? 
+                {toEditProfile ? 
                   <ImageUpload
-                    profileFields={profileFields}
-                    setProfileFields={setProfileFields}
+                    groupFields={profileFields}
+                    setGroupFields={setProfileFields}
+                    imageKey={'image'}
                   />
                   :
                   <img className="profile-pic profile" src={profile.image} alt="profile"/>
                 }
                 <div className='col-md-8 title d-flex align-items-center'>
                   <h1>{profile.username}</h1>
-                  <Button className="h-50" variant="outline-light" onClick={() => (setEditProfile(!editProfile))}>Edit Bio</Button>
+                  <Button className="h-50" variant="outline-light" onClick={() => (editProfile())} >Edit Bio</Button>
                 </div>
                 {/* <img  src='https://i.pinimg.com/originals/30/10/27/301027a5dc725be9db489aa498d3eddf.jpg' alt="profile"/> */}
                 
               </Col>
               <Col className="col-md-4 bio justify-end">
-                {editProfile ? 
+                {toEditProfile ? 
                   <form onSubmit={handleSubmit}>
                     <input
                       className='text-area w-100'
