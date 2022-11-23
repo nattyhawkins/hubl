@@ -8,7 +8,7 @@ import Comments from './Comments'
 import Post from './Post'
 import { v4 as uuid } from 'uuid'
 import ImageUpload from '../common/ImageUpload'
-import profilePenguin from '../../assets/HUBL-penguin.jpg'
+import profilePenguin from '../../assets/profile-penguin.jpg'
 
 const Profile = () => {
 
@@ -80,13 +80,13 @@ const Profile = () => {
                     setProfileFields={setProfileFields}
                   />
                   :
-                  <img className="profile-pic profile" src={profilePenguin} alt="profile"/>
+                  <img className="profile-pic profile" src={profile.image} alt="profile"/>
                 }
                 <div className='col-md-8 title d-flex align-items-center'>
                   <h1>{profile.username}</h1>
                   <Button className="h-50" variant="outline-light" onClick={() => (setEditProfile(!editProfile))}>Edit Bio</Button>
                 </div>
-                
+                {/* <img  src='https://i.pinimg.com/originals/30/10/27/301027a5dc725be9db489aa498d3eddf.jpg' alt="profile"/> */}
                 
               </Col>
               <Col className="col-md-4 bio justify-end">
