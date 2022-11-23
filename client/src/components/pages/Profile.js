@@ -1,12 +1,14 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import { Card, Col, Container, Row } from 'react-bootstrap'
+import { Button, Card, Col, Container, Row } from 'react-bootstrap'
 import { Link, useParams } from 'react-router-dom'
 import { getPayload, getToken } from '../../helpers/auth'
 import { unixTimestamp } from '../../helpers/general'
 import Comments from './Comments'
 import Post from './Post'
 import { v4 as uuid } from 'uuid'
+import ImageUpload from '../common/ImageUpload'
+import profilePenguin from '../../assets/HUBL-penguin.jpg'
 
 const Profile = () => {
 
@@ -14,6 +16,11 @@ const Profile = () => {
   const [ error, setError ] = useState(null)
   const [refresh, setRefresh] = useState(false)
   const { userId } = useParams()
+  const [editProfile, setEditProfile] = useState(false)
+  const [profileFields, setProfileFields] = useState({
+    bio: '',
+  })
+  
 
   // const [ userId, setUserId ] = useState(() => {
   //   if (getToken()) return getPayload().sub
@@ -30,25 +37,77 @@ const Profile = () => {
         console.log(data)
         setProfile(data)
       } catch (err) {
-        setError(err)
+        setError(err)                          
       }
     }
     getProfile()
 
   }, [refresh, userId])
 
+  async function handleSubmit(e) {
+    try {
+      e.preventDefault()
+      if (!getToken()) throw new Error('Please login')
+      const { data } = await axios.patch('/api/profile', profileFields, {
+        headers: {
+          Authorization: `Bearer ${getToken()}`,
+        },
+      })
+      console.log('profile updated!!')
+      setProfileFields({ bio: '' })
+      setRefresh(!refresh)
+    } catch (err) {
+      console.log('EDIT FAIL ->', err.message ? err.message : err.response.data.message)
+      setError(err.message ? err.message : err.response.data.message)
+    }
+  }
+
+  function handleChange(e) {
+    setProfileFields({ ...profileFields, [e.target.name]: e.target.value })
+    if (error) setError('')
+  }
+
   return (
-    <main className='group-single'>
+    <main className='group-single profile'>
       {profile &&
         <> 
           <div className='banner'>
             <Container className='bannerContainer'>
-              <Col className='col-md-8 title'>
-                <h1>{profile.username}</h1>
+              <Col >
+                {editProfile ? 
+                  <ImageUpload
+                    profileFields={profileFields}
+                    setProfileFields={setProfileFields}
+                  />
+                  :
+                  <img className="profile-pic profile" src={profilePenguin} alt="profile"/>
+                }
+                <div className='col-md-8 title d-flex align-items-center'>
+                  <h1>{profile.username}</h1>
+                  <Button className="h-50" variant="outline-light" onClick={() => (setEditProfile(!editProfile))}>Edit Bio</Button>
+                </div>
+                
                 
               </Col>
               <Col className="col-md-4 bio justify-end">
-                <p>Potential bio editting</p>
+                {editProfile ? 
+                  <form onSubmit={handleSubmit}>
+                    <input
+                      className='text-area w-100'
+                      type='text'
+                      name='bio'
+                      onChange={handleChange}
+                      value={profileFields.bio}
+                      placeholder='Don&apos;t be shy... Introduce yourself!'
+                      required />
+                    {error && <small className='text-danger'>{error}</small>}
+                    <br />
+                    <button className='uni-btn group-create-btn'>Submit</button>
+                  </form>
+                  :
+                  <p>{profile.bio}</p>
+                }
+                
               </Col>
             </Container>
           </div>
@@ -57,6 +116,21 @@ const Profile = () => {
               <Row className='groups-row text-center'>
                 <h2>My Created Groups</h2>
                 {profile.myGroups.map(group => {
+                  const { name, image, _id: groupId } = group
+                  return (
+                    <Col md='3' key={groupId} className='group-card' >
+                      <Link className='text-decoration-none' to={`/${groupId}`}>
+                        <Card style={{ backgroundImage: `url(${image})` }}>
+                          <div className='group-name'>{name}</div>
+                        </Card>
+                      </Link>
+                    </Col>
+                  )
+                })}
+              </Row>
+              <Row className='groups-row text-center'>
+                <h2>Group Memberships</h2>
+                {profile.joinedGroups.map(group => {
                   const { name, image, _id: groupId } = group
                   return (
                     <Col md='3' key={groupId} className='group-card' >

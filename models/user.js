@@ -6,6 +6,8 @@ const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true, maxlength: 30 },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
+  bio: { type: String, maxlength: 500, default: 'Add bio here...' },
+  image: { type: String, default: './client/assets/profile-penguin.jpg' },
   // joinedGroups: [{ type: mongoose.Schema.ObjectId, ref: 'Group', required: true }],
 }, {
   strictPopulate: false,

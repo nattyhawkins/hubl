@@ -1,5 +1,5 @@
 import express from 'express'
-import { addGroup, addPost, deleteGroup, deletePost, getAllGroups, getSingleGroup, updateGroup, updatePost, addComment, deleteComment, updateComment, likePost, likeComment, getProfile, joinGroup } from '../controllers/groups.js'
+import { addGroup, addPost, deleteGroup, deletePost, getAllGroups, getSingleGroup, updateGroup, updatePost, addComment, deleteComment, updateComment, likePost, likeComment, getProfile, joinGroup, updateProfile } from '../controllers/groups.js'
 import { loginUser, registerUser } from '../controllers/auth.js'
 import secureRoute from './secureRoute.js'
 
@@ -50,6 +50,7 @@ router.route('/groups/:groupId/members')
 router.route('/profile/:userId')
   .get(secureRoute, getProfile)
 
-
+router.route('/profile')
+  .patch(secureRoute, updateProfile)
 
 export default router

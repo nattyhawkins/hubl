@@ -42,7 +42,7 @@ const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refres
     try {
       e.preventDefault()
       if (!getToken()) throw new Error('Please login')
-      await axios.post(`api/groups/${groupId}/posts/${postId}/comments`, commentField, {
+      await axios.post(`/api/groups/${groupId}/posts/${postId}/comments`, commentField, {
         headers: {
           Authorization: `Bearer ${getToken()}`,
         },
@@ -70,7 +70,7 @@ const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refres
   async function handlePostSubmit(e) {
     try {
       e.preventDefault()
-      await axios.put(`api/groups/${groupId}/posts/${postId}`, postFields, {
+      await axios.put(`/api/groups/${groupId}/posts/${postId}`, postFields, {
         headers: {
           Authorization: `Bearer ${getToken()}`,
         },
@@ -88,7 +88,7 @@ const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refres
   async function deletePost(e) {
     try {
       e.preventDefault()
-      await axios.delete(`api/groups/${groupId}/posts/${postId}`, {
+      await axios.delete(`/api/groups/${groupId}/posts/${postId}`, {
         headers: {
           Authorization: `Bearer ${getToken()}`,
         },
@@ -106,7 +106,7 @@ const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refres
     try {
       if (!getToken()) throw new Error('Please login')
       e.preventDefault()
-      const { status } = await axios.post(`api/groups/${groupId}/posts/${postId}/likes`, {}, {
+      const { status } = await axios.post(`/api/groups/${groupId}/posts/${postId}/likes`, {}, {
         headers: {
           Authorization: `Bearer ${getToken()}`,
         },

@@ -34,14 +34,4 @@ export const groupSchema = new mongoose.Schema({
   posts: [postSchema],
   members: [likeSchema],
 })
-
-// postSchema.virtual('groupId', {
-//   ref: 'Group',
-//   localField: '_id',
-//   foreignField: 'posts._id',
-//   get: (res) => {
-//     if (res) console.log(res)
-//   },
-// })
-
 export default mongoose.model('Group', groupSchema)

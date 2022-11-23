@@ -40,7 +40,7 @@ const Comments = ({ comment, groupId, postId, setRefresh, refresh }) => {
     try {
       e.preventDefault()
       if (!getToken()) throw new Error('Please login')
-      await axios.put(`api/groups/${groupId}/posts/${postId}/comments/${commentId}`, commentField, {
+      await axios.put(`/api/groups/${groupId}/posts/${postId}/comments/${commentId}`, commentField, {
         headers: {
           Authorization: `Bearer ${getToken()}`,
         },
@@ -58,7 +58,7 @@ const Comments = ({ comment, groupId, postId, setRefresh, refresh }) => {
   async function deleteComment(e) {
     try {
       e.preventDefault()
-      await axios.delete(`api/groups/${groupId}/posts/${postId}/comments/${commentId}`, {
+      await axios.delete(`/api/groups/${groupId}/posts/${postId}/comments/${commentId}`, {
         headers: {
           Authorization: `Bearer ${getToken()}`,
         },
@@ -76,7 +76,7 @@ const Comments = ({ comment, groupId, postId, setRefresh, refresh }) => {
     try {
       if (!getToken()) throw new Error('Please login')
       e.preventDefault()
-      const { status } = await axios.post(`api/groups/${groupId}/posts/${postId}/comments/${commentId}/likes`, {}, {
+      const { status } = await axios.post(`/api/groups/${groupId}/posts/${postId}/comments/${commentId}/likes`, {}, {
         headers: {
           Authorization: `Bearer ${getToken()}`,
         },
