@@ -1,7 +1,7 @@
 import { Unauthorised, NotFound } from '../config/errors.js'
 import { findGroup, findPost, sendErrors, findComment } from '../config/helpers.js'
 import Group from '../models/group.js'
-import user from '../models/user.js'
+import User from '../models/user.js'
 
 //POST GROUP
 export const addGroup = async (req, res) => {
@@ -23,9 +23,7 @@ export const getAllGroups = async (req, res) => {
     if (req.query.search) {
       filteredGroups = allGroups.filter(group => group.name.toLowerCase().includes(req.query.search.toLowerCase()))
     }
-    console.log('filtered', filteredGroups)
     const groupMap = filteredGroups ? filteredGroups.map(group => group.name) : []
-    console.log('is this it?', groupMap)
     const filter = groupMap.length > 0 ? { name: groupMap } : {}
     const groups = await Group.find(filter, null, { skip: req.query.skip, limit: req.query.limit }).populate('owner')
     return res.json(groups)
@@ -228,11 +226,50 @@ export const likeComment = async (req, res) => {
 
 export const getProfile = async (req, res) => {
   try {
-    const loggedInUser = await user.findById(req.currentUser._id).populate(['myGroups', 'myPosts'])
-    if (!loggedInUser) throw new NotFound('Uh oh, User not found!')
-    return res.json(loggedInUser)
+    const targetUser = await User.findById(req.params.userId).populate(['myGroups', 'myPosts'])
+    if (!targetUser) throw new NotFound('Uh oh, User not found!')
+    return res.json(targetUser)
   } catch (err) {
     console.log(err)
+    sendErrors(res, err)
+  }
+}
+
+// //join group
+// export const joinGroup = async (req, res) => {
+//   try {
+//     const targetUser = await User.findById(req.params.userId)
+//     if (!targetUser) throw new NotFound('Uh oh, User not found!')
+//     const group = await findGroup(req, res, ['owner', 'posts.owner', 'posts.comments.owner'])
+//     if (group) {
+//       const groupCopy = { ...group }
+//       targetUser.joinedGroups.push(groupCopy)
+//       console.log('targetUser', targetUser)
+//       await targetUser.save()
+//       console.log('saved')
+//       return res.json(groupCopy)
+//     }
+//   } catch (err) {
+//     sendErrors(res, err)
+//   }
+// }
+
+export const joinGroup = async (req, res) => {
+  try {
+    const group = await findGroup(req, res)
+    if (group) {
+      const isMember = group.members.find(member => member.owner.equals(req.currentUser._id))
+      if (isMember) {
+        await isMember.remove()
+        await group.save()
+        return res.sendStatus(204)
+      }
+      const newMember = { ...req.body, owner: req.currentUser._id }
+      group.members.push(newMember)
+      await group.save()
+      return res.json(newMember)
+    }
+  } catch (err) {
     sendErrors(res, err)
   }
 }

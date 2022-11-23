@@ -107,7 +107,7 @@ const GroupIndex = ({ groupId }) => {
                 const { name, _id, image } = group
                 return (
                   <Col md='4' key={_id} className='group-card' >
-                    <Link className='text-decoration-none' to={`${_id}`}>
+                    <Link className='text-decoration-none' to={`/${_id}`}>
                       <Card style={{ backgroundImage: `url(${image})` }}>
                         <div className='group-name'>{name}</div>
                       </Card>

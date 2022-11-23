@@ -6,6 +6,7 @@ const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true, maxlength: 30 },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
+  // joinedGroups: [{ type: mongoose.Schema.ObjectId, ref: 'Group', required: true }],
 })
 
 userSchema
@@ -48,11 +49,7 @@ userSchema.virtual('myGroups', {
   localField: '_id',
   foreignField: 'owner',
 })
-// userSchema.virtual('joinedGroups', {
-//   ref: 'Group',
-//   localField: '_id',
-//   foreignField: 'owner',
-// })
+
 userSchema.virtual('myPosts', {
   ref: 'Group',
   localField: '_id',
@@ -60,11 +57,15 @@ userSchema.virtual('myPosts', {
   get: (res, _vir, user) => {
     // console.log('my posts on group 1', res[0].posts)
     if (res) return res.map(group => {
+      const { _id: groupId } = group
       const myPostsArray = group.posts.filter(post => {
         return post.owner.equals(user._id)
       })
+      console.log('post array -- ', myPostsArray)
+      // const withGroupId = myPostsArray.map(post => ({ ...post, 'groupId': groupId }))
+      // myPostsArray.groupId = groupId
       console.log('look here', myPostsArray)
-      return myPostsArray
+      return { posts: myPostsArray, groupId }
     }) 
 
   },

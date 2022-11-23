@@ -131,7 +131,7 @@ const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refres
           <PostForm postFields={postFields} setPostFields={setPostFields} error={error} setError={setError} handlePostSubmit={handlePostSubmit}/>
           :  
           <div className="textBox">
-            <Card.Title><span className="username">@{post.owner.username}</span> {post.title}</Card.Title>
+            <Card.Title><Link to={`/profile/${post.owner._id}`}className="username">@{post.owner.username}</Link> {post.title}</Card.Title>
             <Card.Text>{post.message}</Card.Text>
             <Card.Text>{timeElapsed}</Card.Text>
           </div>

@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
-import { Card, Col, Row, Container, Collapse } from 'react-bootstrap'
+import { Link, useNavigate, useParams } from 'react-router-dom'
+import { Card, Col, Row, Container, Collapse, Button } from 'react-bootstrap'
 import { v4 as uuid } from 'uuid'
 import Post from './Post'
 import PostForm from '../common/PostForm'
@@ -16,12 +16,17 @@ import Comments from './Comments'
 const GroupSingle = () => {
 
   const [group, setGroup] = useState([])
+  const navigate = useNavigate()
   const [error, setError] = useState(false)
   const [refresh, setRefresh] = useState(false)
   const [postFields, setPostFields] = useState({
     title: '',
     message: '',
     tags: [],
+  })
+  const [ memberStatus, setMemberStatus ] = useState(() => {
+    if (getToken() && group.members && group.members.some(member => isOwner(member.owner))) return 202
+    return 204
   })
 
 
@@ -85,6 +90,22 @@ const GroupSingle = () => {
     }
   }
 
+  async function handleJoin(e) {
+    try {
+      e.preventDefault()
+      if (!getToken()) return navigate('/login')
+      const { status } = await axios.post(`api/groups/${groupId}/members`, { }, { headers: {
+        Authorization: `Bearer ${getToken()}`,
+      } })
+      setMemberStatus(status)
+      console.log('join success')
+      setRefresh(!refresh)
+    } catch (err) {
+      console.log(err.message ? err.message : err.response.data.message)
+      setError(err.message ? err.message : err.response.data.message)
+    }
+  }
+
   return (
     <main className='group-single'>
       {group ?
@@ -97,6 +118,10 @@ const GroupSingle = () => {
               </Col>
               <Col className="col-md-4 bio justify-end">
                 <p>{group.bio}</p>
+                {group.members && (group.members.length === 1 ? <p>{group.members.length} member</p> : <p>{group.members.length} members</p>)}
+                {memberStatus === 204 ? <Button onClick={handleJoin}>Join Group</Button> : <Button onClick={handleJoin}>Leave Group</Button>
+                }
+                
               </Col>
             </Container>
           </div>
