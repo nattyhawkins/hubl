@@ -141,7 +141,7 @@ const GroupSingle = () => {
                   )
                 })
                 return (
-                  <Post key={postId} postId={postId} post={post} commentHTML={commentHTML} tagesHTML={tagsHTML} groupId={groupId} setRefresh={setRefresh} refresh={refresh} />
+                  <Post key={postId} postId={postId} post={post} commentHTML={commentHTML} tagesHTML={tagsHTML} groupId={groupId} setRefresh={setRefresh} refresh={refresh}/>
                 )
               })}
             </Container>

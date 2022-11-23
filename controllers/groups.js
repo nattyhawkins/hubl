@@ -226,7 +226,13 @@ export const likeComment = async (req, res) => {
 
 export const getProfile = async (req, res) => {
   try {
-    const targetUser = await User.findById(req.params.userId).populate(['myGroups', 'myPosts'])
+    const targetUser = await User.findById(req.params.userId).populate(['myGroups', 'myPosts', 'joinedGroups']).populate({ 
+      path: 'myPosts',
+      populate: { path: 'posts.owner' },
+    }).populate({ 
+      path: 'myPosts',
+      populate: { path: 'posts', populate: { path: 'comments.owner' } },
+    })
     if (!targetUser) throw new NotFound('Uh oh, User not found!')
     return res.json(targetUser)
   } catch (err) {

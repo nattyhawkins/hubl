@@ -12,21 +12,12 @@ import Profile from './components/pages/Profile'
 
 const App = () => {
 
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     const { data } = await axios.get('/api/products/') // * <-- replace with your endpoint
-  //     console.log(data)
-  //   }
-  //   getData()
-  // })
-
   return (
     <>
       <BrowserRouter>
         <TheNavbar />
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/profile' element={<Profile />} />
           <Route path='/profile/:userId' element={<Profile />} />
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />

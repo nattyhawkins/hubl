@@ -12,7 +12,7 @@ const Profile = () => {
 
   const [ profile, setProfile ] = useState(null)
   const [ error, setError ] = useState(null)
-
+  const [refresh, setRefresh] = useState(false)
   const { userId } = useParams()
 
   // const [ userId, setUserId ] = useState(() => {
@@ -23,6 +23,7 @@ const Profile = () => {
   useEffect(() => {
     const getProfile = async () => {
       try {
+        console.log(userId)
         const { data } = await axios.get(`/api/profile/${userId}`, { headers: {
           Authorization: `Bearer ${getToken()}`,
         } })
@@ -34,7 +35,7 @@ const Profile = () => {
     }
     getProfile()
 
-  }, [])
+  }, [refresh, userId])
 
   return (
     <main className='group-single'>
@@ -70,22 +71,25 @@ const Profile = () => {
               </Row>
               <Row className='groups-row text-center'>
                 <h2>My Posts</h2>
-                {/* {profile.myPosts.sort((a, b) => (unixTimestamp(a.createdAt) > unixTimestamp(b.createdAt) ? -1 : 1)).map(post => {
-                  const { tags, _id: postId, comments } = post
-                  const tagsHTML = tags.map(tag => {
-                    const tagWithId = { tag: tag, id: uuid() }
-                    return <Card.Subtitle key={tagWithId.id} className="tag">#{tagWithId.tag}</Card.Subtitle>
-                  })
-                  const commentHTML = comments.sort((a, b) => (unixTimestamp(a.createdAt) > unixTimestamp(b.createdAt) ? -1 : 1)).map(comment => {
-                    const { message, _id: commentId, owner } = comment
+                <Container className="mainContainer"> {profile.myPosts.map(object => {
+                  const { groupId, posts } = object
+                  return posts.sort((a, b) => (unixTimestamp(a.createdAt) > unixTimestamp(b.createdAt) ? -1 : 1)).map(post => {
+                    const { tags, _id: postId, comments } = post
+                    const tagsHTML = tags.map(tag => {
+                      const tagWithId = { tag: tag, id: uuid() }
+                      return <Card.Subtitle key={tagWithId.id} className="tag">#{tagWithId.tag}</Card.Subtitle>
+                    })
+                    const commentHTML = comments.sort((a, b) => (unixTimestamp(a.createdAt) > unixTimestamp(b.createdAt) ? -1 : 1)).map(comment => {
+                      const { message, _id: commentId, owner } = comment
+                      return (
+                        <Comments key={commentId} comment={comment} groupId={groupId} postId={postId} setRefresh={setRefresh} refresh={refresh} />
+                      )
+                    })
                     return (
-                      <Comments key={commentId} comment={comment} groupId={groupId} postId={postId} setRefresh={setRefresh} refresh={refresh} />
+                      <Post key={postId} postId={postId} commentHTML={commentHTML} tagesHTML={tagsHTML} post={post} groupId={groupId} setRefresh={setRefresh} refresh={refresh} />
                     )
                   })
-                  return (
-                    <Post key={postId} postId={postId} post={post} commentHTML={commentHTML} tagesHTML={tagsHTML} groupId={groupId} setRefresh={setRefresh} refresh={refresh} />
-                  )
-                })} */}
+                })}</Container>
               </Row>
             </Container>
           </Row>
