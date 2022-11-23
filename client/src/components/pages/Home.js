@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import { Container, Row, Col, Card, Collapse } from 'react-bootstrap/'
 
 import SearchBar from '../common/SearchBar'
 import arrow from '../../assets/arrow-white.png'
 import GroupForm from '../common/GroupForm'
-import ImageUpload from '../common/ImageUpload'
+import { getToken, isAuthenticated } from '../../helpers/auth'
 
 
 
@@ -15,8 +15,6 @@ const GroupIndex = ({ groupId }) => {
 
   const [open, setOpen] = useState(false)
   const [groups, setGroups] = useState([])
-  const [groupNumber, setGroupNumber] = useState(null)
-
   const [searchedGroups, setSearchedGroups] = useState([])
   const [error, setError] = useState(false)
   const [skip, setSkip] = useState(0)
@@ -29,6 +27,7 @@ const GroupIndex = ({ groupId }) => {
 
   const [search, setSearch] = useState('')
 
+  const navigate = useNavigate()
 
 
   useEffect(() => {
@@ -89,7 +88,7 @@ const GroupIndex = ({ groupId }) => {
 
   return (
     <>
-      <main className='group-index'>
+      <main className='home-page'>
         <h2 className='text-center'>Find a group that interests you!</h2>
         <SearchBar groups={groups}
           setSearchedGroups={setSearchedGroups}
@@ -105,11 +104,11 @@ const GroupIndex = ({ groupId }) => {
           {searchedGroups.length ?
             <Row className='groups-row text-center'>
               {searchedGroups.map(group => {
-                const { name, _id, image } = group
+                const { name, _id, image, groupImage } = group
                 return (
                   <Col md='4' key={_id} className='group-card' >
                     <Link className='text-decoration-none' to={`${_id}`}>
-                      <Card style={{ backgroundImage: `url(${image})` }}>
+                      <Card style={{ backgroundImage: `url(${image ? image : groupImage})` }}>
                         <div></div>
                         <div className='group-name'>{name}</div>
                       </Card>
@@ -128,21 +127,25 @@ const GroupIndex = ({ groupId }) => {
             disabled={searchedGroups.length < 6 || skip === groups.length - 6}
           />
         </Container>
-        <button className='uni-btn text-center add-btn' onClick={() => setOpen(!open)} aria-controls={groupId} aria-expanded={open}>Add your own group</button>
-        <Collapse in={open}>
+        {isAuthenticated() ?
           <div className='adding-group'>
-            <div className='mt-4 mb-5 text-center'>
-              <GroupForm
-                groupFields={groupFields}
-                setGroupFields={setGroupFields}
-                error={error}
-                setError={setError}
-                groups={groups}
-              />
-            </div>
+            <button className='uni-btn text-center add-btn' onClick={() => setOpen(!open)} aria-controls={groupId} aria-expanded={open}>Add your own group</button>
+            <Collapse in={open}>
+              <div className='mt-4 mb-5 text-center'>
+                <GroupForm
+                  groupFields={groupFields}
+                  setGroupFields={setGroupFields}
+                  error={error}
+                  setError={setError}
+                  groups={groups}
+                />
+              </div>
+            </Collapse>
           </div>
-        </Collapse>
-      </main >
+          :
+          <button className='uni-btn text-center login-btn' onClick={() => navigate('/login')}>Login to create a Group</button>
+        }
+      </main>
     </>
   )
 }

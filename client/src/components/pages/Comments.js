@@ -78,7 +78,7 @@ const Comments = ({ comment, groupId, postId, setRefresh, refresh }) => {
       const { status } = await axios.post(`api/groups/${groupId}/posts/${postId}/comments/${commentId}/likes`, {}, {
         headers: {
           Authorization: `Bearer ${getToken()}`,
-        }
+        },
       })
       setLikeStatus(status)
       console.log('like comment success')

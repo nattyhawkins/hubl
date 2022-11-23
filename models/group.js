@@ -30,6 +30,7 @@ const groupSchema = new mongoose.Schema({
   name: { type: String, required: true, unique: true, maxlength: 50 },
   bio: { type: String, maxlength: 500 },
   image: { type: String },
+  groupImage: { type: String },
   owner: { type: mongoose.Schema.ObjectId, ref: 'User', required: true },
   posts: [postSchema],
 })

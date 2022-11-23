@@ -45,7 +45,7 @@ const Register = () => {
 
 
   return (
-    <>
+    <main className='auth-pages'>
       <div className='register form-container'>
         <h1>Register</h1>
         <form onSubmit={handleSubmit} className='form'>
@@ -89,7 +89,7 @@ const Register = () => {
           <p><span>By signing up, you agree to our</span> Terms &amp; Privacy Policy.</p>
         </div>
       </div>
-    </>
+    </main>
   )
 }
 export default Register

@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { Card, Col, Row, Container, Collapse } from 'react-bootstrap'
 import { v4 as uuid } from 'uuid'
 import Post from './Post'
@@ -10,31 +10,41 @@ import moment from 'moment'
 import { unixTimestamp } from '../../helpers/general'
 import { isOwner } from '../../helpers/auth'
 import Comments from './Comments'
+import GroupEditForm from '../common/GroupEditForm'
 
 
 
 const GroupSingle = () => {
 
+
   const [group, setGroup] = useState([])
   const [error, setError] = useState(false)
   const [refresh, setRefresh] = useState(false)
+  const [toEdit, setToEdit] = useState(false)
   const [postFields, setPostFields] = useState({
     title: '',
     message: '',
     tags: [],
   })
+  const [groupFields, setGroupFields] = useState({
+    name: '',
+    bio: '',
+    image: '',
+    groupImage: '',
+  })
+
+
 
 
   // const [ tag, setTag ] = useState('')
 
   const { groupId } = useParams()
-
+  const navigate = useNavigate()
 
   useEffect(() => {
     const getGroup = async () => {
       try {
         const { data } = await axios.get(`/api/groups/${groupId}`)
-        console.log(data)
         setGroup(data)
       } catch (err) {
         setError(err)
@@ -66,6 +76,59 @@ const GroupSingle = () => {
   // }
 
 
+
+  // edit group
+  async function editGroup() {
+    setToEdit(!toEdit)
+    setGroupFields({
+      name: group.name,
+      bio: group.bio,
+      image: group.image,
+      groupImage: group.groupImage,
+    })
+  }
+
+
+  async function handleGroupSubmit(e) {
+    try {
+      e.preventDefault()
+      await axios.put(`api/groups/${groupId}`, groupFields, {
+        headers: {
+          Authorization: `Bearer ${getToken()}`,
+        },
+      })
+      console.log('edit group success')
+      setRefresh(!refresh)
+      setToEdit(false)
+      setGroupFields({ name: '', bio: '', image: '', groupImage: '' })
+    } catch (err) {
+      console.log(err.response.data.message)
+      setError(err.response.data.message)
+    }
+  }
+
+  async function deleteGroup(e) {
+    try {
+      e.preventDefault()
+      await axios.delete(`api/groups/${groupId}`, {
+        headers: {
+          Authorization: `Bearer ${getToken()}`,
+        },
+      })
+      console.log('delete grp success')
+      setRefresh(!refresh)
+      setGroupFields({ name: '', bio: '', image: '', groupImage: '' })
+      navigate('/')
+    } catch (err) {
+      console.log(err.response.data.message)
+      setError(err.response.data.message)
+    }
+  }
+
+
+
+
+
   //submit brand new post
   async function handlePostSubmit(e) {
     try {
@@ -77,6 +140,7 @@ const GroupSingle = () => {
         },
       })
       console.log('post success')
+      console.log('whats group', group.owner._id)
       setRefresh(!refresh)
       setPostFields({ title: '', message: '', tags: [] })
     } catch (err) {
@@ -85,13 +149,28 @@ const GroupSingle = () => {
     }
   }
 
+
+
   return (
     <main className='group-single'>
       {group ?
         <>
+          {group.owner && isOwner(group.owner._id) &&
+            <div className='btn-div'>
+              <button className='grp-edit-btn' onClick={editGroup} >Edit</button>
+              <button className='grp-delete-btn' onClick={deleteGroup} >Delete</button>
+            </div>
+          }
+          {toEdit ?
+            <GroupEditForm groupFields={groupFields} setGroupFields={setGroupFields} error={error} setError={setError} handleGroupSubmit={handleGroupSubmit} />
+            :
+            <div className='grp-edit-box'>
+              <Card.Title>{group.title}</Card.Title>
+            </div>
+          }
           <div className='banner'>
-            <Container className='bannerContainer'>
-              <Col className='col-md-8 title'>
+            <Container className='bannerContainer' style={{ backgroundImage: `url(${group.image ? group.image : group.groupImage})` }}>
+              <Col className='col-md-8 title' >
                 <h5>Welcome to</h5>
                 <h1>{group.name}</h1>
               </Col>
@@ -110,7 +189,7 @@ const GroupSingle = () => {
                   return <Card.Subtitle key={tagWithId.id} className="tag">#{tagWithId.tag}</Card.Subtitle>
                 })
                 const commentHTML = comments.sort((a, b) => (unixTimestamp(a.createdAt) > unixTimestamp(b.createdAt) ? -1 : 1)).map(comment => {
-                  const { message, _id: commentId, owner } = comment
+                  const { _id: commentId } = comment
                   return (
                     <Comments key={commentId} comment={comment} groupId={groupId} postId={postId} setRefresh={setRefresh} refresh={refresh} />
                   )
@@ -122,9 +201,8 @@ const GroupSingle = () => {
             </Container>
           </Row>
         </>
-        : <h1>{ error.message }</h1>
+        : <h1>{error.message}</h1>
       }
-
     </main >
   )
 }

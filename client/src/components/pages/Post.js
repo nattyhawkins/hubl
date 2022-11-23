@@ -126,30 +126,36 @@ const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refres
   }
 
   return (
-    <Card key={postId} className="post">
+    <Card key={postId} className='post'>
       <Card.Body>
         {/* If owner show edit & delete */}
         {isOwner(post.owner._id) &&
-          <div className="d-flex justify-content-end">
-            <button className="me-2 subtle" onClick={editPost}>Edit</button>
-            <button className="subtle" onClick={deletePost}>Delete</button>
+          <div className='d-flex justify-content-end'>
+            <p className='post-btn' onClick={editPost}>Edit</p>
+            <p className='post-btn' onClick={deletePost}>Delete</p>
           </div>
         }
         {toEdit ?
           <PostForm postFields={postFields} setPostFields={setPostFields} error={error} setError={setError} handlePostSubmit={handlePostSubmit} />
           :
-          <div className="textBox">
-            <Card.Title><span className="username">@{post.owner.username}</span> {post.title}</Card.Title>
+          <div className='textBox'>
+            <Card.Title><span className='username'>@{post.owner.username}</span> {post.title}</Card.Title>
             <Card.Text>{post.message}</Card.Text>
             <Card.Text>{timeElapsed}</Card.Text>
           </div>
         }
-        <div className="infoBox">
-          <div className="d-flex">
+        <div className='infoBox'>
+          <div className='d-flex align-items-center'>
+            <a href={`#${postId}`}><button className='uni-btn' onClick={() => setOpen(!open)} aria-controls={postId} aria-expanded={open} >💬 {post.comments.length} Comments</button></a>
+            <div className='tagDiv'>
+              {tagsHTML}
+            </div>
             {likeStatus === 204 ?
-              <Button variant="outline-secondary" className="likeBtn" onClick={handlePostLike}>👍</Button>
+              // <Button variant='outline-secondary' className='like-btn' onClick={handlePostLike}>👍</Button>
+              <p className='like-btn' onClick={handlePostLike}>👍</p>
               :
-              <Button variant="outline-secondary" className="likeBtn liked" onClick={handlePostLike}>❤️</Button>
+              // <Button variant='outline-secondary' className='like-btn liked' onClick={handlePostLike}>❤️</Button>
+              <p className='like-btn liked' onClick={handlePostLike}>❤️</p>
             }
             <Card.Text>
               {post.likes.length === 0 ? <> Be the first to like</>
@@ -160,17 +166,11 @@ const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refres
               }
             </Card.Text>
           </div>
-          <a href={`#${postId}`}><button className="btn" onClick={() => setOpen(!open)} aria-controls={postId} aria-expanded={open} >💬 {post.comments.length} Comments</button></a>
-          <div className="tagDiv">
-            {tagsHTML}
-          </div>
         </div>
-        <CommentForm commentField={commentField} setCommentField={setCommentField} error={error} setError={setError} handleCommentSubmit={handleCommentSubmit} />
-        <a id={postId} ></a>
+        {/* <a id={postId} ></a> */}
         <Collapse in={open}>
-
           <div id={postId}>
-
+            <CommentForm commentField={commentField} setCommentField={setCommentField} error={error} setError={setError} handleCommentSubmit={handleCommentSubmit} />
             {commentHTML}
           </div>
         </Collapse>
