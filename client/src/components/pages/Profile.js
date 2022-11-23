@@ -19,6 +19,7 @@ const Profile = () => {
   const [editProfile, setEditProfile] = useState(false)
   const [profileFields, setProfileFields] = useState({
     bio: '',
+    image: '',
   })
   
 

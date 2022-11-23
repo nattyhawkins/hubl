@@ -25,30 +25,23 @@ body {
   z-index: 1100;
   background-color: $primary;
   border-bottom: 2px solid grey;
-}
 
-h2 {
-  color: white;
-  // text-shadow: 1px 1px white;
-  font-weight: 900;
-}
-
-.navbarContainer {
-  // background-color: lighten($primary, 15%);
-  // background-color: $primary;
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
+  .navbarContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
 
 
-  .logo {
-    font-size: 30px;
+    .logo {
+      font-size: 30px;
+    }
+
+    a {
+      margin: 0 5px;
+      color: white;
+    }
   }
 
-  a {
-    margin: 0 5px;
-    color: white;
-  }
 }
 
 .uni-btn {
@@ -62,34 +55,104 @@ h2 {
 }
 
 //HOME
-.group-search {
-  height: 40px;
-  margin: 20px;
-}
-
-.group-index {
+.home-page {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
 
-.groups-container {
-  display: flex;
-  align-items: center;
-  width: calc(100% - 40px);
-}
+  h2 {
+    color: white;
+    font-weight: 900;
+    margin-top: 10px;
 
-.groups-row {
-  min-width: calc(100% - 75px);
-  height: 450px;
-  margin: 10px 0 10px 0;
+  }
+
+  .search-input {
+    height: 40px;
+    margin: 0px;
+  }
+
+  .groups-container {
+    display: flex;
+    align-items: center;
+    width: calc(100% - 40px);
+  }
+
+
+  .groups-row {
+    min-width: calc(100% - 75px);
+    height: 450px;
+    margin: 10px 0 10px 0;
+  }
+
+  .btn-left {
+    height: 75px;
+    width: 75px;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    transform: rotate(180deg);
+    border: none;
+    background-color: $primary;
+    margin-right: 15px;
+  }
+
+  .btn-right {
+    height: 75px;
+    width: 75px;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    border: none;
+    background-color: $primary;
+    margin-left: 15px;
+  }
+
+  .adding-group {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    .add-btn {
+      margin: 50px 0 70px 0;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .group-form {
+      background-color: $secondary;
+      margin-bottom: 60px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+
+      .text-area {
+        height: 100px;
+        min-height: 50px;
+        width: 300px;
+        padding: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+
+      .group-input {
+        margin: 10px;
+        width: 300px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+
+      .group-create-btn {
+        background-color: $primary;
+        margin-bottom: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+    }
+  }
+
+  .login-btn {
+    margin: 50px;
+    font-size: 10px;
+  }
+
 }
 
 .group-card {
-
-  ::before {
-    filter: grayscale(100%)
-  }
 
   .card {
     border-radius: 18px;
@@ -119,62 +182,8 @@ h2 {
       0.07em -0.07em black,
       0.07em 0.07em black;
   }
+
 }
-
-.btn-left {
-  height: 75px;
-  width: 75px;
-  background-position: center;
-  background-size: contain;
-  background-repeat: no-repeat;
-  transform: rotate(180deg);
-  border: none;
-  background-color: $primary;
-  margin-right: 15px;
-}
-
-.btn-right {
-  height: 75px;
-  width: 75px;
-  background-position: center;
-  background-size: contain;
-  background-repeat: no-repeat;
-  border: none;
-  background-color: $primary;
-  margin-left: 15px;
-}
-
-.add-btn {
-  margin: 50px 0 70px 0;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-.group-form {
-  background-color: $secondary;
-  margin-bottom: 60px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-
-  .text-area {
-    height: 100px;
-    width: 300px;
-    padding: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-  }
-
-  .group-input {
-    margin: 10px;
-    width: 300px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-  }
-
-  .group-create-btn {
-    background-color: $primary;
-    margin-bottom: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-  }
-}
-
-
 
 // reusable for any main page
 .mainContainer {
@@ -182,12 +191,13 @@ h2 {
   margin: 0 auto;
   padding: 0 30px;
 
+
   .card {
-    background-color: lighten($primary, 20%);
+    background-color: lighten($primary, 50%);
     padding: 5px;
     margin-top: 10px;
     border-radius: 15px;
-    // border: 1px solid $secondary;
+    color: white;
 
     form {
       input {
@@ -197,7 +207,7 @@ h2 {
 
 
     .textBox {
-      background-color: rgba(255, 255, 255, 0.7);
+      background-color: $primary;
       border-radius: 15px;
       padding: 10px;
       margin-bottom: 15px;
@@ -205,14 +215,12 @@ h2 {
       .username {
         padding-right: 10px;
         color: $secondary;
-        // border-right: 1px solid $secondary;
       }
     }
 
     button {
       margin: 0 10px;
       background-color: darken($button-colour, 20%);
-      // border: 2px solid $primary;
       border-radius: 8px;
       color: white;
 
@@ -223,10 +231,21 @@ h2 {
     }
 
     .liked {
-      background-color: $secondary;
+      // background-color: $secondary;
 
       &:hover {
         background-color: lighten($secondary, 10%);
+        border-radius: 15px;
+      }
+    }
+
+    .like-btn {
+      border: none;
+      font-size: 40px;
+
+      &:hover {
+        background-color: lighten($primary, 10%);
+        border-radius: 15px;
       }
     }
   }
@@ -237,16 +256,16 @@ h2 {
   }
 
   .infoBox {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
+    // display: flex;
+    // justify-content: space-between;
+    // align-items: flex-end;
+
+
 
     .tagDiv {
       display: flex;
       text-align: right;
 
-      // background-color: lighten($primary, 10%);
-      // padding: 10px;
       .tag {
         margin: 5px;
         color: darken($primary, 15%);
@@ -257,130 +276,107 @@ h2 {
 }
 
 //Single Group Page
-.banner {
-  padding: 10px 0;
+.group-single {
+  .banner {
+    padding: 10px 0;
 
-  .bannerContainer {
-    background-image: linear-gradient(black, $secondary);
+    .bannerContainer {
+      background-color: $secondary;
+      color: white;
+      border-radius: 15px;
+      background-size: cover;
+      background-position: center;
+
+      .title {
+        text-shadow:
+          0.10em 0 black,
+          0 0.10em black,
+          -0.10em 0 black,
+          0 -0.10em black,
+          -0.10em -0.10em black,
+          -0.10em 0.10em black,
+          0.10em -0.10em black,
+          0.10em 0.10em black;
+
+        h5 {
+          margin: 10px;
+        }
+
+        h1 {
+          font-size: 1.8em;
+          margin: 0 20px 10px 0;
+          color: white;
+        }
+      }
+
+      .bio {
+        // border-top: 5px solid white;
+        // border-right: 5px solid white;
+        color: white;
+        max-height: calc(200px - 30px);
+        padding: 12px;
+        background-color: rgba(0, 0, 0, 0.6);
+        box-shadow: 0px 0px 30px black;
+        border-radius: 20px;
+        text-shadow: black 1px 1px 10px,
+          0.09em 0 black,
+          0 0.09em black,
+          -0.09em 0 black,
+          0 -0.09em black,
+          -0.09em -0.09em black,
+          -0.09em 0.09em black,
+          0.09em -0.09em black,
+          0.09em 0.09em black;
+
+        p {
+          margin: 0;
+        }
+      }
+    }
+  }
+}
+
+// post page
+.post {
+
+
+  .post-btn {
+    cursor: pointer;
     color: white;
-    border-radius: 15px;
-
-    .title {
-      // max-width: 80%;
-
-      h5 {
-        // color: lighten($primary, 15%);
-        margin: 10px;
-      }
-
-      h1 {
-        font-size: 1.8em;
-        margin: 0 20px 10px 0;
-        color: lighten($accent, 25%);
-      }
-    }
-
-    .bio {
-      // border: 2px solid lighten($primary, 15%);
-      border-top: 5px solid lighten($accent, 10%);
-      border-right: 5px solid lighten($accent, 10%);
-      // max-width: calc(100% - 40px);
-      color: lighten($accent, 10%);
-      max-height: calc(200px - 30px);
-      padding-top: 12px;
-
-      // box-shadow: 5px 5px 2px 0px white;
-      p {
-        margin: 0;
-      }
-    }
+    margin-left: 20px;
   }
-}
-
-@media (min-width: 610px) {
-
-  .bannerContainer {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    height: 200px;
-
-    .title {
-      font-size: 1.7em;
-    }
-
-    .bio {
-      align-self: flex-start;
-      max-width: calc(100% - 20px);
-      margin-top: 20px;
-      padding: 0 5px;
-      font-size: 1.1em;
-    }
-  }
-
-  .group-card {
-
-    .group-name {
-      font-size: 30px;
-    }
-  }
-}
-
-
-@media (min-width: 768px) {
-
-  .group-index {
-    margin-top: 35px;
-  }
-
-  .search-function {
-    margin: 20px;
-
-    .group-search {
-      min-width: 350px;
-    }
-  }
-
-  .groups-row {
-    align-items: center;
-    margin-left: -10px;
-  }
-
-  .group-card {
-    .card {
-      min-width: 200px;
-      height: 200px;
-      padding: 10px;
-    }
-
-    .group-name {
-      font-size: 35px;
-    }
-  }
-
-  .group-form {
-    background-color: $secondary;
-
-    .text-area {
-      height: 100px;
-      width: 400px;
-      padding: 10px;
-    }
-
-    .group-input {
-      margin: 10px;
-      width: 400px;
-    }
-  }
-
-
 
 
 }
 
 // login and register pages
+.auth-pages {
+  .form-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 30em;
+    height: 18em;
+    margin-top: -9em;
+    margin-left: -15em;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background-color: $secondary;
+  }
 
-.login .register {
+  .form {
+    // display: flex;
+    // flex-direction: column;
+    // align-items: center;
+    // justify-content: center;
+    width: 240px;
+
+    .login-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
   // display: fixed;
   // top: 50%;
   // left: 50%;
@@ -390,51 +386,19 @@ h2 {
   // font-weight: 900;
   // padding: 10px 0 10px 0;
   // border: 2px solid black;
-}
 
-// .login .register {
-//   display: flex;
-//   align-items: center;
-//   flex-direction: column;
-//   background-color: white;
-//   min-width: 350px;
-//   margin-top: 12px;
-//   font-weight: 600;
-//   padding: 10px 0 10px 0;
-//   border: 2px solid black;
-// }
 
-.form-container {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 30em;
-  height: 18em;
-  margin-top: -9em;
-  margin-left: -15em;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  background-color: $secondary;
-}
-
-// .form-container {
-//   display: flex;
-//   align-items: center;
-//   flex-direction: column;
-//   margin: 10px;
-// }
-
-.form {
-  // display: flex;
-  // flex-direction: column;
-  // align-items: center;
-  // justify-content: center;
-  width: 240px;
-
-  .login-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+  // .login .register {
+  //   display: flex;
+  //   align-items: center;
+  //   flex-direction: column;
+  //   background-color: white;
+  //   min-width: 350px;
+  //   margin-top: 12px;
+  //   font-weight: 600;
+  //   padding: 10px 0 10px 0;
+  //   border: 2px solid black;
+  // }
 }
 
 input {
@@ -473,5 +437,101 @@ footer {
 
   h2 {
     text-align: left;
+  }
+}
+
+.comment-input {
+  max-width: 600px;
+}
+
+@media (min-width: 610px) {
+
+  .bannerContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    height: 200px;
+
+    .title {
+      font-size: 1.7em;
+
+    }
+
+    .bio {
+      align-self: flex-start;
+      max-width: calc(100% - 20px);
+      margin-top: 20px;
+      padding: 0 5px;
+      font-size: 1.1em;
+    }
+  }
+
+  .group-card {
+
+    .group-name {
+      font-size: 30px;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+
+  .home-page {
+    margin-top: 1%;
+
+
+    .groups-row {
+      align-items: center;
+      // margin-left: -10px;
+      // margin-bottom: 90px;
+    }
+  }
+
+  .groups-container {
+    margin-bottom: 50px;
+  }
+
+  h2 {
+    margin: 30px;
+  }
+
+  .search-function {
+    margin-bottom: 40px;
+
+    .search-input {
+      min-width: 350px;
+    }
+  }
+
+  .group-card {
+    .card {
+      min-width: 200px;
+      height: 200px;
+      padding: 10px;
+    }
+
+    .group-name {
+      font-size: 35px;
+    }
+  }
+
+  .group-form {
+    background-color: $secondary;
+    color: white;
+
+    .text-area {
+      height: 100px;
+      width: 400px;
+      padding: 10px;
+    }
+
+    .group-input {
+      margin: 10px;
+      width: 400px;
+    }
+
+    label {
+      margin: 15px;
+    }
   }
 }

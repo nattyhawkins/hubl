@@ -39,7 +39,7 @@ const Login = () => {
 
 
   return (
-    <main>
+    <main className='auth-pages'>
       <h1>Welcome Back!</h1>
       <Container className='form-container'>
         <div className='login-container'>
