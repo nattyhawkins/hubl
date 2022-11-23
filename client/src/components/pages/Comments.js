@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import { Card } from 'react-bootstrap'
+import { Button, Card } from 'react-bootstrap'
 import { getToken, isOwner } from '../../helpers/auth'
 import { getTimeElapsed } from '../../helpers/general'
 import CommentForm from './CommentForm'
@@ -11,6 +11,10 @@ const Comments = ({ comment, groupId, postId, setRefresh, refresh }) => {
   const [timeElapsed, setTimeElapsed] = useState(getTimeElapsed(comment.createdAt))
   const [toEdit, setToEdit] = useState(false)
   const [error, setError] = useState(false)
+  const [likeStatus, setLikeStatus] = useState(() => {
+    if (getToken() && comment.likes.some(like => isOwner(like.owner))) return 202
+    return 204
+  })
   const [commentField, setCommentField] = useState({
     message: '',
   })
@@ -67,6 +71,24 @@ const Comments = ({ comment, groupId, postId, setRefresh, refresh }) => {
     }
   }
 
+  async function handleCommentLike(e) {
+    try {
+      if (!getToken()) throw new Error('Please login')
+      e.preventDefault()
+      const { status } = await axios.post(`api/groups/${groupId}/posts/${postId}/comments/${commentId}/likes`, {}, {
+        headers: {
+          Authorization: `Bearer ${getToken()}`,
+        }
+      })
+      setLikeStatus(status)
+      console.log('like comment success')
+      setRefresh(!refresh)
+    } catch (err) {
+      console.log(err.message ? err.message : err.response.data.message)
+      setError(err.message ? err.message : err.response.data.message)
+    }
+  }
+
   return (
     <Card className="textBox">
       {isOwner(owner._id) &&
@@ -80,9 +102,25 @@ const Comments = ({ comment, groupId, postId, setRefresh, refresh }) => {
         :
         <>
           <Card.Text>{message}</Card.Text>
-          <Card.Text>{timeElapsed}</Card.Text>
+
         </>
       }
+      <Card.Text>{timeElapsed}</Card.Text>
+      <div className="d-flex">
+        {likeStatus === 204 ?
+          <Button className="likeBtn" onClick={handleCommentLike}>👍</Button>
+          :
+          <Button className="likeBtn liked" onClick={handleCommentLike}>❤️</Button>
+        }
+        <Card.Text>
+          {comment.likes.length === 0 ? <>Be the first to like</>
+            :
+            comment.likes.length === 1 ? <>1 Like</>
+              :
+              <>{comment.likes.length} Likes</>
+          }
+        </Card.Text>
+      </div>
     </Card>
 
   )

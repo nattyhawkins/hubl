@@ -1,6 +1,5 @@
 import moment from 'moment'
 
-
 export function unixTimestamp(timestamp){
   return moment(timestamp).format('X')
 }  

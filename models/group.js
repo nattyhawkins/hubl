@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 
 const likeSchema = new mongoose.Schema({
-  owner: { type: mongoose.Schema.ObjectId, ref: 'User', required: true, unique: true },
+  owner: { type: mongoose.Schema.ObjectId, ref: 'User', required: true },
 }, {
   timestamps: true,
 })
@@ -34,6 +34,13 @@ const groupSchema = new mongoose.Schema({
   posts: [postSchema],
 })
 
-
+// postSchema.virtual('groupId', {
+//   ref: 'Group',
+//   localField: '_id',
+//   foreignField: 'posts._id',
+//   get: (res) => {
+//     if (res) console.log(res)
+//   },
+// })
 
 export default mongoose.model('Group', groupSchema)

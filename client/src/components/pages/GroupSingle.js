@@ -34,6 +34,7 @@ const GroupSingle = () => {
     const getGroup = async () => {
       try {
         const { data } = await axios.get(`/api/groups/${groupId}`)
+        console.log(data)
         setGroup(data)
       } catch (err) {
         setError(err)
@@ -121,7 +122,7 @@ const GroupSingle = () => {
             </Container>
           </Row>
         </>
-        : <h2>error</h2>
+        : <h1>{ error.message }</h1>
       }
 
     </main >

@@ -16,6 +16,7 @@ const GroupIndex = ({ groupId }) => {
   const [open, setOpen] = useState(false)
   const [groups, setGroups] = useState([])
   const [groupNumber, setGroupNumber] = useState(null)
+
   const [searchedGroups, setSearchedGroups] = useState([])
   const [error, setError] = useState(false)
   const [skip, setSkip] = useState(0)

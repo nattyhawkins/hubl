@@ -18,6 +18,7 @@ const TheNavbar = () => {
           {isAuthenticated() ?
             <>
               <Link className='nav-link' onClick={() => handleLogout(navigate)}>Logout</Link>
+              <Nav.Link as={Link} to='/profile'>Profile</Nav.Link>
             </>
             :
             <>

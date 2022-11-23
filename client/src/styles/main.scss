@@ -8,7 +8,7 @@ $button-colour: darken($primary, 5%);
 
 body {
   min-height: 100vh;
-  background-color: $primary;
+  background-color: rgb(244, 244, 244);
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   position: relative;
   margin: 0;
@@ -206,7 +206,7 @@ h2 {
 
     button {
       margin: 0 10px;
-      background-color: $button-colour;
+      background-color: darken($button-colour, 20%);
       // border: 2px solid $primary;
       border-radius: 8px;
       color: white;
@@ -271,7 +271,7 @@ h2 {
       h1 {
         font-size: 1.8em;
         margin: 0 20px 10px 0;
-        // color: lighten($primary, 25%);
+        color: lighten($primary, 30%);
       }
     }
 
@@ -280,7 +280,7 @@ h2 {
       border-top: 5px solid white;
       border-right: 5px solid white;
       // max-width: calc(100% - 40px);
-      color: rgba(255, 255, 255, 0.5);
+      color: lighten($primary, 25%);
       max-height: calc(200px - 30px);
       padding-top: 12px;
 
@@ -450,4 +450,18 @@ footer {
   bottom: 0;
   left: 0;
   right: 0;
+}
+
+//Profile
+.profileContainer {
+  max-width: 1310px;
+  width: calc(100% - 40px);
+
+  .row {
+    height: 300px;
+  }
+
+  h2 {
+    text-align: left;
+  }
 }

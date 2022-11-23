@@ -1,6 +1,7 @@
-import { Unauthorised } from '../config/errors.js'
+import { Unauthorised, NotFound } from '../config/errors.js'
 import { findGroup, findPost, sendErrors, findComment } from '../config/helpers.js'
 import Group from '../models/group.js'
+import user from '../models/user.js'
 
 //POST GROUP
 export const addGroup = async (req, res) => {
@@ -16,8 +17,8 @@ export const addGroup = async (req, res) => {
 
 //GET ALL GROUPS
 export const getAllGroups = async (req, res) => {
-  let filteredGroups
   try {
+    let filteredGroups
     const allGroups = await Group.find({}).populate('owner')
     if (req.query.search) {
       filteredGroups = allGroups.filter(group => group.name.toLowerCase().includes(req.query.search.toLowerCase()))
@@ -218,6 +219,20 @@ export const likeComment = async (req, res) => {
       return res.json(ownedLike)
     }
   } catch (err) {
+    sendErrors(res, err)
+  }
+}
+
+
+//profile
+
+export const getProfile = async (req, res) => {
+  try {
+    const loggedInUser = await user.findById(req.currentUser._id).populate(['myGroups', 'myPosts'])
+    if (!loggedInUser) throw new NotFound('Uh oh, User not found!')
+    return res.json(loggedInUser)
+  } catch (err) {
+    console.log(err)
     sendErrors(res, err)
   }
 }
