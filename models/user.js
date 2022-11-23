@@ -59,7 +59,7 @@ userSchema.virtual('myPosts', {
   foreignField: 'posts.owner',
   get: (res, _vir, user) => {
     // console.log('my posts on group 1', res[0].posts)
-    return res.map(group => {
+    if (res) return res.map(group => {
       const myPostsArray = group.posts.filter(post => {
         return post.owner.equals(user._id)
       })
