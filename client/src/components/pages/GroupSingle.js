@@ -178,20 +178,6 @@ const GroupSingle = () => {
               <div className='grp-edit-box'>
                 <Card.Title>{group.title}</Card.Title>
               </div>
-              <div className='banner'>
-                <Container className='bannerContainer' style={{ backgroundImage: `url(${group.image ? group.image : group.groupImage})` }}>
-                  <Col className='col-md-8 title' >
-                    <h5>Welcome to</h5>
-                    <h1>{group.name}</h1>
-                  </Col>
-                  <Col className="col-md-4 bio justify-end">
-                    <p>{group.bio}</p>
-                    {group.members && (group.members.length === 1 ? <p>{group.members.length} member</p> : <p>{group.members.length} members</p>)}
-                    {memberStatus === 204 ? <Button onClick={handleJoin}>Join Group</Button> : <Button onClick={handleJoin}>Leave Group</Button>
-                    }
-                  </Col>
-                </Container>
-              </div>
             </>
           }
           <div className='banner'>
