@@ -11,10 +11,7 @@ const ImageUpload = ({ groupFields, setGroupFields, imageKey }) => {
       formData.append('file', event.target.files[0])
       formData.append('upload_preset', process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET)
       const { data } = await axios.post(process.env.REACT_APP_CLOUDINARY_URL, formData)
-
       setGroupFields({ ...groupFields, [imageKey]: data.secure_url })
-      
-      console.log('img data', data)
     } catch (err) {
       console.log(err)
     }

@@ -11,7 +11,8 @@ $button-colour: $secondary;
   a {
     text-decoration: none;
   }
-  hr{
+
+  hr {
     color: $tertiary;
   }
 }
@@ -281,7 +282,9 @@ body {
       border-radius: 15px;
       padding: 10px;
       color: rgb(27, 27, 27);
-      
+      margin-top: 15px;
+      max-width: 780px;
+
     }
 
     button {
@@ -337,8 +340,9 @@ body {
     padding-bottom: 10px;
     color: lighten($accent, 25%);
     margin: 0 auto;
+    max-width: 1000px;
 
-    .bannerContainer:not(.wider){
+    .bannerContainer:not(.wider) {
       max-width: 1000px;
     }
 
@@ -556,17 +560,19 @@ footer {
 }
 
 .profile {
-  .banner{
+  .banner {
     max-width: 1300px;
-    
+
   }
+
   .bannerContainer {
     background-image: linear-gradient($primary, $secondary);
 
     button {
       width: 90px;
     }
-    .bio{
+
+    .bio {
       border: 1px solid $tertiary;
       border-radius: 15px;
     }
@@ -599,7 +605,7 @@ footer {
 .comment-input {
   max-width: calc(100% - 120px);
   border: 1px solid $primary;
-  
+
 }
 
 @media (min-width: 610px) {

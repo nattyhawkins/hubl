@@ -1,12 +1,11 @@
 import axios from 'axios'
 import { useState, useEffect } from 'react'
-import { Button, Card, Collapse } from 'react-bootstrap'
+import { Card, Collapse } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { getToken, isOwner } from '../../helpers/auth'
 import { getTimeElapsed } from '../../helpers/general'
 import PostForm from '../common/PostForm'
 import CommentForm from './CommentForm'
-import Profile from './Profile'
 
 
 
