@@ -1,8 +1,9 @@
 $primary: rgb(0, 0, 0);
 $secondary: rgb(164, 0, 106);
 // $card: lighten($primary, 15%);\
-$card: rgb(207, 224, 219);
-$accent: #ffbd59;
+$card: rgb(0, 0, 0);
+// $card: rgb(224, 207, 223);
+$accent: #ff990078;
 $button-colour: $secondary;
 
 * {
@@ -51,8 +52,8 @@ body {
 
 }
 
-.uni-btn {
-  background-color: $secondary;
+.uni-btn-primary {
+  background-color: $primary;
   border: none;
   color: white;
   padding: 12px;
@@ -61,8 +62,8 @@ body {
   font-weight: 900;
 }
 
-.uni-btn-primary {
-  background-color: $primary;
+.uni-btn {
+  background-color: $secondary;
   border: none;
   color: white;
   padding: 12px;
@@ -222,7 +223,6 @@ body {
       }
     }
 
-
     .textBox {
       background-color: white;
       border-radius: 15px;
@@ -302,12 +302,12 @@ body {
   .banner {
     padding: 10px 0;
 
+
     .bannerContainer {
       max-width: 1000px;
       width: calc(100%);
       background-color: $secondary;
       color: white;
-      
       background-size: cover;
       background-position: center;
 
@@ -358,19 +358,57 @@ body {
       }
     }
   }
+
+  .group-edit-form {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 200px;
+    background-color: $secondary;
+    border-radius: 15px;
+    padding: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    color: white;
+
+    input textarea {
+      width: 200px;
+    }
+
+    .form-group {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      margin: 20px;
+
+      .grp-name {
+        margin-bottom: -25px;
+      }
+    }
+
+
+    .group-edit-btn {
+      height: 50px;
+    }
+
+    .field {
+      text-align: center;
+    }
+  }
 }
+
 
 // post page
 .post {
-
 
   .post-btn {
     cursor: pointer;
     color: $button-colour;
     margin-left: 20px;
   }
-
-
 }
 
 // login and register pages
@@ -471,14 +509,16 @@ footer {
 }
 
 //Profile
-.profile{
-  .bannerContainer{
+.profile {
+  .bannerContainer {
     height: 250px;
-    button{
+
+    button {
       width: 90px;
     }
   }
-  .profile-pic{
+
+  .profile-pic {
     width: 170px;
     height: 170px;
     background-position: center;
@@ -492,9 +532,11 @@ footer {
 .profileContainer {
   max-width: 1310px;
   width: calc(100% - 40px);
+
   .row {
     height: 300px;
   }
+
   h2 {
     text-align: left;
   }
@@ -563,6 +605,15 @@ footer {
     }
   }
 
+  .auth-pages {
+    top: 30%;
+
+    h1 {
+      margin: 50px;
+    }
+  }
+
+
   .group-card {
     .card {
       min-width: 200px;
@@ -597,7 +648,7 @@ footer {
 }
 
 @media (min-width: 1000px) {
-  .bannerContainer{
+  .bannerContainer {
     border-radius: 15px;
   }
 }

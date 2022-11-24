@@ -29,7 +29,7 @@ export const loginUser = async (req, res) => {
     const targetUser = await User.findOne({ username: username })
     //validate
     if (!targetUser || !targetUser.validatePassword(password)) {
-      throw new Unauthorised('Please check username or password')
+      throw new Unauthorised('Wrong Username or Password')
     }
     //token
     const payload = {

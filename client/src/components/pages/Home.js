@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
 
@@ -86,6 +86,17 @@ const GroupIndex = ({ groupId }) => {
     }
   }
 
+  const autoScroll = () => {
+    const myRef = useRef(null)
+
+    const executeScroll = () => {
+      myRef.current.scrollIntoView()
+    }
+  }
+
+
+
+
   return (
     <>
       <main className='home-page'>
@@ -149,4 +160,5 @@ const GroupIndex = ({ groupId }) => {
     </>
   )
 }
+
 export default GroupIndex
