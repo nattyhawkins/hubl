@@ -1,4 +1,3 @@
-import { Col, Container } from 'react-bootstrap'
 import ImageUpload from './ImageUpload'
 
 

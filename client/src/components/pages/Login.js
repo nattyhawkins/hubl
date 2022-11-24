@@ -16,10 +16,11 @@ const Login = () => {
     password: '',
   })
 
-  const [error, setError] = useState('')
+  const [error, setError] = useState(false)
 
   const handleChange = (e) => {
     setFormFields({ ...formFields, [e.target.name]: e.target.value })
+    if (error) setError('')
   }
 
   const handleSubmit = async (e) => {
@@ -29,7 +30,7 @@ const Login = () => {
       setToken(data.token)
       navigate('/')
     } catch (err) {
-      console.log(err)
+      console.log(err.response.data.message)
       setError(err.response.data.message)
 
     }
@@ -58,9 +59,9 @@ const Login = () => {
             value={formFields.password}
             required
           />
-          <button className='uni-btn-primary  mt-5 mb-4'>Log in</button>
+          {error && <small className='text-danger'>{error}</small>}
+          <button className='uni-btn-primary mt-5 mb-4'>Log in</button>
         </form>
-        {error && <small className='text-danger'>{error}</small>}
       </div>
     </main>
   )

@@ -11,11 +11,11 @@ import ImageUpload from '../common/ImageUpload'
 
 const Profile = () => {
 
-  const [ profile, setProfile ] = useState(null)
-  const [ error, setError ] = useState(null)
+  const [profile, setProfile] = useState(null)
+  const [error, setError] = useState(null)
   const [refresh, setRefresh] = useState(false)
   const { userId } = useParams()
-  const [ userAddress, setUserAddress ] = useState(() => {
+  const [userAddress, setUserAddress] = useState(() => {
     if (userId) return `/${userId}`
     return ''
   })
@@ -38,13 +38,15 @@ const Profile = () => {
       try {
         console.log(userAddress)
         console.log(userId)
-        const { data } = await axios.get(`/api/profile${userAddress}`, { headers: {
-          Authorization: `Bearer ${getToken()}`,
-        } })
+        const { data } = await axios.get(`/api/profile${userAddress}`, {
+          headers: {
+            Authorization: `Bearer ${getToken()}`,
+          },
+        })
         console.log(data)
         setProfile(data)
       } catch (err) {
-        setError(err)                          
+        setError(err)
       }
     }
     getProfile()
@@ -76,7 +78,7 @@ const Profile = () => {
   }
   async function editProfile() {
     setToEditProfile(!toEditProfile)
-    setProfileFields({    
+    setProfileFields({
       bio: profile.bio,
       image: profile.image,
     })
@@ -85,11 +87,11 @@ const Profile = () => {
   return (
     <main className='group-single profile'>
       {profile &&
-        <> 
+        <>
           <div className='banner'>
             <Container className='bannerContainer'>
               <Col >
-                {toEditProfile ? 
+                {toEditProfile ?
                   <ImageUpload
                     groupFields={profileFields}
                     setGroupFields={setProfileFields}
@@ -100,13 +102,13 @@ const Profile = () => {
                 }
                 <div className='col-md-8 title d-flex align-items-end'>
                   <h1>{profile.username}</h1>
-                  <button className="btn" style={{ color: 'white' }} onClick={() => (editProfile())} >•••</button>
+                  <button title='edit profile' className="btn" style={{ color: 'white' }} onClick={() => (editProfile())} >•••</button>
                 </div>
                 {/* <img  src='https://i.pinimg.com/originals/30/10/27/301027a5dc725be9db489aa498d3eddf.jpg' alt="profile"/> */}
-                
+
               </Col>
               <Col className="col-md-4 bio justify-end align-self-start">
-                {toEditProfile ? 
+                {toEditProfile ?
                   <form onSubmit={handleSubmit}>
                     <input
                       className='text-area w-100'
@@ -123,7 +125,7 @@ const Profile = () => {
                   :
                   <p>{profile.bio}</p>
                 }
-                
+
               </Col>
             </Container>
           </div>

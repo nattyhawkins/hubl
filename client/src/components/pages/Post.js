@@ -136,8 +136,8 @@ const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refres
           <div className='d-flex justify-content-end' style={{ height: '20px' }}>
             {isOwner(post.owner._id) &&
               <>
-                <p className='post-btn' onClick={editPost}>•••</p>
-                <p style={{ fontSize: '15px' }} className='post-btn' onClick={deletePost}>🆇</p>
+                <p title='edit post' className='post-btn' onClick={editPost}>•••</p>
+                <p title='delete post' style={{ fontSize: '15px' }} className='post-btn' onClick={deletePost}>🆇</p>
               </>
             }
           </div>
