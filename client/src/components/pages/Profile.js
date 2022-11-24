@@ -1,8 +1,8 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import { Button, Card, Col, Container, Row } from 'react-bootstrap'
+import { Card, Col, Container, Row } from 'react-bootstrap'
 import { Link, useParams } from 'react-router-dom'
-import { getPayload, getToken } from '../../helpers/auth'
+import { getToken } from '../../helpers/auth'
 import { unixTimestamp } from '../../helpers/general'
 import Comments from './Comments'
 import Post from './Post'
@@ -105,7 +105,6 @@ const Profile = () => {
                   <button title='edit profile' className="btn" style={{ color: 'white' }} onClick={() => (editProfile())} >•••</button>
                 </div>
                 {/* <img  src='https://i.pinimg.com/originals/30/10/27/301027a5dc725be9db489aa498d3eddf.jpg' alt="profile"/> */}
-
               </Col>
               <Col className="col-md-4 bio justify-end align-self-start">
                 {toEditProfile ?
@@ -125,7 +124,6 @@ const Profile = () => {
                   :
                   <p>{profile.bio}</p>
                 }
-
               </Col>
             </Container>
           </div>
@@ -187,7 +185,6 @@ const Profile = () => {
           </Row>
         </>
       }
-
     </main >
   )
 }
