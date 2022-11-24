@@ -1,11 +1,8 @@
 import { Card } from 'react-bootstrap'
-import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
-import { getToken } from '../../helpers/auth.js'
 import ImageUpload from './ImageUpload'
 
 
-const GroupEditForm = ({ groupFields, setGroupFields, error, setError, groups, handleGroupSubmit }) => {
+const GroupEditForm = ({ groupFields, setGroupFields, error, setError, handleGroupSubmit }) => {
 
   function handleChange(e) {
     setGroupFields({ ...groupFields, [e.target.name]: e.target.value })

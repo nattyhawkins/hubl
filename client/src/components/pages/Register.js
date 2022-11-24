@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const Register = () => {
@@ -46,8 +46,9 @@ const Register = () => {
 
   return (
     <main className='auth-pages'>
+      <h1>Register</h1>
+      <p>Already have an account? <span className='login-here' onClick={() => (navigate('/login'))}>Login here.</span></p>
       <div className='register form-container'>
-        <h1>Register</h1>
         <form onSubmit={handleSubmit} className='form'>
           <input
             type='text'
@@ -83,12 +84,13 @@ const Register = () => {
             required
           />
           {error && <small className='text-danger'>{error}</small>}
-          <button>Register</button>
+          <button className='uni-btn-primary mt-5 mb-4'>Register</button>
         </form>
         <div className='text'>
-          <p><span>By signing up, you agree to our</span> Terms &amp; Privacy Policy.</p>
         </div>
+        <p className='terms'><span>By signing up, you agree to our</span> Terms &amp; Privacy Policy.</p>
       </div>
+
     </main>
   )
 }
