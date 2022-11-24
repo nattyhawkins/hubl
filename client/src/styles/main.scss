@@ -198,15 +198,6 @@ body {
     font-weight: 900;
     text-align: center;
     text-shadow: 0 0 50px black, 0 0 50px black;
-    // text-shadow: black 0px 0px 40px,
-    //   0.07em 0 black,
-    //   0 0.07em black,
-    //   -0.07em 0 black,
-    //   0 -0.07em black,
-    //   -0.07em -0.07em black,
-    //   -0.07em 0.07em black,
-    //   0.07em -0.07em black,
-    //   0.07em 0.07em black;
   }
 
 }
@@ -371,7 +362,7 @@ body {
     text-align: center;
   }
 }
-}
+
 
 
 // post page
@@ -464,41 +455,10 @@ body {
       padding: 5px;
     }
 
-
     ::placeholder {
       color: rgba(255, 255, 255, 0.4);
     }
   }
-
-  // display: fixed;
-  // top: 50%;
-  // left: 50%;
-  // background-color: white;
-  // min-width: 350px;
-  // margin-top: 12px;
-  // font-weight: 900;
-  // padding: 10px 0 10px 0;
-  // border: 2px solid black;
-
-
-  // .login .register {
-  //   display: flex;
-  //   align-items: center;
-  //   flex-direction: column;
-  //   background-color: white;
-  //   min-width: 350px;
-  //   margin-top: 12px;
-  //   font-weight: 600;
-  //   padding: 10px 0 10px 0;
-  //   border: 2px solid black;
-  // }
-}
-
-input {
-  border: none;
-  border-radius: 15px;
-  padding: 10px;
-  margin: 3px 0 3px 0;
 }
 
 footer {

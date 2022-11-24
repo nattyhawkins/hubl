@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { Card, Col, Row, Container, Collapse, Button } from 'react-bootstrap'
+import { Card, Col, Row, Container, Button } from 'react-bootstrap'
 import { v4 as uuid } from 'uuid'
 import Post from './Post'
 import PostForm from '../common/PostForm'

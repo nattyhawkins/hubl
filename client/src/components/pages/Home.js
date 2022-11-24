@@ -141,7 +141,13 @@ const GroupIndex = ({ groupId }) => {
         </Container>
         {isAuthenticated() ?
           <div className='adding-group'>
-            <button className='uni-btn text-center add-btn' onClick={() => setOpen(!open)} aria-controls={groupId} aria-expanded={open}> Don&apos;t find what you&apos;re looking for? <br/> Make your own group! </button>
+            <button
+              className='uni-btn text-center add-btn'
+              onClick={() => setOpen(!open)}
+              aria-controls={groupId}
+              aria-expanded={open}>
+              Don&apos;t find what you&apos;re looking for? <br /> Make your own group!
+            </button>
             <Collapse in={open}>
               <div className='mt-4 mb-5 text-center'>
                 <GroupForm
@@ -155,12 +161,17 @@ const GroupIndex = ({ groupId }) => {
             </Collapse>
           </div>
           :
-          <button className='uni-btn text-center login-btn' onClick={() => navigate('/login')}>Login to create a Group</button>
+          <button
+            className='uni-btn text-center login-btn'
+            onClick={() => navigate('/login')}>
+            Login to create a Group
+          </button>
         }
       </main>
       <Footer />
     </>
   )
+
 }
 
 export default GroupIndex
