@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Navbar, Container, Nav } from 'react-bootstrap'
 import { isAuthenticated, handleLogout, getToken, getPayload } from '../../helpers/auth'
 import skipReset from '../pages/Home.js'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 
 const TheNavbar = () => {

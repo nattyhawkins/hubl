@@ -127,40 +127,53 @@ const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refres
         {/* If owner show edit & delete */}
         {isOwner(post.owner._id) &&
           <div className='d-flex justify-content-end'>
-            <p className='post-btn' onClick={editPost}>Edit</p>
-            <p className='post-btn' onClick={deletePost}>Delete</p>
+            <p className='post-btn' onClick={editPost}>•••</p>
+            <p style={{ fontSize: '20px' }} className='post-btn' onClick={deletePost}>ⓧ</p>
           </div>
         }
         {toEdit ?
           <PostForm postFields={postFields} setPostFields={setPostFields} error={error} setError={setError} handlePostSubmit={handlePostSubmit} />
           :
           <div className="textBox">
-            <Card.Title><Link to={`/profile/${post.owner._id}`} className="username">@{post.owner.username}</Link> {post.title}</Card.Title>
+            <Card.Title><Link to={`/profile/${post.owner._id}`} className="username">@{post.owner.username}</Link>{post.title}</Card.Title>
             <Card.Text>{post.message}</Card.Text>
-            <Card.Text>{timeElapsed}</Card.Text>
+            <Card.Text><small>{timeElapsed}</small></Card.Text>
           </div>
         }
         <div className='infoBox'>
-          <div className='d-flex align-items-center'>
-            <a href={`#${postId}`}><button className='uni-btn' onClick={() => setOpen(!open)} aria-controls={postId} aria-expanded={open} >💬 {post.comments.length} Comments</button></a>
-            <div className='tagDiv'>
-              {tagsHTML}
+          <div className='d-flex align-items-center' style={{ height: '50px' }}>
+            {/* comment box */}
+            <div className="d-flex align-items-center justify-content-between" style={{ width: '260px' }} onClick={() => setOpen(!open)} aria-controls={postId} aria-expanded={open}>
+              <p className='like-btn' >💬</p>
+              <div style={{ width: '210px' }}>
+                <div>
+                  {post.comments.length === 0 ? <> Be the first to comment</>
+                    :
+                    post.comments.length === 1 ? <> 1 Comment</>
+                      :
+                      <>{post.comments.length} Comments</>
+                  }
+                </div>
+              </div>
             </div>
-            {likeStatus === 204 ?
-              // <Button variant='outline-secondary' className='like-btn' onClick={handlePostLike}>👍</Button>
-              <p className='like-btn' onClick={handlePostLike}>👍</p>
-              :
-              // <Button variant='outline-secondary' className='like-btn liked' onClick={handlePostLike}>❤️</Button>
-              <p className='like-btn liked' onClick={handlePostLike}>❤️</p>
-            }
-            <Card.Text>
-              {post.likes.length === 0 ? <> Be the first to like</>
+            {/* like box */}
+            <div className="d-flex align-items-center justify-content-between" style={{ width: '230px' }} onClick={handlePostLike}>
+              {likeStatus === 204 ?
+                <p className='like-btn' >👍</p>
                 :
-                post.likes.length === 1 ? <> 1 Like</>
-                  :
-                  <>{post.likes.length} Likes</>
+                <p className='like-btn liked'>❤️</p>
               }
-            </Card.Text>
+              <div style={{ width: '180px' }}>
+                <div >
+                  {post.likes.length === 0 ? <> Be the first to like</>
+                    :
+                    post.likes.length === 1 ? <> 1 Like</>
+                      :
+                      <>{post.likes.length} Likes</>
+                  }
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         {/* <a id={postId} ></a> */}

@@ -8,7 +8,6 @@ import Comments from './Comments'
 import Post from './Post'
 import { v4 as uuid } from 'uuid'
 import ImageUpload from '../common/ImageUpload'
-import profilePenguin from '../../assets/profile-penguin.jpg'
 
 const Profile = () => {
 
@@ -16,23 +15,30 @@ const Profile = () => {
   const [ error, setError ] = useState(null)
   const [refresh, setRefresh] = useState(false)
   const { userId } = useParams()
+  const [ userAddress, setUserAddress ] = useState(() => {
+    if (userId) return `/${userId}`
+    return ''
+  })
   const [toEditProfile, setToEditProfile] = useState(false)
   const [profileFields, setProfileFields] = useState({
     bio: '',
     image: '',
   })
-  
 
-  // const [ userId, setUserId ] = useState(() => {
-  //   if (getToken()) return getPayload().sub
-  //   return ''
-  // }) 
+
+  useEffect(() => {
+    setUserAddress(() => {
+      if (userId) return `/${userId}`
+      return ''
+    })
+  }, [userId])
 
   useEffect(() => {
     const getProfile = async () => {
       try {
+        console.log(userAddress)
         console.log(userId)
-        const { data } = await axios.get(`/api/profile/${userId}`, { headers: {
+        const { data } = await axios.get(`/api/profile${userAddress}`, { headers: {
           Authorization: `Bearer ${getToken()}`,
         } })
         console.log(data)
@@ -43,7 +49,7 @@ const Profile = () => {
     }
     getProfile()
 
-  }, [refresh, userId])
+  }, [refresh, userAddress])
 
   async function handleSubmit(e) {
     try {
@@ -90,7 +96,7 @@ const Profile = () => {
                     imageKey={'image'}
                   />
                   :
-                  <img className="profile-pic profile" src={profile.image} alt="profile"/>
+                  <div className="profile-pic profile" style={{ backgroundImage: `url(${profile.image})` }} alt="profile"></div>
                 }
                 <div className='col-md-8 title d-flex align-items-center'>
                   <h1>{profile.username}</h1>

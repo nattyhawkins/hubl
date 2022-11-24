@@ -5,6 +5,10 @@ import { useNavigate } from 'react-router-dom'
 
 
 const tokenName = 'hubble-token'
+// const [ userId, setUserId ] = useState(() => {
+//   if (getToken()) return getPayload().sub
+//   return ''
+// }) 
 
 export const setToken = (token) => {
   localStorage.setItem(tokenName, token)
