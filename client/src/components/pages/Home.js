@@ -7,7 +7,7 @@ import { Container, Row, Col, Card, Collapse } from 'react-bootstrap/'
 import SearchBar from '../common/SearchBar'
 import arrow from '../../assets/arrow-white.png'
 import GroupForm from '../common/GroupForm'
-import { getToken, isAuthenticated } from '../../helpers/auth'
+import { isAuthenticated } from '../../helpers/auth'
 
 
 

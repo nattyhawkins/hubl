@@ -39,30 +39,29 @@ const Login = () => {
   return (
     <main className='auth-pages'>
       <h1>Welcome Back!</h1>
-      <Container className='form-container'>
-        <div className='login-container'>
-          <form onSubmit={handleSubmit} className='form'>
-            <input
-              type='text'
-              name='username'
-              placeholder='Username *'
-              onChange={handleChange}
-              value={formFields.username}
-              required
-            />
-            <input
-              type='password'
-              name='password'
-              placeholder='Password *'
-              onChange={handleChange}
-              value={formFields.password}
-              required
-            />
-            <button className='uni-btn'>Log in</button>
-          </form>
-          {error && <small className='text-danger'>{error}</small>}
-        </div>
-      </Container>
+      <p>Don&apos;t have an account? <span className='login-here' onClick={() => (navigate('/register'))}>Register here.</span></p>
+      <div className='login form-container'>
+        <form onSubmit={handleSubmit} className='form'>
+          <input
+            type='text'
+            name='username'
+            placeholder='Username *'
+            onChange={handleChange}
+            value={formFields.username}
+            required
+          />
+          <input
+            type='password'
+            name='password'
+            placeholder='Password *'
+            onChange={handleChange}
+            value={formFields.password}
+            required
+          />
+          <button className='uni-btn-primary  mt-5 mb-4'>Log in</button>
+        </form>
+        {error && <small className='text-danger'>{error}</small>}
+      </div>
     </main>
   )
 }

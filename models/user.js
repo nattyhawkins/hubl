@@ -3,9 +3,9 @@ import mongoose from 'mongoose'
 
 //define registration schema
 const userSchema = new mongoose.Schema({
-  username: { type: String, required: true, unique: true, maxlength: 30 },
+  username: { type: String, required: true, unique: true, minlength: 3, maxlength: 30 },
   email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
+  password: { type: String, required: true, minlength: 3 },
   bio: { type: String, maxlength: 500, default: 'Add bio here...' },
   image: { type: String, default: '../../assets/profile-penguin.jpg' },
   // joinedGroups: [{ type: mongoose.Schema.ObjectId, ref: 'Group', required: true }],
@@ -15,12 +15,12 @@ const userSchema = new mongoose.Schema({
 
 userSchema
   .virtual('passwordConfirmation')
-  .set(function(fieldValue){
+  .set(function (fieldValue) {
     this._passwordConfirmation = fieldValue
   })
 
 userSchema.set('toJSON', {
-  transform(_doc, json){
+  transform(_doc, json) {
     delete json.password
     return json
   },
@@ -29,16 +29,16 @@ userSchema.set('toJSON', {
 
 //check password match - custom pre validation
 userSchema
-  .pre('validate', function(next){
-    if (this.isModified('password') && this._passwordConfirmation !== this.password){
+  .pre('validate', function (next) {
+    if (this.isModified('password') && this._passwordConfirmation !== this.password) {
       this.invalidate('passwordConfirmation', 'Passwords do not match')
     }
     next()
   })
 
 userSchema
-  .pre('save', function(next){
-    if (this.isModified('password')){
+  .pre('save', function (next) {
+    if (this.isModified('password')) {
       this.password = bcrypt.hashSync(this.password, bcrypt.genSaltSync(12))
     }
     next()
@@ -67,7 +67,7 @@ userSchema.virtual('myPosts', {
       console.log('post array -- ', myPostsArray)
       console.log('look here', myPostsArray)
       return { posts: myPostsArray, groupId }
-    }) 
+    })
 
   },
 })

@@ -10,10 +10,10 @@ const TheNavbar = () => {
 
   const navigate = useNavigate()
 
-  const [ userId, setUserId ] = useState(() => {
+  const [userId, setUserId] = useState(() => {
     if (getToken()) return getPayload().sub
     return ''
-  }) 
+  })
 
 
   return (
@@ -24,7 +24,7 @@ const TheNavbar = () => {
           <Nav.Link as={Link} to='/'>Home</Nav.Link>
           {isAuthenticated() ?
             <>
-              <Link className='nav-link' onClick={() => handleLogout(navigate)}>Logout</Link>
+              <span className='nav-link' onClick={() => handleLogout(navigate)}>Logout</span>
               <Nav.Link as={Link} to={`/profile/${userId}`} >Profile</Nav.Link>
             </>
             :
