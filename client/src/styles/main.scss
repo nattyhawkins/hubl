@@ -1,5 +1,6 @@
 $primary: rgb(0, 0, 0);
 $secondary: rgb(122, 0, 79);
+$accent: #ffbd59;
 $button-colour: darken($primary, 5%);
 
 * {
@@ -12,6 +13,11 @@ body {
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   position: relative;
   margin: 0;
+}
+
+.pageWrapper {
+  min-height: 100vh;
+  position: relative;
 }
 
 .theNavbar {
@@ -409,6 +415,7 @@ input {
 }
 
 footer {
+  background-color: $primary;
   text-align: center;
   font-size: 15px;
   color: rgba(255, 255, 255, 0.5);
@@ -416,11 +423,17 @@ footer {
   height: 50px;
   position: absolute;
   bottom: 0;
-  left: 0;
-  right: 0;
+  width: 100%;
 }
 
 //Profile
+.profile {
+  .profile-pic {
+    width: 130px;
+    border-radius: 50%;
+  }
+}
+
 .profileContainer {
   max-width: 1310px;
   width: calc(100% - 40px);

@@ -241,25 +241,6 @@ export const getProfile = async (req, res) => {
   }
 }
 
-// //join group
-// export const joinGroup = async (req, res) => {
-//   try {
-//     const targetUser = await User.findById(req.params.userId)
-//     if (!targetUser) throw new NotFound('Uh oh, User not found!')
-//     const group = await findGroup(req, res, ['owner', 'posts.owner', 'posts.comments.owner'])
-//     if (group) {
-//       const groupCopy = { ...group }
-//       targetUser.joinedGroups.push(groupCopy)
-//       console.log('targetUser', targetUser)
-//       await targetUser.save()
-//       console.log('saved')
-//       return res.json(groupCopy)
-//     }
-//   } catch (err) {
-//     sendErrors(res, err)
-//   }
-// }
-
 export const joinGroup = async (req, res) => {
   try {
     const group = await findGroup(req, res)
@@ -275,6 +256,18 @@ export const joinGroup = async (req, res) => {
       await group.save()
       return res.json(newMember)
     }
+  } catch (err) {
+    sendErrors(res, err)
+  }
+}
+
+export const updateProfile = async (req, res) => {
+  try {
+    const targetUser = await User.findById(req.currentUser._id)
+    if (!targetUser) throw new NotFound('Uh oh, User not found!')
+    Object.assign(targetUser, req.body)
+    targetUser.save()
+    return res.status(202).json(targetUser)
   } catch (err) {
     sendErrors(res, err)
   }

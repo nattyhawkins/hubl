@@ -50,6 +50,7 @@ const GroupSingle = () => {
       try {
         const { data } = await axios.get(`/api/groups/${groupId}`)
         setGroup(data)
+        console.log(data)
       } catch (err) {
         setError(err)
       }
