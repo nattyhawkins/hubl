@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import { Button, Card } from 'react-bootstrap'
+import { Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { getToken, isOwner } from '../../helpers/auth'
 import { getTimeElapsed } from '../../helpers/general'
@@ -98,10 +98,10 @@ const Comments = ({ comment, groupId, postId, setRefresh, refresh }) => {
           <Card.Text><small>{timeElapsed}</small></Card.Text>
         </div>
         {isOwner(owner._id) &&
-        <div className="d-flex justify-content-end">
-          <p className="me-2 subtle post-btn" onClick={editComment}>•••</p>
-          <p style={{ fontSize: '20px' }} className="subtle post-btn" onClick={deleteComment}>ⓧ</p>
-        </div>}
+          <div className="d-flex justify-content-end">
+            <p title='edit comment' className="me-2 subtle post-btn" onClick={editComment}>•••</p>
+            <p title='delete comment' style={{ fontSize: '20px' }} className="subtle post-btn" onClick={deleteComment}>ⓧ</p>
+          </div>}
       </div>
       {toEdit ?
         <CommentForm commentField={commentField} setCommentField={setCommentField} error={error} setError={setError} handleCommentSubmit={handleCommentSubmit} />

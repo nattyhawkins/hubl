@@ -11,11 +11,11 @@ import ImageUpload from '../common/ImageUpload'
 
 const Profile = () => {
 
-  const [ profile, setProfile ] = useState(null)
-  const [ error, setError ] = useState(null)
+  const [profile, setProfile] = useState(null)
+  const [error, setError] = useState(null)
   const [refresh, setRefresh] = useState(false)
   const { userId } = useParams()
-  const [ userAddress, setUserAddress ] = useState(() => {
+  const [userAddress, setUserAddress] = useState(() => {
     if (userId) return `/${userId}`
     return ''
   })
@@ -38,13 +38,15 @@ const Profile = () => {
       try {
         console.log(userAddress)
         console.log(userId)
-        const { data } = await axios.get(`/api/profile${userAddress}`, { headers: {
-          Authorization: `Bearer ${getToken()}`,
-        } })
+        const { data } = await axios.get(`/api/profile${userAddress}`, {
+          headers: {
+            Authorization: `Bearer ${getToken()}`,
+          },
+        })
         console.log(data)
         setProfile(data)
       } catch (err) {
-        setError(err)                          
+        setError(err)
       }
     }
     getProfile()
@@ -76,7 +78,7 @@ const Profile = () => {
   }
   async function editProfile() {
     setToEditProfile(!toEditProfile)
-    setProfileFields({    
+    setProfileFields({
       bio: profile.bio,
       image: profile.image,
     })
@@ -90,7 +92,7 @@ const Profile = () => {
             <button className="btn" style={{ color: 'white' }} onClick={() => (editProfile())} >•••</button>  
             <Container className='bannerContainer wider'>
               <Col >
-                {toEditProfile ? 
+                {toEditProfile ?
                   <ImageUpload
                     groupFields={profileFields}
                     setGroupFields={setProfileFields}
@@ -106,7 +108,7 @@ const Profile = () => {
                 
               </Col>
               <Col className="col-md-4 bio justify-end align-self-start">
-                {toEditProfile ? 
+                {toEditProfile ?
                   <form onSubmit={handleSubmit}>
                     <input
                       className='text-area w-100'
@@ -123,7 +125,7 @@ const Profile = () => {
                   :
                   <p>{profile.bio}</p>
                 }
-                
+
               </Col>
             </Container>
           </div>

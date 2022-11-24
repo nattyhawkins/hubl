@@ -47,7 +47,7 @@ const GroupForm = ({ groupFields, setGroupFields, error, setError, groups }) => 
           name='name'
           onChange={handleChange}
           value={groupFields.name}
-          placeholder='Group Name*'
+          placeholder='Group Name *'
           required />
         <br />
         <textarea
@@ -56,7 +56,7 @@ const GroupForm = ({ groupFields, setGroupFields, error, setError, groups }) => 
           name='bio'
           onChange={handleChange}
           value={groupFields.bio}
-          placeholder='Group Description*'
+          placeholder='Group Description *'
           required />
         <br />
         <input

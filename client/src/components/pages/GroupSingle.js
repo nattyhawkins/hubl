@@ -1,12 +1,11 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { Card, Col, Row, Container, Button } from 'react-bootstrap'
 import { v4 as uuid } from 'uuid'
 import Post from './Post'
 import PostForm from '../common/PostForm'
 import { getToken } from '../../helpers/auth'
-import moment from 'moment'
 import { unixTimestamp } from '../../helpers/general'
 import { isOwner } from '../../helpers/auth'
 import Comments from './Comments'
@@ -165,13 +164,23 @@ const GroupSingle = () => {
     <main className='group-single'>
       {group ?
         <>
-          {group.owner && isOwner(group.owner._id) &&
-            <div className='grp-btn-div'>
-              <button className='grp-edit-btn' onClick={editGroup} >Edit</button>
-              <button className='grp-delete-btn' onClick={deleteGroup} >Delete</button>
-            </div>
-          }
-          <div className='banner'>
+          <div className='banner d-flex flex-column align-items-end'>
+            {group.owner && isOwner(group.owner._id) &&
+              <div className='grp-btn-div'>
+                <p
+                  title='edit group'
+                  className='grp-edit-btn'
+                  onClick={editGroup}>
+                  ․․․
+                </p>
+                <p
+                  title='WATCH OUT! this deletes the group!'
+                  className='grp-delete-btn'
+                  onClick={deleteGroup}>
+                  🆇
+                </p>
+              </div>
+            }
             <Container className='bannerContainer' style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.9)), url(${group.image ? group.image : group.groupImage})` }}>
               {toEdit ?
                 <GroupEditForm groupFields={groupFields} setGroupFields={setGroupFields} error={error} setError={setError} handleGroupSubmit={handleGroupSubmit} group={group} />
@@ -196,7 +205,6 @@ const GroupSingle = () => {
               }
             </Container>
           </div>
-          
           <Row>
             <Container className='mainContainer'>
               <PostForm postFields={postFields} setPostFields={setPostFields} error={error} setError={setError} handlePostSubmit={handlePostSubmit} />
