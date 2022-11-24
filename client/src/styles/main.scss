@@ -1,9 +1,8 @@
 $primary: rgb(0, 0, 0);
-$secondary: rgb(164, 0, 106);
-
-// $card: rgb(193, 191, 205);
+$secondary: rgb(142, 0, 107);
+$tertiary: white;
 $card: $primary;
-$accent: #ff990078;
+$accent: #ffbd59;
 $button-colour: $secondary;
 
 * {
@@ -223,7 +222,7 @@ body {
     padding: 5px;
     margin-top: 15px;
     border-radius: 15px;
-    color: rgb(27, 27, 27);
+    color: $tertiary;
 
     form {
       input {
@@ -242,10 +241,10 @@ body {
     }
 
     .textBox {
-      background-color: white;
+      background-color: $tertiary;
       border-radius: 15px;
       padding: 10px;
-      margin-bottom: 15px;
+      color: rgb(27, 27, 27);
     }
 
     button {

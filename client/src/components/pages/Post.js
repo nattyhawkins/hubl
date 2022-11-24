@@ -142,58 +142,59 @@ const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refres
             }
           </div>
         </div>
-        <div className='d-flex justify-content-between'>
+        <div className='d-flex justify-content-start' >
           <Link to={`/profile/${post.owner._id}`} className="d-flex flex-column align-items-center">
             <div className="profile-pic icon" style={{ backgroundImage: `url(${post.owner.image})` }} alt="profile"></div>
           </Link>
-          <div style={{ width: 'calc(100% - 110px)' }}>
-            {toEdit ?
-              <PostForm postFields={postFields} setPostFields={setPostFields} error={error} setError={setError} handlePostSubmit={handlePostSubmit} />
-              :
-              <div className="textBox">
-                <Card.Title>{post.title} </Card.Title>
-                <Card.Text>{post.message}</Card.Text>
-              </div>
-            }
-          </div>
-        </div>
-        <div className='infoBox'>
-          <div className='d-flex align-items-center' style={{ height: '50px' }}>
-            {/* comment box */}
-            <div className="d-flex align-items-center justify-content-end" style={{ width: '260px' }} onClick={() => setOpen(!open)} aria-controls={postId} aria-expanded={open}>
-              <p className='like-btn' >💬</p>
-              <div style={{ width: '220px' }}>
-                <small>
-                  {post.comments.length === 0 ? <> Be the first to comment</>
-                    :
-                    post.comments.length === 1 ? <> 1 Comment</>
-                      :
-                      <>{post.comments.length} Comments</>
-                  }
-                </small>
-              </div>
-            </div>
-            {/* like box */}
-            <div className="d-flex align-items-center justify-content-end" style={{ width: '230px' }} onClick={handlePostLike}>
-              {likeStatus === 204 ?
-                <p className='like-btn' >👍</p>
+          <div className="ms-3" style={{ width: 'calc(100%)' }}>
+            <div >
+              {toEdit ?
+                <PostForm postFields={postFields} setPostFields={setPostFields} error={error} setError={setError} handlePostSubmit={handlePostSubmit} />
                 :
-                <p className='like-btn liked'>❤️</p>
+                <div className="textBox">
+                  <Card.Title>{post.title} </Card.Title>
+                  <Card.Text>{post.message}</Card.Text>
+                </div>
               }
-              <div style={{ width: '190px' }}>
-                <small >
-                  {post.likes.length === 0 ? <> Be the first to like</>
+            </div>
+            <div className='infoBox'>
+              <div className='d-flex align-items-center' style={{ height: '50px' }}>
+                {/* comment box */}
+                <div className="d-flex align-items-center justify-content-end" style={{ width: '260px' }} onClick={() => setOpen(!open)} aria-controls={postId} aria-expanded={open}>
+                  <p className='like-btn' >💬</p>
+                  <div style={{ width: '220px' }}>
+                    <small>
+                      {post.comments.length === 0 ? <> Be the first to comment</>
+                        :
+                        post.comments.length === 1 ? <> 1 Comment</>
+                          :
+                          <>{post.comments.length} Comments</>
+                      }
+                    </small>
+                  </div>
+                </div>
+                {/* like box */}
+                <div className="d-flex align-items-center justify-content-end" style={{ width: '230px' }} onClick={handlePostLike}>
+                  {likeStatus === 204 ?
+                    <p className='like-btn' >👍</p>
                     :
-                    post.likes.length === 1 ? <> 1 Like</>
-                      :
-                      <>{post.likes.length} Likes</>
+                    <p className='like-btn liked'>❤️</p>
                   }
-                </small>
+                  <div style={{ width: '190px' }}>
+                    <small >
+                      {post.likes.length === 0 ? <> Be the first to like</>
+                        :
+                        post.likes.length === 1 ? <> 1 Like</>
+                          :
+                          <>{post.likes.length} Likes</>
+                      }
+                    </small>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        {/* <a id={postId} ></a> */}
         <Collapse in={open}>
           <div id={postId}>
             <CommentForm commentField={commentField} setCommentField={setCommentField} error={error} setError={setError} handleCommentSubmit={handleCommentSubmit} />
