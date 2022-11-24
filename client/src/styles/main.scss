@@ -1,8 +1,8 @@
 $primary: rgb(0, 0, 0);
 $secondary: rgb(164, 0, 106);
-// $card: lighten($primary, 15%);\
-$card: rgb(0, 0, 0);
-// $card: rgb(224, 207, 223);
+
+// $card: rgb(193, 191, 205);
+$card: $primary;
 $accent: #ff990078;
 $button-colour: $secondary;
 
@@ -296,7 +296,7 @@ body {
       height: 250px;
       max-width: 1000px;
       width: calc(100%);
-      background-image: linear-gradient($secondary, $primary);
+      // background-image: linear-gradient($secondary, $primary);
 
       background-size: cover;
       background-position: center;
@@ -328,7 +328,6 @@ body {
   justify-content: space-around;
   align-items: center;
   height: 200px;
-  background-color: $secondary;
   border-radius: 15px;
   padding: 5px;
   margin-top: 10px;
@@ -487,7 +486,7 @@ footer {
 .profile {
   .bannerContainer {
     max-width: 1300px;
-
+    background-image: linear-gradient($primary, $secondary);
     button {
       width: 90px;
     }
