@@ -10,8 +10,8 @@ const PostForm = ({ postFields, setPostFields, error, setError, handlePostSubmit
   }
 
   return (
-    <Card className='post'>
-      <Card.Body>
+    <Card className='post '>
+      <Card.Body className='py-0'>
         <form onSubmit={handlePostSubmit} className="d-flex" >
           <div className="w-100">
             <input type='text' name='title' onChange={handleChange} value={postFields.title} placeholder='Post-Title...' required />

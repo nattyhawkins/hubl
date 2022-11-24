@@ -1,9 +1,8 @@
 $primary: rgb(0, 0, 0);
-$secondary: rgb(164, 0, 106);
-
-// $card: rgb(193, 191, 205);
+$secondary: rgb(142, 0, 107);
+$tertiary: white;
 $card: $primary;
-$accent: #ff990078;
+$accent: #ffbd59;
 $button-colour: $secondary;
 
 * {
@@ -11,6 +10,9 @@ $button-colour: $secondary;
 
   a {
     text-decoration: none;
+  }
+  hr{
+    color: $tertiary;
   }
 }
 
@@ -244,19 +246,23 @@ body {
 .mainContainer {
   max-width: 1000px;
   margin: 0 auto;
-  padding: 0 30px;
+  padding: 30px;
 
 
   .card {
     background-color: $card;
     padding: 5px;
-    margin-top: 15px;
     border-radius: 15px;
-    color: rgb(27, 27, 27);
+    color: $tertiary;
 
     form {
       input {
         width: 100%;
+        background-color: $tertiary;
+        padding: 10px 10px;
+        border-radius: 15px;
+        border: none;
+        margin-bottom: 5px;
       }
     }
 
@@ -271,10 +277,11 @@ body {
     }
 
     .textBox {
-      background-color: white;
+      background-color: $tertiary;
       border-radius: 15px;
       padding: 10px;
-      margin-bottom: 15px;
+      color: rgb(27, 27, 27);
+      
     }
 
     button {
@@ -329,13 +336,16 @@ body {
   .banner {
     padding-bottom: 10px;
     color: lighten($accent, 25%);
-    max-width: 1000px;
     margin: 0 auto;
+
+    .bannerContainer:not(.wider){
+      max-width: 1000px;
+    }
 
     .bannerContainer {
       height: 250px;
-      max-width: 1000px;
       width: calc(100%);
+      background-image: linear-gradient($secondary, $primary);
       background-size: cover;
       background-position: center;
 
@@ -546,12 +556,19 @@ footer {
 }
 
 .profile {
-  .bannerContainer {
+  .banner{
     max-width: 1300px;
+    
+  }
+  .bannerContainer {
     background-image: linear-gradient($primary, $secondary);
 
     button {
       width: 90px;
+    }
+    .bio{
+      border: 1px solid $tertiary;
+      border-radius: 15px;
     }
   }
 
@@ -575,11 +592,14 @@ footer {
   h2 {
     text-align: left;
     color: white;
+    margin: 0;
   }
 }
 
 .comment-input {
   max-width: calc(100% - 120px);
+  border: 1px solid $primary;
+  
 }
 
 @media (min-width: 610px) {

@@ -9,9 +9,9 @@ const CommentForm = ({ commentField, setCommentField, error, setError, handleCom
 
   return (
     <form onSubmit={handleCommentSubmit}>
-      {error && <small className='text-danger'>{error}</small>}
       <input className='comment-input' type='text' name='message' onChange={handleChange} value={commentField.message} placeholder='Leave a comment...' required />
       <button className='btn' style={{ padding: '7px 15px' }} >Post</button>
+      {error && <small className='text-danger'>{error}</small>}
     </form>
   )
 }
