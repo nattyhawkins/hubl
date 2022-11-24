@@ -240,6 +240,22 @@ export const getProfile = async (req, res) => {
     sendErrors(res, err)
   }
 }
+export const getMyProfile = async (req, res) => {
+  try {
+    const targetUser = await User.findById(req.currentUser._id).populate(['myGroups', 'myPosts', 'joinedGroups']).populate({ 
+      path: 'myPosts',
+      populate: { path: 'posts.owner' },
+    }).populate({ 
+      path: 'myPosts',
+      populate: { path: 'posts', populate: { path: 'comments.owner' } },
+    })
+    if (!targetUser) throw new NotFound('Uh oh, User not found! Are you logged in?')
+    return res.json(targetUser)
+  } catch (err) {
+    console.log(err)
+    sendErrors(res, err)
+  }
+}
 
 export const joinGroup = async (req, res) => {
   try {

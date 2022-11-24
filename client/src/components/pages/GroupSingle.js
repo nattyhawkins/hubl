@@ -36,12 +36,6 @@ const GroupSingle = () => {
     image: '',
     groupImage: '',
   })
-
-
-
-
-  // const [ tag, setTag ] = useState('')
-
   const { groupId } = useParams()
   const navigate = useNavigate()
 
@@ -56,11 +50,6 @@ const GroupSingle = () => {
       }
     }
     getGroup()
-    // document.getElementById('tagInput').addEventListener('keypress', function (e) {
-    //   if (e.key === 'Enter') {
-    //     handleTagSubmit()
-    //   }
-    // })
   }, [groupId, refresh])
 
 

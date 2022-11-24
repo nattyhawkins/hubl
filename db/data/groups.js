@@ -1,7 +1,7 @@
 export default [
   {
-    name: 'London Rollerskating Group',
-    bio: 'welcome to the rollerskating group, where we discuss the hottest skating trends, brought to you by the one and only N.H.',
+    name: 'London Rollerskating Community',
+    bio: 'welcome to the rollerskating group, where we discuss the hottest skating trends',
     image: 'https://i.pinimg.com/564x/d4/aa/55/d4aa55c431b1437783081fbc8c4b3c5b.jpg',
     posts: [{
       title: 'Beginners street skate meet up',
@@ -168,7 +168,7 @@ export default [
   {
     name: 'Cooking Group',
     bio: 'everything surrounding cooking',
-    image: 'https://i.pinimg.com/564x/d5/16/af/d516af03c386f6f4e1a6b4156ae694d5.jpg',
+    image: 'https://www.freewebheaders.com/wp-content/gallery/food/various-spices-and-herbs-website-header.jpg',
     posts: [
       {
         title: 'Cook-Off',
@@ -201,12 +201,13 @@ export default [
   },
   // DUPLICATES:
   {
-    name: 'London Rollerskating Group 2',
-    bio: 'welcome to the rollerskating group, where we discuss the hottest skating trends, brought to you by the one and only N.H.',
+    name: 'Bristol Rollers',
+    bio: 'welcome to the rollerskating group, where we discuss the hottest skating trends.',
+    image: 'https://eu-assets.simpleview-europe.com/bristol2014/imageresizer/?image=%2Fdmsimgs%2FBUMP_Rollerdisco_at_Redcliffe_Wharf_196283708.jpg&action=ProductDetailNew',
     posts: [
       {
         title: 'Beginners street skate meet up',
-        message: 'Street skate open for beginners tomorrow, meeting at Kings Cross 6pm. Cya there!',
+        message: 'Street skate open for beginners tomorrow, meeting at Bristol Temple Meads 6pm. Cya there!',
         tags: ['event', 'beginner', 'street skate'],
         comments: [
           {
@@ -218,7 +219,7 @@ export default [
         ],
       },
       {
-        title: 'Equipiment hlep?! 2',
+        title: 'Equipiment help please?!',
         message: 'Hiiiii can anyone tell me what gear I\'ll need / any good boot brands etc?? thanks!',
         tags: ['help', 'equipment'],
         comments: [
@@ -236,8 +237,9 @@ export default [
     ],
   },
   {
-    name: 'Crypto for newbs 2',
+    name: 'Blockheadz & Cyptonights',
     bio: 'Learn more about cryptocurrencies, blockchain and everything related. To the moon!',
+    image: 'https://miro.medium.com/max/1252/1*4qlMQS1e4pgzyKfNulX8QA.jpeg',
     posts: [{
       title: 'What is Cryptocurrency?',
       message: 'Cryptocurrency is a new kind of internet money. You can use it to buy things online, and you can send it instantly to other users anywhere in the world, at very low cost, needing nothing more than a smartphone and an internet connection.',
@@ -253,8 +255,9 @@ export default [
     }],
   },
   {
-    name: 'Random 2',
+    name: 'Randominons',
     bio: 'Join the random group, for random stuff, by random people',
+    image: 'https://data.whicdn.com/images/66147999/original.png',
     posts: [{
       title: 'Random title for random things',
       message: 'Random text with random meanings',
@@ -273,8 +276,9 @@ export default [
     }],
   },
   {
-    name: 'Bird Watchers 2',
-    bio: 'In this group we watch birds, also know as birding.',
+    name: 'Twickenham Twitchers',
+    bio: 'Grab your binox, lets find some birds!',
+    image: 'https://www.lovethegarden.com/sites/default/files/styles/header_image_xl/public/content/articles/UK_community-fun-facts-19-common-british-birds-you-can-find-your-garden_header.jpg?itok=MweJ55ij',
     posts: [
       {
         title: 'Birding this weekend! Everyone welcome!',
@@ -290,7 +294,7 @@ export default [
         ],
       },
       {
-        title: 'I need help identifying this bird!! 2',
+        title: 'I need help identifying this bird!!',
         message: 'I think I have discovered a new bird species! Comment on my post and I will send you a pic in your DMs',
         tags: ['new', 'bird', 'species', 'help'],
         comments: [
@@ -311,8 +315,9 @@ export default [
     ],
   },
   {
-    name: 'Rare Stone Collectors 2',
-    bio: 'Interested in collecting rare stones? Or simply want to be part of an exciting community that discusses rocks? You have come to the right place.',
+    name: 'Crystal Club',
+    bio: 'Interested in the power of crystals? here we discuss healing practices and how to get involved!',
+    image: 'https://candlemania.ie/uploads/healing-crystals-ireland-header.jpg',
     posts: [
       {
         title: 'LOOK WHAT I FOUND!!',
@@ -330,44 +335,44 @@ export default [
     ],
   },
   {
-    name: 'TV Group 2',
-    bio: 'Hey fellow couch potatoes! Here we discuss your favorite movies and series, come join us :)',
+    name: 'Indie Movie Mob',
+    bio: 'Hey fellow couch potatoes! Here we discuss cult classics and rare indie works and organise movie nights',
+    image: 'https://nofilmschool.com/sites/default/files/styles/facebook/public/rocky_horror_image_3.jpg?itok=mmJ9NOJD',
     posts: [
       {
-        title: 'What is your favorite cooking show?',
-        message: 'please share your favorite shows, I love to cook and get some inspiration',
-        tags: ['cooking', 'show', 'chef'],
+        title: 'What is your favorite film noir?',
+        message: 'please share some good film noirs for inspo',
         comments: [
           {
-            message: 'Hells Kitchen',
+            message: 'Nightmare Alleys!',
           },
           {
-            message: '😂🤣🤣',
+            message: 'ok!',
           },
           {
-            message: 'no way. If you want to learn more about cooking watch MasterChef.',
+            message: 'no way i need colour in my life',
           }
         ],
       },
       {
-        title: 'I am hosting a TV night!',
+        title: 'I am hosting a cult classic movie night!',
         message: 'Friday night, bring your popcorn and lets chill',
-        tags: ['tv', 'event', 'chill'],
         comments: [
           {
-            message: '',
+            message: 'Breakfast club?',
           }
         ],
       }
     ],
   },
   {
-    name: 'Cooking Group 2',
-    bio: 'everything surrounding cooking',
+    name: 'Bake Off',
+    bio: 'Everything surrounding baking',
+    image: 'https://www.bakefromscratch.com/wp-content/uploads/2017/08/holidayCookies2017-header.jpg',
     posts: [
       {
-        title: 'Cook-Off',
-        message: 'Hello fellow chefs! We are gathering for our yearly cook-off event on Monday. Comment below to get on the list. Bring your spatulas!',
+        title: 'bake-Off',
+        message: 'Hello fellow chefs! We are gathering for our yearly bake-off event on Monday. Comment below to get on the list. Bring your spatulas!',
         tags: ['cook-off', 'cooking', 'competition'],
         comments: [
           {
@@ -390,6 +395,25 @@ export default [
           },
           {
             message: 'Can I be the judge?',
+          }
+        ],
+      },
+      {
+        title: 'bake-Off finale!',
+        message: 'It\'s the final tomorrow so we are organising a group bake off screening at Ron\'s house 7pm. Cya there!',
+        tags: ['cook-off', 'cooking', 'competition'],
+        comments: [
+          {
+            message: 'MEEE!',
+          },
+          {
+            message: 'I would like to join as well please.',
+          },
+          {
+            message: 'Sign me up, chef! 👩‍🍳',
+          },
+          {
+            message: 'Hell Yeah!! ',
           }
         ],
       }],

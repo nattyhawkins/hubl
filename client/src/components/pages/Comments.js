@@ -97,7 +97,7 @@ const Comments = ({ comment, groupId, postId, setRefresh, refresh }) => {
           <button className="me-2 subtle" onClick={editComment}>Edit</button>
           <button className="subtle" onClick={deleteComment}>Delete</button>
         </div>}
-      <Card.Title className="username">@{owner.username}</Card.Title>
+      <Card.Title><Link to={`/profile/${owner._id}`} className="username">@{owner.username}</Link></Card.Title>
       {toEdit ?
         <CommentForm commentField={commentField} setCommentField={setCommentField} error={error} setError={setError} handleCommentSubmit={handleCommentSubmit} />
         :
