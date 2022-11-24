@@ -146,12 +146,12 @@ const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refres
           <Link to={`/profile/${post.owner._id}`} className="d-flex flex-column align-items-center">
             <div className="profile-pic icon" style={{ backgroundImage: `url(${post.owner.image})` }} alt="profile"></div>
           </Link>
-          <div className="ms-3" style={{ width: 'calc(100%)' }}>
+          <div className="ms-3" style={{ width: '100%' }}>
             <div >
               {toEdit ?
                 <PostForm postFields={postFields} setPostFields={setPostFields} error={error} setError={setError} handlePostSubmit={handlePostSubmit} />
                 :
-                <div className="textBox">
+                <div className="textBox" style={{ maxWidth: '782px' }}>
                   <Card.Title>{post.title} </Card.Title>
                   <Card.Text>{post.message}</Card.Text>
                 </div>

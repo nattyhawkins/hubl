@@ -86,8 +86,9 @@ const Profile = () => {
     <main className='group-single profile'>
       {profile &&
         <> 
-          <div className='banner'>
-            <Container className='bannerContainer'>
+          <div className='banner d-flex flex-column align-items-end'>
+            <button className="btn" style={{ color: 'white' }} onClick={() => (editProfile())} >•••</button>  
+            <Container className='bannerContainer wider'>
               <Col >
                 {toEditProfile ? 
                   <ImageUpload
@@ -100,9 +101,8 @@ const Profile = () => {
                 }
                 <div className='col-md-8 title d-flex align-items-end'>
                   <h1>{profile.username}</h1>
-                  <button className="btn" style={{ color: 'white' }} onClick={() => (editProfile())} >•••</button>
+                  
                 </div>
-                {/* <img  src='https://i.pinimg.com/originals/30/10/27/301027a5dc725be9db489aa498d3eddf.jpg' alt="profile"/> */}
                 
               </Col>
               <Col className="col-md-4 bio justify-end align-self-start">
@@ -129,7 +129,7 @@ const Profile = () => {
           </div>
           <Row>
             <Container className="profileContainer">
-              <Row className='groups-row text-center'>
+              <Row className='groups-row text-center mt-5' >
                 <h2>My Created Groups</h2>
                 {profile.myGroups.map(group => {
                   const { name, image, _id: groupId } = group
@@ -144,7 +144,7 @@ const Profile = () => {
                   )
                 })}
               </Row>
-              <Row className='groups-row text-center'>
+              <Row className='groups-row text-center mb-4'>
                 <h2>Group Memberships</h2>
                 {profile.joinedGroups.map(group => {
                   const { name, image, _id: groupId } = group
@@ -159,8 +159,9 @@ const Profile = () => {
                   )
                 })}
               </Row>
-              <Row className='groups-row'>
-                <h2>My Posts</h2>
+              <hr/ >
+              <Row className='groups-row mt-5'>
+                <h2 className='text-center'>My Posts</h2>
                 <Container className="mainContainer"> {profile.myPosts.map(object => {
                   const { groupId, posts } = object
                   return posts.sort((a, b) => (unixTimestamp(a.createdAt) > unixTimestamp(b.createdAt) ? -1 : 1)).map(post => {
