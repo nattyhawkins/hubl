@@ -179,16 +179,17 @@ const GroupSingle = () => {
             </div>
           }
           <div className='banner'>
-            <Container className='bannerContainer' style={{ backgroundImage: `url(${group.image ? group.image : group.groupImage})` }}>
+            <Container className='bannerContainer' style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.9)), url(${group.image ? group.image : group.groupImage})` }}>
               <Col className='col-md-8 title' >
                 <h5>Welcome to</h5>
                 <h1>{group.name}</h1>
               </Col>
-              <Col className="col-md-4 bio justify-end">
-                <p>{group.bio}</p>
-                {group.members && (group.members.length === 1 ? <p>{group.members.length} member</p> : <p>{group.members.length} members</p>)}
-                {memberStatus === 204 ? <Button onClick={handleJoin}>Join Group</Button> : <Button onClick={handleJoin}>Leave Group</Button>
-                }
+              <Col className="col-md-4 align-self-start justify-end d-flex flex-column justify-content-evenly" style={{ height: '250px' }}>
+                <p className='bio'>{group.bio}</p>
+                <div className='w-100 d-flex align-items-center '>
+                  {memberStatus === 204 ? <Button variant='warning' onClick={handleJoin}>Join Group</Button> : <Button onClick={handleJoin}>Leave Group</Button>}
+                  {group.members && (group.members.length === 1 ? <p style={{ margin: '0 0 0 10px' }} >{group.members.length} member</p> : <p style={{ margin: '0 0 0 10px' }}>{group.members.length} members</p>)}
+                </div>
 
               </Col>
             </Container>

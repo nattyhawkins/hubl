@@ -11,14 +11,16 @@ const PostForm = ({ postFields, setPostFields, error, setError, handlePostSubmit
 
   return (
     <Card className='post'>
-      <form onSubmit={handlePostSubmit} className="d-flex" >
-        <div className="w-100">
-          <input  type='text' name='title' onChange={handleChange} value={postFields.title} placeholder='Title...' required />
-          <input type='text' name='message' onChange={handleChange} value={postFields.message} placeholder='Write a bit more...' required />
-          {error && <small className='text-danger'>{error}</small>}
-        </div>
-        <button className='btn' >Send</button>
-      </form>
+      <Card.Body>
+        <form onSubmit={handlePostSubmit} className="d-flex" >
+          <div className="w-100">
+            <input  type='text' name='title' onChange={handleChange} value={postFields.title} placeholder='Title...' required />
+            <input type='text' name='message' onChange={handleChange} value={postFields.message} placeholder='Write a bit more...' required />
+            {error && <small className='text-danger'>{error}</small>}
+          </div>
+          <button className='btn'  style={{ padding: '7px 15px' }}>Post</button>
+        </form>
+      </Card.Body>
     </Card>
   )
 }

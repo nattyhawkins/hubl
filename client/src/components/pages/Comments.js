@@ -91,39 +91,40 @@ const Comments = ({ comment, groupId, postId, setRefresh, refresh }) => {
   }
 
   return (
-    <Card className="textBox">
-      {isOwner(owner._id) &&
+    <Card className="textBox pb-0">
+      <div className="d-flex justify-content-between">
+        <div className='d-flex'>
+          <Card.Title><Link to={`/profile/${owner._id}`} className="username">@{owner.username}</Link></Card.Title>
+          <Card.Text><small>{timeElapsed}</small></Card.Text>
+        </div>
+        {isOwner(owner._id) &&
         <div className="d-flex justify-content-end">
           <p className="me-2 subtle post-btn" onClick={editComment}>•••</p>
           <p style={{ fontSize: '20px' }} className="subtle post-btn" onClick={deleteComment}>ⓧ</p>
         </div>}
-      <div className="d-flex">
-        <Card.Title><Link to={`/profile/${owner._id}`} className="username">@{owner.username}</Link></Card.Title>
-        <Card.Text><small>{timeElapsed}</small></Card.Text>
       </div>
       {toEdit ?
         <CommentForm commentField={commentField} setCommentField={setCommentField} error={error} setError={setError} handleCommentSubmit={handleCommentSubmit} />
         :
         <>
-          <Card.Text>{message}</Card.Text>
-
+          <Card.Text className='mb-0'>{message}</Card.Text>
         </>
       }
-      <div className="d-flex align-items-center justify-content-between" style={{ width: '230px', height: '50px' }} onClick={handleCommentLike}>
+      <div className="d-flex align-items-center justify-content-end" style={{ width: '230px', height: '50px' }} onClick={handleCommentLike}>
         {likeStatus === 204 ?
           <p className='like-btn' >👍</p>
           :
           <p className='like-btn liked'>❤️</p>
         }
-        <div style={{ width: '180px' }}>
-          <div >
+        <div style={{ width: '190px' }}>
+          <small >
             {comment.likes.length === 0 ? <> Be the first to like</>
               :
               comment.likes.length === 1 ? <> 1 Like</>
                 :
                 <>{comment.likes.length} Likes</>
             }
-          </div>
+          </small>
         </div>
       </div>
     </Card>

@@ -6,6 +6,7 @@ import { getToken, isOwner } from '../../helpers/auth'
 import { getTimeElapsed } from '../../helpers/general'
 import PostForm from '../common/PostForm'
 import CommentForm from './CommentForm'
+import Profile from './Profile'
 
 
 
@@ -123,55 +124,71 @@ const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refres
 
   return (
     <Card key={postId} className='post'>
-      <Card.Body>
+      <Card.Body className='pt-2 pb-0'>
         {/* If owner show edit & delete */}
-        {isOwner(post.owner._id) &&
-          <div className='d-flex justify-content-end'>
-            <p className='post-btn' onClick={editPost}>•••</p>
-            <p style={{ fontSize: '20px' }} className='post-btn' onClick={deletePost}>ⓧ</p>
+        <div className='d-flex justify-content-between mb-3'>
+          <div className='d-flex align-items-center justify-content-end'>
+            <Link to={`/profile/${post.owner._id}`} className="d-flex flex-column align-items-center">
+              <Card.Title className="username mb-0" >@{post.owner.username}</Card.Title>
+            </Link>
+            <small>{timeElapsed}</small>
           </div>
-        }
-        {toEdit ?
-          <PostForm postFields={postFields} setPostFields={setPostFields} error={error} setError={setError} handlePostSubmit={handlePostSubmit} />
-          :
-          <div className="textBox">
-            <Card.Title><Link to={`/profile/${post.owner._id}`} className="username">@{post.owner.username}</Link>{post.title}</Card.Title>
-            <Card.Text>{post.message}</Card.Text>
-            <Card.Text><small>{timeElapsed}</small></Card.Text>
+          <div className='d-flex justify-content-end' style={{ height: '20px' }}>
+            {isOwner(post.owner._id) &&
+              <>
+                <p className='post-btn' onClick={editPost}>•••</p>
+                <p style={{ fontSize: '15px' }} className='post-btn' onClick={deletePost}>🆇</p>
+              </>
+            }
           </div>
-        }
+        </div>
+        <div className='d-flex justify-content-between'>
+          <Link to={`/profile/${post.owner._id}`} className="d-flex flex-column align-items-center">
+            <div className="profile-pic icon" style={{ backgroundImage: `url(${post.owner.image})` }} alt="profile"></div>
+          </Link>
+          <div style={{ width: 'calc(100% - 110px)' }}>
+            {toEdit ?
+              <PostForm postFields={postFields} setPostFields={setPostFields} error={error} setError={setError} handlePostSubmit={handlePostSubmit} />
+              :
+              <div className="textBox">
+                <Card.Title>{post.title} </Card.Title>
+                <Card.Text>{post.message}</Card.Text>
+              </div>
+            }
+          </div>
+        </div>
         <div className='infoBox'>
           <div className='d-flex align-items-center' style={{ height: '50px' }}>
             {/* comment box */}
-            <div className="d-flex align-items-center justify-content-between" style={{ width: '260px' }} onClick={() => setOpen(!open)} aria-controls={postId} aria-expanded={open}>
+            <div className="d-flex align-items-center justify-content-end" style={{ width: '260px' }} onClick={() => setOpen(!open)} aria-controls={postId} aria-expanded={open}>
               <p className='like-btn' >💬</p>
-              <div style={{ width: '210px' }}>
-                <div>
+              <div style={{ width: '220px' }}>
+                <small>
                   {post.comments.length === 0 ? <> Be the first to comment</>
                     :
                     post.comments.length === 1 ? <> 1 Comment</>
                       :
                       <>{post.comments.length} Comments</>
                   }
-                </div>
+                </small>
               </div>
             </div>
             {/* like box */}
-            <div className="d-flex align-items-center justify-content-between" style={{ width: '230px' }} onClick={handlePostLike}>
+            <div className="d-flex align-items-center justify-content-end" style={{ width: '230px' }} onClick={handlePostLike}>
               {likeStatus === 204 ?
                 <p className='like-btn' >👍</p>
                 :
                 <p className='like-btn liked'>❤️</p>
               }
-              <div style={{ width: '180px' }}>
-                <div >
+              <div style={{ width: '190px' }}>
+                <small >
                   {post.likes.length === 0 ? <> Be the first to like</>
                     :
                     post.likes.length === 1 ? <> 1 Like</>
                       :
                       <>{post.likes.length} Likes</>
                   }
-                </div>
+                </small>
               </div>
             </div>
           </div>

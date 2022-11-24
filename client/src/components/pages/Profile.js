@@ -98,14 +98,14 @@ const Profile = () => {
                   :
                   <div className="profile-pic profile" style={{ backgroundImage: `url(${profile.image})` }} alt="profile"></div>
                 }
-                <div className='col-md-8 title d-flex align-items-center'>
+                <div className='col-md-8 title d-flex align-items-end'>
                   <h1>{profile.username}</h1>
-                  <Button className="h-50" variant="outline-light" onClick={() => (editProfile())} >Edit Bio</Button>
+                  <button className="btn" style={{ color: 'white' }} onClick={() => (editProfile())} >•••</button>
                 </div>
                 {/* <img  src='https://i.pinimg.com/originals/30/10/27/301027a5dc725be9db489aa498d3eddf.jpg' alt="profile"/> */}
                 
               </Col>
-              <Col className="col-md-4 bio justify-end">
+              <Col className="col-md-4 bio justify-end align-self-start">
                 {toEditProfile ? 
                   <form onSubmit={handleSubmit}>
                     <input
@@ -159,7 +159,7 @@ const Profile = () => {
                   )
                 })}
               </Row>
-              <Row className='groups-row text-center'>
+              <Row className='groups-row'>
                 <h2>My Posts</h2>
                 <Container className="mainContainer"> {profile.myPosts.map(object => {
                   const { groupId, posts } = object
