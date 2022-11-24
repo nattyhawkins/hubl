@@ -7,8 +7,6 @@ import { setToken } from '../../helpers/auth.js'
 import Container from 'react-bootstrap/Container'
 
 
-
-
 const Login = () => {
 
   const navigate = useNavigate()
@@ -43,7 +41,6 @@ const Login = () => {
       <h1>Welcome Back!</h1>
       <Container className='form-container'>
         <div className='login-container'>
-
           <form onSubmit={handleSubmit} className='form'>
             <input
               type='text'
@@ -61,7 +58,7 @@ const Login = () => {
               value={formFields.password}
               required
             />
-            <button>Log in</button>
+            <button className='uni-btn'>Log in</button>
           </form>
           {error && <small className='text-danger'>{error}</small>}
         </div>

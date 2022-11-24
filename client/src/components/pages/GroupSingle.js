@@ -166,7 +166,7 @@ const GroupSingle = () => {
       {group ?
         <>
           {group.owner && isOwner(group.owner._id) &&
-            <div className='btn-div'>
+            <div className='grp-btn-div'>
               <button className='grp-edit-btn' onClick={editGroup} >Edit</button>
               <button className='grp-delete-btn' onClick={deleteGroup} >Delete</button>
             </div>

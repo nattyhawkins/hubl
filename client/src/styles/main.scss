@@ -14,7 +14,8 @@ body {
   position: relative;
   margin: 0;
 }
-.pageWrapper{
+
+.pageWrapper {
   min-height: 100vh;
   position: relative;
 }
@@ -241,7 +242,10 @@ body {
 
     .like-btn {
       border: none;
-      font-size: 40px;
+      font-size: 30px;
+      // padding-top: 5px;
+      margin: 5px 5px 5px 15px;
+      cursor: pointer;
 
       &:hover {
         background-color: lighten($primary, 10%);
@@ -259,7 +263,6 @@ body {
     // display: flex;
     // justify-content: space-between;
     // align-items: flex-end;
-
 
 
     .tagDiv {
@@ -361,13 +364,16 @@ body {
     margin-left: -15em;
     border: 1px solid rgba(255, 255, 255, 0.3);
     background-color: $secondary;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .form {
-    // display: flex;
-    // flex-direction: column;
-    // align-items: center;
-    // justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     width: 240px;
 
     .login-container {
@@ -438,6 +444,7 @@ footer {
     margin-left: 20px;
   }
 }
+
 .profileContainer {
   max-width: 1310px;
   width: calc(100% - 40px);
