@@ -51,25 +51,6 @@ const GroupSingle = () => {
     getGroup()
   }, [groupId, refresh])
 
-
-  // function handleTagChange(e){
-  //   setTag(e.target.value)
-  // }
-
-  // function handleTagSubmit(){
-  //   console.log(tag)
-  //   const tagElement = document.createElement('p')
-
-  //   tagElement.innerHTML = tag
-  //   document.getElementById('tagDisplay').appendChild(tagElement)
-  //   const newTags = postFields.tags.push(tag)
-  //   setPostFields({ ...postFields, tags: newTags })
-  //   setTag('')
-
-  // }
-
-
-
   // edit group
   async function editGroup() {
     setToEdit(!toEdit)
@@ -117,11 +98,6 @@ const GroupSingle = () => {
       setError(err.response.data.message)
     }
   }
-
-
-
-
-
   //submit brand new post
   async function handlePostSubmit(e) {
     try {
