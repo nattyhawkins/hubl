@@ -1,7 +1,8 @@
 $primary: rgb(0, 0, 0);
 $secondary: rgb(164, 0, 106);
 
-$card: rgb(201, 196, 212);
+// $card: rgb(193, 191, 205);
+$card: $primary;
 $accent: #ff990078;
 $button-colour: $secondary;
 
@@ -336,7 +337,6 @@ body {
   justify-content: space-around;
   align-items: center;
   height: 200px;
-  background-color: $secondary;
   border-radius: 15px;
   padding: 5px;
   margin-top: 10px;
@@ -526,7 +526,7 @@ footer {
 .profile {
   .bannerContainer {
     max-width: 1300px;
-
+    background-image: linear-gradient($primary, $secondary);
     button {
       width: 90px;
     }

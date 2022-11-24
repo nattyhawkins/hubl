@@ -10,7 +10,7 @@ const GroupEditForm = ({ groupFields, setGroupFields, error, setError, handleGro
   }
 
   return (
-    <form className='group-edit-form mainContainer' onSubmit={handleGroupSubmit} style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.9)), url(${group.image ? group.image : group.groupImage})` }}>
+    <form className='group-edit-form ' onSubmit={handleGroupSubmit} >
       <div className='name-bio-form'>
         <div className='form-group'>
           <label className='grp-name'>Group Name:</label>
