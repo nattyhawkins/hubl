@@ -2,7 +2,7 @@ export default [
   {
     name: 'London Rollerskating Community',
     bio: 'welcome to the rollerskating group, where we discuss the hottest skating trends',
-    image: 'https://i.pinimg.com/564x/d4/aa/55/d4aa55c431b1437783081fbc8c4b3c5b.jpg',
+    image: 'https://eu-assets.simpleview-europe.com/bristol2014/imageresizer/?image=%2Fdmsimgs%2FBUMP_Rollerdisco_at_Redcliffe_Wharf_196283708.jpg&action=ProductDetailNew',
     posts: [{
       title: 'Beginners street skate meet up',
       message: 'Street skate open for beginners tomorrow, meeting at Kings Cross 6pm. Cya there!',
@@ -37,7 +37,7 @@ export default [
   {
     name: 'Crypto for newbs',
     bio: 'Learn more about cryptocurrencies, blockchain and everything related. To the moon!',
-    image: 'https://i.pinimg.com/564x/99/90/ae/9990ae34eef0f6df7723dc660090f2bf.jpg',
+    image: 'https://erepublic.brightspotcdn.com/dims4/default/37387fc/2147483647/strip/true/crop/940x457+0+76/resize/1440x700!/quality/90/?url=http%3A%2F%2Ferepublic-brightspot.s3.amazonaws.com%2Fbd%2Fdb%2F616caa6538ca7e6a4529d279904d%2Fshutterstock-608089037.jpg',
     posts: [{
       title: 'What is Cryptocurrency?',
       message: 'Cryptocurrency is a new kind of internet money. You can use it to buy things online, and you can send it instantly to other users anywhere in the world, at very low cost, needing nothing more than a smartphone and an internet connection.',
@@ -76,7 +76,7 @@ export default [
   {
     name: 'Bird Watchers',
     bio: 'In this group we watch birds, also know as birding.',
-    image: 'https://i.pinimg.com/564x/4f/28/29/4f282971000538f74710538d0d1444a1.jpg',
+    image: 'https://www.wyemarsh.com/usercontent/StaticHeaders//Chickadees_Birdwatching_Header.jpg',
     posts: [
       {
         title: 'Birding this weekend! Everyone welcome!',
@@ -115,7 +115,7 @@ export default [
   {
     name: 'Rare Stone Collectors',
     bio: 'Interested in collecting rare stones? Or simply want to be part of an exciting community that discusses rocks? You have come to the right place.',
-    image: 'https://i.pinimg.com/564x/28/c0/b7/28c0b7a5b8623a72e7ddea5133218661.jpg',
+    image: 'https://www.gulde.com/images/technical_areas/kristallzuechtung_header.jpg',
     posts: [
       {
         title: 'LOOK WHAT I FOUND!!',
@@ -135,7 +135,7 @@ export default [
   {
     name: 'TV Group',
     bio: 'Hey fellow couch potatoes! Here we discuss your favorite movies and series, come join us :)',
-    image: 'https://i.pinimg.com/564x/29/ad/fe/29adfe8d2b21fe52a34215a63c9919da.jpg',
+    image: 'https://pbs.twimg.com/media/Cf9IiKHW8AARG0s?format=jpg&name=large',
     posts: [
       {
         title: 'What is your favorite cooking show?',
