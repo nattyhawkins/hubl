@@ -4,6 +4,7 @@ import { Navbar, Container, Nav } from 'react-bootstrap'
 import { isAuthenticated, handleLogout, getToken, getPayload } from '../../helpers/auth'
 import skipReset from '../pages/Home.js'
 import { useEffect, useState } from 'react'
+import logo from '../../../src/assets/hubl-logo.jpg'
 
 
 const TheNavbar = () => {
@@ -19,9 +20,11 @@ const TheNavbar = () => {
   return (
     <Navbar className='theNavbar'>
       <Container className='navbarContainer'>
-        <Navbar.Brand as={Link} to='/' onClick={skipReset} className='logo'>HUBBLE</Navbar.Brand>
+        <Navbar.Brand as={Link} to='/' onClick={skipReset}>
+          <img className="logo" src={logo}/>
+        </Navbar.Brand>
         <Nav className='navbar'>
-          <Nav.Link as={Link} to='/'>Home</Nav.Link>
+          {/* <Nav.Link as={Link} to='/'>Home</Nav.Link> */}
           {isAuthenticated() ?
             <>
               <span className='nav-link' onClick={() => handleLogout(navigate)}>Logout</span>

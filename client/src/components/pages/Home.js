@@ -8,6 +8,7 @@ import SearchBar from '../common/SearchBar'
 import arrow from '../../assets/arrow-white.png'
 import GroupForm from '../common/GroupForm'
 import { isAuthenticated } from '../../helpers/auth'
+import Footer from '../common/Footer'
 
 
 
@@ -100,7 +101,7 @@ const GroupIndex = ({ groupId }) => {
   return (
     <>
       <main className='home-page'>
-        <h2 className='text-center'>Find a group that interests you!</h2>
+        <h2 className='text-center'>Find your new crew!</h2>
         <SearchBar groups={groups}
           setSearchedGroups={setSearchedGroups}
           searchedGroups={searchedGroups}
@@ -119,7 +120,7 @@ const GroupIndex = ({ groupId }) => {
                 return (
                   <Col md='4' key={_id} className='group-card' >
                     <Link className='text-decoration-none' to={`${_id}`}>
-                      <Card style={{ backgroundImage: `url(${image ? image : groupImage})` }}>
+                      <Card style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(${image ? image : groupImage})` }}>
                         <div></div>
                         <div className='group-name'>{name}</div>
                       </Card>
@@ -140,7 +141,7 @@ const GroupIndex = ({ groupId }) => {
         </Container>
         {isAuthenticated() ?
           <div className='adding-group'>
-            <button className='uni-btn text-center add-btn' onClick={() => setOpen(!open)} aria-controls={groupId} aria-expanded={open}>Add your own group</button>
+            <button className='uni-btn text-center add-btn' onClick={() => setOpen(!open)} aria-controls={groupId} aria-expanded={open}> Don&apos;t find what you&apos;re looking for? <br/> Make your own group! </button>
             <Collapse in={open}>
               <div className='mt-4 mb-5 text-center'>
                 <GroupForm
@@ -157,6 +158,7 @@ const GroupIndex = ({ groupId }) => {
           <button className='uni-btn text-center login-btn' onClick={() => navigate('/login')}>Login to create a Group</button>
         }
       </main>
+      <Footer />
     </>
   )
 }
