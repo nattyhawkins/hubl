@@ -43,32 +43,12 @@ const GroupSingle = () => {
       try {
         const { data } = await axios.get(`/api/groups/${groupId}`)
         setGroup(data)
-        console.log(data)
       } catch (err) {
         setError(err)
       }
     }
     getGroup()
   }, [groupId, refresh])
-
-
-  // function handleTagChange(e){
-  //   setTag(e.target.value)
-  // }
-
-  // function handleTagSubmit(){
-  //   console.log(tag)
-  //   const tagElement = document.createElement('p')
-
-  //   tagElement.innerHTML = tag
-  //   document.getElementById('tagDisplay').appendChild(tagElement)
-  //   const newTags = postFields.tags.push(tag)
-  //   setPostFields({ ...postFields, tags: newTags })
-  //   setTag('')
-
-  // }
-
-
 
   // edit group
   async function editGroup() {
@@ -90,12 +70,10 @@ const GroupSingle = () => {
           Authorization: `Bearer ${getToken()}`,
         },
       })
-      console.log('edit group success')
       setRefresh(!refresh)
       setToEdit(false)
       setGroupFields({ name: '', bio: '', image: '', groupImage: '' })
     } catch (err) {
-      console.log(err.response.data.message)
       setError(err.response.data.message)
     }
   }
@@ -108,12 +86,10 @@ const GroupSingle = () => {
           Authorization: `Bearer ${getToken()}`,
         },
       })
-      console.log('delete grp success')
       setRefresh(!refresh)
       setGroupFields({ name: '', bio: '', image: '', groupImage: '' })
       navigate('/')
     } catch (err) {
-      console.log(err.response.data.message)
       setError(err.response.data.message)
     }
   }
@@ -132,12 +108,9 @@ const GroupSingle = () => {
           Authorization: `Bearer ${getToken()}`,
         },
       })
-      console.log('post success')
-      console.log('whats group', group.owner._id)
       setRefresh(!refresh)
       setPostFields({ title: '', message: '', tags: [] })
     } catch (err) {
-      console.log(err.message ? err.message : err.response.data.message)
       setError(err.message ? err.message : err.response.data.message)
     }
   }
@@ -152,10 +125,8 @@ const GroupSingle = () => {
         },
       })
       setMemberStatus(status)
-      console.log('join success')
       setRefresh(!refresh)
     } catch (err) {
-      console.log(err.message ? err.message : err.response.data.message)
       setError(err.message ? err.message : err.response.data.message)
     }
   }
@@ -193,9 +164,9 @@ const GroupSingle = () => {
                   <Col className="col-md-4 align-self-start justify-end d-flex flex-column justify-content-evenly" style={{ height: '250px' }}>
                     <p className='bio'>{group.bio}</p>
                     <div className='d-flex align-items-center justify-content-between' style={{ width: '210px' }}>
-                      {memberStatus === 204 ? 
-                        <Button variant="warning" onClick={handleJoin}>Join Group</Button> 
-                        : 
+                      {memberStatus === 204 ?
+                        <Button variant="warning" onClick={handleJoin}>Join Group</Button>
+                        :
                         <Button variant="outline-warning" onClick={handleJoin}>Leave Group</Button>
                       }
                       {group.members && (group.members.length === 1 ? <p style={{ margin: '0 0 0 10px' }} >{group.members.length} member</p> : <p style={{ margin: '0 0 0 10px' }}>{group.members.length} members</p>)}

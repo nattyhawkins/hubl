@@ -41,12 +41,9 @@ router.route('/groups/:groupId/posts/:postId/likes')
 router.route('/groups/:groupId/posts/:postId/comments/:commentId/likes')
   .post(secureRoute, likeComment)
 
-// router.route('/profile/:userId/joinGroup/:groupId')
-//   .post(secureRoute, joinGroup)
-
 router.route('/groups/:groupId/members')
   .post(secureRoute, joinGroup)
-  
+
 router.route('/profile')
   .patch(secureRoute, updateProfile)
   .get(secureRoute, getMyProfile)

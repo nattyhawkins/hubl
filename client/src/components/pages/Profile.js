@@ -36,14 +36,11 @@ const Profile = () => {
   useEffect(() => {
     const getProfile = async () => {
       try {
-        console.log(userAddress)
-        console.log(userId)
         const { data } = await axios.get(`/api/profile${userAddress}`, {
           headers: {
             Authorization: `Bearer ${getToken()}`,
           },
         })
-        console.log(data)
         setProfile(data)
       } catch (err) {
         setError(err)
@@ -62,12 +59,10 @@ const Profile = () => {
           Authorization: `Bearer ${getToken()}`,
         },
       })
-      console.log('profile updated!!', data)
       setProfileFields({ bio: '', image: '' })
       setRefresh(!refresh)
       setToEditProfile(false)
     } catch (err) {
-      console.log('EDIT FAIL ->', err.message ? err.message : err.response.data.message)
       setError(err.message ? err.message : err.response.data.message)
     }
   }

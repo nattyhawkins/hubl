@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 
-const ImageUpload = ({ groupFields, setGroupFields, imageKey }) => {
+const ImageUpload = ({ groupFields, setGroupFields, imageKey, setError }) => {
 
 
   const handleChange = async (event) => {
@@ -13,7 +13,7 @@ const ImageUpload = ({ groupFields, setGroupFields, imageKey }) => {
       const { data } = await axios.post(process.env.REACT_APP_CLOUDINARY_URL, formData)
       setGroupFields({ ...groupFields, [imageKey]: data.secure_url })
     } catch (err) {
-      console.log(err)
+      setError(err.message ? err.message : err.response.data.message)
     }
   }
 
