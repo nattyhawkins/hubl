@@ -47,12 +47,10 @@ const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refres
           Authorization: `Bearer ${getToken()}`,
         },
       })
-      console.log('post comment success')
       setRefresh(!refresh)
       setCommentField({ message: '' })
       setOpen(true)
     } catch (err) {
-      console.log(err.message ? err.message : err.response.data.message)
       setError(err.message ? err.message : err.response.data.message)
     }
   }
@@ -75,12 +73,10 @@ const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refres
           Authorization: `Bearer ${getToken()}`,
         },
       })
-      console.log('Edit post success')
       setRefresh(!refresh)
       setToEdit(false)
       setPostFields({ title: '', message: '', tags: [] })
     } catch (err) {
-      console.log(err.response.data.message)
       setError(err.response.data.message)
     }
   }
@@ -93,11 +89,9 @@ const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refres
           Authorization: `Bearer ${getToken()}`,
         },
       })
-      console.log('delete post success')
       setRefresh(!refresh)
       setPostFields({ title: '', message: '', tags: [] })
     } catch (err) {
-      console.log(err.response.data.message)
       setError(err.response.data.message)
     }
   }
@@ -112,10 +106,8 @@ const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refres
         },
       })
       setLikeStatus(status)
-      console.log('like success')
       setRefresh(!refresh)
     } catch (err) {
-      console.log(err.message ? err.message : err.response.data.message)
       setError(err.message ? err.message : err.response.data.message)
     }
   }
@@ -195,10 +187,15 @@ const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refres
             </div>
           </div>
         </div>
-        <Collapse in={open}>
+        <Collapse in={open} >
           <div id={postId} >
-            <CommentForm commentField={commentField} setCommentField={setCommentField} error={error} setError={setError} handleCommentSubmit={handleCommentSubmit} />
-            {commentHTML}
+            <div className="d-flex flex-column align-items-end"> 
+              <CommentForm commentField={commentField} setCommentField={setCommentField} error={error} setError={setError} handleCommentSubmit={handleCommentSubmit} />
+
+              <div className='mt-4 d-flex flex-column align-items-end'>
+                {commentHTML}
+              </div>
+            </div>
           </div>
         </Collapse>
       </Card.Body>

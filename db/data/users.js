@@ -61,7 +61,7 @@ export default [
     password: '123',
     passwordConfirmation: '123',
     bio: 'sunshine dust',
-    image: 'https://static.wikia.nocookie.net/saladfingers/images/d/d6/Marjory.png/revision/latest/scale-to-width-down/250?cb=20200714204405',
+    image: 'https://pbs.twimg.com/profile_images/1084905189692166144/2lnuFjdv_400x400.jpg',
   },
   {
     username: 'im_old_greg',

@@ -24,10 +24,8 @@ const Register = () => {
     e.preventDefault()
     try {
       await axios.post('/api/register', formFields)
-      console.log('register success')
       navigate('/login')
     } catch (err) {
-      console.log(err.response.data.message)
       setError(err.response.data.message)
     }
   }
@@ -90,7 +88,6 @@ const Register = () => {
         </div>
         <p className='terms'><span>By signing up, you agree to our</span> Terms &amp; Privacy Policy.</p>
       </div>
-
     </main>
   )
 }

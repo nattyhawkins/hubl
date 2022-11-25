@@ -3,10 +3,6 @@ import { CastError } from 'mongoose'
 import Group from '../models/group.js'
 
 export const sendErrors = (res, err) => {
-  console.log(err)
-  console.log('err message', err.message)
-  console.log('err name', err.name)
-  console.log('err status', err.status)
   if (err instanceof NotFound || err instanceof Unauthorised) {
     return res.status(err.status).json({ message: err.message })
   } else if (err instanceof CastError) {
@@ -62,11 +58,3 @@ export const findComment = async (req, res) => {
     sendErrors(res, err)
   }
 }
-
-// export const findLike = (res) => {
-//   try {
-    
-//   } catch (err) {
-//     sendErrors(res, err)
-//   }
-// }

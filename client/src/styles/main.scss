@@ -1,6 +1,6 @@
 $primary: rgb(0, 0, 0);
-$secondary: rgb(142, 0, 107);
-$tertiary: white;
+$secondary: lighten(rgb(142, 0, 107), 10%);
+$tertiary: rgb(255, 255, 255);
 $card: $primary;
 $accent: #ffbd59;
 $button-colour: $secondary;
@@ -51,7 +51,7 @@ body {
     }
 
     .logo {
-      width: 50px;
+      width: 65px;
     }
 
     a {
@@ -235,7 +235,7 @@ body {
 
   .group-name {
     font-size: 5.0vw;
-    color: lighten($accent, 25%);
+    color: white;
     font-weight: 900;
     text-align: center;
     text-shadow: 0 0 50px black, 0 0 50px black;
@@ -269,10 +269,10 @@ body {
 
     .username {
       padding-right: 10px;
-      color: $secondary;
+      color: lighten($secondary, 15%);
 
       &:hover {
-        color: lighten($secondary, 15%);
+        color: lighten($secondary, 30%);
       }
 
     }
@@ -282,7 +282,7 @@ body {
       border-radius: 15px;
       padding: 10px;
       color: rgb(27, 27, 27);
-      margin-top: 15px;
+      // margin-top: 15px;
       max-width: 780px;
 
     }
@@ -603,7 +603,6 @@ footer {
 }
 
 .comment-input {
-  max-width: calc(100% - 120px);
   border: 1px solid $primary;
 
 }

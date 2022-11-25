@@ -28,6 +28,7 @@ const Comments = ({ comment, groupId, postId, setRefresh, refresh }) => {
       clearInterval(tick)
     }
   }, [])
+
   //Edit comment
   async function editComment(e) {
     setToEdit(!toEdit)
@@ -45,12 +46,10 @@ const Comments = ({ comment, groupId, postId, setRefresh, refresh }) => {
           Authorization: `Bearer ${getToken()}`,
         },
       })
-      console.log('Edit comment success')
       setRefresh(!refresh)
       setToEdit(false)
       setCommentField({ message: '' })
     } catch (err) {
-      console.log(err.message ? err.message : err.response.data.message)
       setError(err.message ? err.message : err.response.data.message)
     }
   }
@@ -63,11 +62,9 @@ const Comments = ({ comment, groupId, postId, setRefresh, refresh }) => {
           Authorization: `Bearer ${getToken()}`,
         },
       })
-      console.log('delete comment success')
       setRefresh(!refresh)
       setCommentField({ message: '' })
     } catch (err) {
-      console.log(err.response.data.message)
       setError(err.response.data.message)
     }
   }
@@ -82,34 +79,34 @@ const Comments = ({ comment, groupId, postId, setRefresh, refresh }) => {
         },
       })
       setLikeStatus(status)
-      console.log('like comment success')
       setRefresh(!refresh)
     } catch (err) {
-      console.log(err.message ? err.message : err.response.data.message)
       setError(err.message ? err.message : err.response.data.message)
     }
   }
 
   return (
-    <Card className="textBox pb-0">
-      <div className="d-flex justify-content-between">
-        <div className='d-flex'>
-          <Card.Title><Link to={`/profile/${owner._id}`} className="username">@{owner.username}</Link></Card.Title>
-          <Card.Text><small>{timeElapsed}</small></Card.Text>
+    <div>
+      <Card className="textBox">
+        <div className="d-flex justify-content-between">
+          <div className='d-flex'>
+            <Card.Title><Link to={`/profile/${owner._id}`} className="username">@{owner.username}</Link></Card.Title>
+            <Card.Text><small>{timeElapsed}</small></Card.Text>
+          </div>
+          {isOwner(owner._id) &&
+            <div className="d-flex justify-content-end">
+              <p title='edit comment' className="me-2 subtle post-btn" onClick={editComment}>•••</p>
+              <p title='delete comment' style={{ fontSize: '20px' }} className="subtle post-btn" onClick={deleteComment}>🆇</p>
+            </div>}
         </div>
-        {isOwner(owner._id) &&
-          <div className="d-flex justify-content-end">
-            <p title='edit comment' className="me-2 subtle post-btn" onClick={editComment}>•••</p>
-            <p title='delete comment' style={{ fontSize: '20px' }} className="subtle post-btn" onClick={deleteComment}>ⓧ</p>
-          </div>}
-      </div>
-      {toEdit ?
-        <CommentForm commentField={commentField} setCommentField={setCommentField} error={error} setError={setError} handleCommentSubmit={handleCommentSubmit} />
-        :
-        <>
-          <Card.Text className='mb-0'>{message}</Card.Text>
-        </>
-      }
+        {toEdit ?
+          <CommentForm commentField={commentField} setCommentField={setCommentField} error={error} setError={setError} handleCommentSubmit={handleCommentSubmit} />
+          :
+          <>
+            <Card.Text className='mb-0'>{message}</Card.Text>
+          </>
+        }
+      </Card>
       <div className="d-flex align-items-center justify-content-end" style={{ width: '230px', height: '50px' }} onClick={handleCommentLike}>
         {likeStatus === 204 ?
           <p className='like-btn' >👍</p>
@@ -127,8 +124,7 @@ const Comments = ({ comment, groupId, postId, setRefresh, refresh }) => {
           </small>
         </div>
       </div>
-    </Card>
-
+    </div>
   )
 }
 export default Comments

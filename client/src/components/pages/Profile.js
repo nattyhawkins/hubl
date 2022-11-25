@@ -38,14 +38,11 @@ const Profile = () => {
     const getProfile = async () => {
       try {
         if (!isAuthenticated()) navigate('/login')
-        console.log(userAddress)
-        console.log(userId)
         const { data } = await axios.get(`/api/profile${userAddress}`, {
           headers: {
             Authorization: `Bearer ${getToken()}`,
           },
         })
-        console.log(data)
         setProfile(data)
       } catch (err) {
         setError(err)
@@ -64,12 +61,10 @@ const Profile = () => {
           Authorization: `Bearer ${getToken()}`,
         },
       })
-      console.log('profile updated!!', data)
       setProfileFields({ bio: '', image: '' })
       setRefresh(!refresh)
       setToEditProfile(false)
     } catch (err) {
-      console.log('EDIT FAIL ->', err.message ? err.message : err.response.data.message)
       setError(err.message ? err.message : err.response.data.message)
     }
   }
@@ -145,7 +140,7 @@ const Profile = () => {
                   )
                 })}
               </Row>
-              <Row className='groups-row text-center mb-4'>
+              <Row className='d-flex  text-center mb-4 flex-wrap h-10'>
                 <h2>Group Memberships</h2>
                 {profile.joinedGroups.map(group => {
                   const { name, image, _id: groupId } = group

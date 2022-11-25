@@ -19,11 +19,10 @@ const TheNavbar = () => {
   return (
     <Navbar className='theNavbar'>
       <Container className='navbarContainer'>
-        <Navbar.Brand as={Link} to='/' onClick={skipReset}>
+        <Navbar.Brand as={Link} to='/' onClick={skipReset} className='p-0'>
           <img className="logo" src={logo} />
         </Navbar.Brand>
         <Nav className='navbar'>
-          {/* <Nav.Link as={Link} to='/'>Home</Nav.Link> */}
           {isAuthenticated() ?
             <>
               <span className='nav-link' onClick={() => handleLogout(navigate)}>Logout</span>

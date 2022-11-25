@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
 
@@ -36,9 +36,7 @@ const GroupIndex = ({ groupId }) => {
       try {
         const { data } = await axios.get(`/api/groups?${search}&skip=${skip}&limit=6`)
         setSearchedGroups(data)
-        console.log('data', data)
       } catch (err) {
-        console.log(err.message)
         setError(true)
       }
     }
@@ -50,10 +48,8 @@ const GroupIndex = ({ groupId }) => {
     const getData = async () => {
       try {
         const { data } = await axios.get('/api/groups')
-        console.log('whats this', data.length)
         setGroups(data)
       } catch (err) {
-        console.log(err.message)
         setError(true)
       }
     }
@@ -87,25 +83,12 @@ const GroupIndex = ({ groupId }) => {
     }
   }
 
-  const autoScroll = () => {
-    const myRef = useRef(null)
-
-    const executeScroll = () => {
-      myRef.current.scrollIntoView()
-    }
-  }
-
-
-
 
   return (
     <>
       <main className='home-page'>
         <h2 className='text-center'>Find your new crew!</h2>
-        <SearchBar groups={groups}
-          setSearchedGroups={setSearchedGroups}
-          searchedGroups={searchedGroups}
-          search={search}
+        <SearchBar
           setSearch={setSearch} />
         <Container className='groups-container'>
           <button className='btn-left'
@@ -120,8 +103,7 @@ const GroupIndex = ({ groupId }) => {
                 return (
                   <Col md='4' key={_id} className='group-card' >
                     <Link className='text-decoration-none' to={`${_id}`}>
-                      <Card style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(${image ? image : groupImage})` }}>
-                        <div></div>
+                      <Card style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(${image ? image : groupImage})` }}>
                         <div className='group-name'>{name}</div>
                       </Card>
                     </Link>

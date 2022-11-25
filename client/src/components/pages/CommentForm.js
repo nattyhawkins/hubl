@@ -8,9 +8,9 @@ const CommentForm = ({ commentField, setCommentField, error, setError, handleCom
   }
 
   return (
-    <form onSubmit={handleCommentSubmit}>
-      <input className='comment-input' type='text' name='message' onChange={handleChange} value={commentField.message} placeholder='Leave a comment...' required />
-      <button className='btn' style={{ padding: '7px 15px' }} >Comment</button>
+    <form onSubmit={handleCommentSubmit} className="d-flex align-items-center" style={{ width: 'calc(100% - 115px)' }}>
+      <input className='comment-input m-0' type='text' name='message' onChange={handleChange} value={commentField.message} placeholder='Leave a comment...' required />
+      <button className='btn' style={{ padding: '10px 15px' }} >Comment</button>
       {error && <small className='text-danger'>{error}</small>}
     </form>
   )
