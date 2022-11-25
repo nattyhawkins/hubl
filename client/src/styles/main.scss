@@ -1,0 +1,712 @@
+$primary: rgb(0, 0, 0);
+$secondary: rgb(142, 0, 107);
+$tertiary: white;
+$card: $primary;
+$accent: #ffbd59;
+$button-colour: $secondary;
+
+* {
+  box-sizing: border-box;
+
+  a {
+    text-decoration: none;
+  }
+
+  hr {
+    color: $tertiary;
+  }
+}
+
+body {
+  min-height: 100vh;
+  background-color: $primary;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  position: relative;
+  margin: 0;
+  height: 100%;
+}
+
+.pageWrapper {
+  min-height: 100vh;
+  padding-bottom: 50px;
+  height: 100%;
+  position: relative;
+}
+
+.theNavbar {
+  position: sticky;
+  top: 0;
+  z-index: 1100;
+  background-color: $primary;
+  // border-bottom: 2px solid grey;
+
+  .navbarContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+
+    .nav-link {
+      color: white;
+      cursor: pointer;
+    }
+
+    .logo {
+      width: 50px;
+    }
+
+    a {
+      margin: 0 5px;
+      color: white;
+    }
+  }
+
+}
+
+.uni-btn-primary {
+  background-color: $primary;
+  border: none;
+  color: white;
+  padding: 12px;
+  border-radius: 9px;
+  width: 200px;
+  font-weight: 900;
+}
+
+.uni-btn {
+  background-color: $secondary;
+  border: none;
+  color: white;
+  padding: 12px;
+  border-radius: 9px;
+  width: 200px;
+  font-weight: 900;
+}
+
+//HOME
+.home-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  h2 {
+    color: white;
+    font-weight: 900;
+    margin-top: 10px;
+
+  }
+
+
+
+  .search-input {
+    height: 40px;
+    margin: 0px;
+    border-radius: 9px;
+  }
+
+  .groups-container {
+    display: flex;
+    align-items: center;
+    width: calc(100% - 40px);
+  }
+
+
+  .groups-row {
+    min-width: calc(100% - 75px);
+    height: 450px;
+    margin: 10px 0 10px 0;
+  }
+
+  .btn-left {
+    height: 75px;
+    width: 75px;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    transform: rotate(180deg);
+    border: none;
+    background-color: $primary;
+    margin-right: 15px;
+  }
+
+  .btn-right {
+    height: 75px;
+    width: 75px;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    border: none;
+    background-color: $primary;
+    margin-left: 15px;
+  }
+
+  .adding-group {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    .look-for {
+      color: white;
+    }
+
+    .add-btn {
+      margin: 50px 0 70px 0;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .group-form {
+      background-color: $secondary;
+      margin-bottom: 60px;
+
+      input,
+      textarea {
+        border: none;
+        border-bottom: 1px solid rgba($color: #000000, $alpha: 0.6);
+        padding: 10px 5px 2px 5px;
+        margin: 20px;
+        background-color: $secondary;
+        outline: none;
+        caret-color: white;
+        color: white;
+      }
+
+      input:-webkit-autofill,
+      input:-webkit-autofill:hover,
+      input:-webkit-autofill:focus,
+      textarea:-webkit-autofill,
+      textarea:-webkit-autofill:hover,
+      textarea:-webkit-autofill:focus,
+      select:-webkit-autofill,
+      select:-webkit-autofill:hover,
+      select:-webkit-autofill:focus {
+        -webkit-text-fill-color: white;
+        box-shadow: 0 0 0px 1000px lighten($primary, 20%) inset;
+        padding: 5px;
+      }
+
+      .text-area {
+        height: 50px;
+        min-height: 50px;
+        width: 300px;
+      }
+
+      ::placeholder {
+        color: rgba(255, 255, 255, 0.4);
+      }
+
+      .group-input {
+        margin: 10px;
+        width: 300px;
+      }
+
+      .upload-input {
+        margin-top: -10px;
+        color: rgba(255, 255, 255, 0.4);
+      }
+
+      .group-create-btn {
+        background-color: $primary;
+        margin-bottom: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+    }
+  }
+
+  .login-btn {
+    margin: 50px;
+    font-size: 13px;
+  }
+
+}
+
+.group-card {
+
+  .card {
+    border-radius: 18px;
+    background-color: lighten($primary, 15%);
+    background-size: cover;
+    background-position: center;
+    min-width: 200px;
+    height: 75px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2px;
+    padding: 10px;
+  }
+
+  .group-name {
+    font-size: 5.0vw;
+    color: lighten($accent, 25%);
+    font-weight: 900;
+    text-align: center;
+    text-shadow: 0 0 50px black, 0 0 50px black;
+  }
+
+}
+
+// reusable for any main page
+.mainContainer {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 30px;
+
+
+  .card {
+    background-color: $card;
+    padding: 5px;
+    border-radius: 15px;
+    color: $tertiary;
+
+    form {
+      input {
+        width: 100%;
+        background-color: $tertiary;
+        padding: 10px 10px;
+        border-radius: 15px;
+        border: none;
+        margin-bottom: 5px;
+      }
+    }
+
+    .username {
+      padding-right: 10px;
+      color: $secondary;
+
+      &:hover {
+        color: lighten($secondary, 15%);
+      }
+
+    }
+
+    .textBox {
+      background-color: $tertiary;
+      border-radius: 15px;
+      padding: 10px;
+      color: rgb(27, 27, 27);
+      margin-top: 15px;
+      max-width: 780px;
+
+    }
+
+    button {
+      margin-left: 10px;
+      background-color: $button-colour;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      width: 110px;
+
+      &:hover {
+        cursor: pointer;
+        background-color: lighten($button-colour, 10%);
+
+      }
+    }
+
+    .liked {
+      // background-color: $secondary;
+
+      &:hover {
+        border-radius: 15px;
+      }
+    }
+
+    .like-btn {
+      border: none;
+      font-size: 25px;
+      // padding-top: 5px;
+      margin: 0 5px 0 0;
+
+      cursor: pointer;
+
+      &:hover {
+        font-size: 30px;
+        border-radius: 15px;
+      }
+    }
+  }
+
+  .card-title {
+
+    font-weight: 900;
+  }
+
+
+}
+
+//Single Group Page
+.group-single {
+
+  .banner {
+    padding-bottom: 10px;
+    color: lighten($accent, 25%);
+    margin: 0 auto;
+    max-width: 1000px;
+
+    .bannerContainer:not(.wider) {
+      max-width: 1000px;
+    }
+
+    .bannerContainer {
+      height: 250px;
+      width: calc(100%);
+      background-image: linear-gradient($secondary, $primary);
+      background-size: cover;
+      background-position: center;
+
+      h5 {
+        margin: 10px;
+        color: $accent;
+      }
+
+      h1 {
+        font-size: 1.8em;
+        margin: 0 20px 10px 0;
+      }
+    }
+
+    .bio {
+      border-bottom: 1px solid lighten($accent, 25%);
+      // border-bottom: 5px solid lighten($accent, 25%);
+      max-height: calc(200px - 30px);
+      padding: 12px;
+    }
+  }
+
+  .grp-btn-div {
+    display: flex;
+
+    cursor: pointer;
+    color: lighten($secondary, 5%);
+    font-size: 30px;
+    margin-bottom: -10px;
+
+    .grp-edit-btn {
+      margin: 0 30px 0 20px;
+    }
+  }
+
+  input {
+    border-radius: 9px;
+    padding-left: 10px;
+  }
+}
+
+.group-edit-form {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 200px;
+  border-radius: 15px;
+  padding: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  color: white;
+
+  input {
+    width: 100%;
+    border-radius: 9px;
+  }
+
+  textarea {
+    border-radius: 9px;
+    height: 150px;
+
+  }
+
+  .form-group {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: 20px;
+
+    .grp-name {
+      margin-bottom: -25px;
+    }
+  }
+
+
+  .group-edit-btn {
+    height: 50px;
+    margin-left: 40px;
+  }
+
+  .field {
+    text-align: center;
+  }
+}
+
+
+
+// post page
+.post {
+
+  border: none;
+
+  .post-btn {
+    cursor: pointer;
+    color: $button-colour;
+    margin: 0 0 0 20px;
+  }
+}
+
+// login and register pages
+.auth-pages {
+
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  top: 35%;
+  left: 50%;
+  width: 30em;
+  height: 20em;
+  margin-top: -10em;
+  margin-left: -15em;
+
+  .login-here {
+    cursor: pointer;
+    color: lighten($secondary, 20%);
+    margin: 10px;
+  }
+
+  h1 {
+    margin: 20px;
+  }
+
+  .form-container {
+    background-color: $secondary;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px 20px 0px 20px;
+    margin: 20px;
+  }
+
+  .terms {
+    font-size: 8px;
+    color: rgba(255, 255, 255, 0.5);
+    // margin-top: 30px;
+
+    span {
+      color: rgba(255, 255, 255, 0.3);
+    }
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 280px;
+
+    input {
+      border: none;
+      border-bottom: 1px solid rgba($color: #000000, $alpha: 0.6);
+      padding: 10px 5px 2px 5px;
+      margin: 20px 0 3px 0;
+      width: 250px;
+      background-color: $secondary;
+      outline: none;
+      caret-color: white;
+      color: white;
+    }
+
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    textarea:-webkit-autofill,
+    textarea:-webkit-autofill:hover,
+    textarea:-webkit-autofill:focus,
+    select:-webkit-autofill,
+    select:-webkit-autofill:hover,
+    select:-webkit-autofill:focus {
+      -webkit-text-fill-color: white;
+      box-shadow: 0 0 0px 1000px lighten($primary, 20%) inset;
+      padding: 5px;
+    }
+
+    ::placeholder {
+      color: rgba(255, 255, 255, 0.4);
+    }
+  }
+}
+
+footer {
+  background-color: $primary;
+  text-align: center;
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.5);
+  padding: 15px 0 0 0;
+  height: 50px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+//Profile
+
+.profile-pic {
+  width: 100px;
+  height: 100px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 50%;
+}
+
+.profile {
+  .banner {
+    max-width: 1300px;
+
+  }
+
+  .bannerContainer {
+    background-image: linear-gradient($primary, $secondary);
+
+    button {
+      width: 90px;
+    }
+
+    .bio {
+      border: 1px solid $tertiary;
+      border-radius: 15px;
+    }
+  }
+
+  .profile-pic:not(.icon) {
+    width: 170px;
+    height: 170px;
+    border-radius: 50%;
+    margin-left: 20px;
+  }
+}
+
+
+.profileContainer {
+  max-width: 1310px;
+  width: calc(100% - 40px);
+
+  .row {
+    height: 300px;
+  }
+
+  h2 {
+    text-align: left;
+    color: white;
+    margin: 0;
+  }
+}
+
+.comment-input {
+  max-width: calc(100% - 120px);
+  border: 1px solid $primary;
+
+}
+
+@media (min-width: 610px) {
+
+  .bannerContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    height: 200px;
+
+    .title {
+      font-size: 1.7em;
+    }
+
+    .bio {
+      max-width: calc(100% - 20px);
+      margin-top: 20px;
+      padding: 0 5px;
+      font-size: 1.1em;
+    }
+  }
+
+  .group-card {
+
+    .group-name {
+      font-size: 30px;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+
+  .home-page {
+    margin-top: 1%;
+
+
+    .groups-row {
+      align-items: center;
+    }
+  }
+
+  .groups-container {
+    margin-bottom: 50px;
+  }
+
+  h2 {
+    margin: 30px;
+  }
+
+  .search-function {
+    margin-bottom: 40px;
+
+    .search-input {
+      min-width: 350px;
+    }
+  }
+
+  .auth-pages {
+    top: 30%;
+
+    h1 {
+      margin: 50px;
+    }
+  }
+
+
+  .group-card {
+    .card {
+      min-width: 200px;
+      height: 200px;
+      padding: 10px;
+    }
+
+    .group-name {
+      font-size: 30px;
+    }
+  }
+
+  .group-form {
+    background-color: $secondary;
+    color: white;
+
+    .text-area {
+      height: 100px;
+      width: 400px;
+      padding: 10px;
+    }
+
+    .group-input {
+      margin: 10px;
+      width: 400px;
+    }
+
+    label {
+      margin: 15px;
+    }
+  }
+}
+
+@media (min-width: 1000px) {
+  .bannerContainer {
+    border-radius: 15px;
+  }
+}
