@@ -195,7 +195,7 @@ const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refres
             </div>
           </div>
         </div>
-        <Collapse in={open}>
+        <Collapse in={open} className="d-flex flex-column align-items-end">
           <div id={postId} >
             <CommentForm commentField={commentField} setCommentField={setCommentField} error={error} setError={setError} handleCommentSubmit={handleCommentSubmit} />
             {commentHTML}
