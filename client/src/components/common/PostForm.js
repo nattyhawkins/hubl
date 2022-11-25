@@ -10,7 +10,7 @@ const PostForm = ({ postFields, setPostFields, error, setError, handlePostSubmit
   }
 
   return (
-    <Card className='post '>
+    <Card className='post'>
       <Card.Body className='py-0'>
         <form onSubmit={handlePostSubmit} className="d-flex" >
           <div className="w-100">

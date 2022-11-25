@@ -5,9 +5,8 @@ import { Card, Col, Row, Container, Button } from 'react-bootstrap'
 import { v4 as uuid } from 'uuid'
 import Post from './Post'
 import PostForm from '../common/PostForm'
-import { getToken } from '../../helpers/auth'
+import { getToken, isOwner } from '../../helpers/auth'
 import { unixTimestamp } from '../../helpers/general'
-import { isOwner } from '../../helpers/auth'
 import Comments from './Comments'
 import GroupEditForm from '../common/GroupEditForm'
 
@@ -25,10 +24,8 @@ const GroupSingle = () => {
     message: '',
     tags: [],
   })
-  const [memberStatus, setMemberStatus] = useState(() => {
-    if (getToken() && group.members && group.members.some(member => isOwner(member.owner))) return 202
-    return 204
-  })
+  const [memberStatus, setMemberStatus] = useState(204)
+
   const [groupFields, setGroupFields] = useState({
     name: '',
     bio: '',
@@ -43,13 +40,18 @@ const GroupSingle = () => {
       try {
         const { data } = await axios.get(`/api/groups/${groupId}`)
         setGroup(data)
-        console.log(data)
       } catch (err) {
         setError(err)
       }
     }
     getGroup()
   }, [groupId, refresh])
+
+  useEffect(() => {
+    console.log(group)
+    if (getToken() && group.members && group.members.some(member => isOwner(member.owner))) return setMemberStatus(200)
+    setMemberStatus(204)
+  }, [group])
 
   // edit group
   async function editGroup() {
@@ -71,12 +73,10 @@ const GroupSingle = () => {
           Authorization: `Bearer ${getToken()}`,
         },
       })
-      console.log('edit group success')
       setRefresh(!refresh)
       setToEdit(false)
       setGroupFields({ name: '', bio: '', image: '', groupImage: '' })
     } catch (err) {
-      console.log(err.response.data.message)
       setError(err.response.data.message)
     }
   }
@@ -89,12 +89,10 @@ const GroupSingle = () => {
           Authorization: `Bearer ${getToken()}`,
         },
       })
-      console.log('delete grp success')
       setRefresh(!refresh)
       setGroupFields({ name: '', bio: '', image: '', groupImage: '' })
       navigate('/')
     } catch (err) {
-      console.log(err.response.data.message)
       setError(err.response.data.message)
     }
   }
@@ -108,12 +106,9 @@ const GroupSingle = () => {
           Authorization: `Bearer ${getToken()}`,
         },
       })
-      console.log('post success')
-      console.log('whats group', group.owner._id)
       setRefresh(!refresh)
       setPostFields({ title: '', message: '', tags: [] })
     } catch (err) {
-      console.log(err.message ? err.message : err.response.data.message)
       setError(err.message ? err.message : err.response.data.message)
     }
   }
@@ -127,11 +122,10 @@ const GroupSingle = () => {
           Authorization: `Bearer ${getToken()}`,
         },
       })
+      console.log(status)
       setMemberStatus(status)
-      console.log('join success')
       setRefresh(!refresh)
     } catch (err) {
-      console.log(err.message ? err.message : err.response.data.message)
       setError(err.message ? err.message : err.response.data.message)
     }
   }
@@ -169,7 +163,7 @@ const GroupSingle = () => {
                   <Col className="col-md-4 align-self-start justify-end d-flex flex-column justify-content-evenly" style={{ height: '250px' }}>
                     <p className='bio'>{group.bio}</p>
                     <div className='d-flex align-items-center justify-content-between' style={{ width: '210px' }}>
-                      {memberStatus === 204 ? 
+                      {group && memberStatus === 204 ? 
                         <Button variant="warning" onClick={handleJoin}>Join Group</Button> 
                         : 
                         <Button variant="outline-warning" onClick={handleJoin}>Leave Group</Button>

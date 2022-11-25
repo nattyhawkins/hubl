@@ -16,7 +16,6 @@ export const registerUser = async (req, res) => {
     const newUser = await User.create(req.body)
     return res.status(202).json({ message: `Welcome ${newUser.username}` })
   } catch (err) {
-    console.log(err)
     res.status(422).json({ message: err.message })
   }
 
@@ -24,7 +23,6 @@ export const registerUser = async (req, res) => {
 
 export const loginUser = async (req, res) => {
   try {
-    console.log('attempt login')
     const { username, password } = req.body
     const targetUser = await User.findOne({ username: username })
     //validate
@@ -39,7 +37,6 @@ export const loginUser = async (req, res) => {
     const token = jwt.sign(payload, process.env.SECRET, { expiresIn: '7 days' })
     return res.json({ message: `Welcome back ${targetUser.username}`, token: token })
   } catch (err) {
-    console.log(err.message)
     sendErrors(res, err)
   }
 }

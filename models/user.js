@@ -64,8 +64,6 @@ userSchema.virtual('myPosts', {
       const myPostsArray = group.posts.filter(post => {
         return post.owner.equals(user._id)
       })
-      console.log('post array -- ', myPostsArray)
-      console.log('look here', myPostsArray)
       return { posts: myPostsArray, groupId }
     })
 
@@ -77,11 +75,5 @@ userSchema.virtual('joinedGroups', {
   localField: '_id',
   foreignField: 'members.owner',
 })
-
-// userSchema.virtual('likedPosts', {
-//   ref: 'Post',
-//   localField: '_id',
-//   foreignField: 'owner',
-// })
 
 export default mongoose.model('User', userSchema)
