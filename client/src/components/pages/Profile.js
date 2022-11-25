@@ -1,8 +1,8 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { Card, Col, Container, Row } from 'react-bootstrap'
-import { Link, useParams } from 'react-router-dom'
-import { getToken } from '../../helpers/auth'
+import { Link, Navigate, useNavigate, useParams } from 'react-router-dom'
+import { getToken, isAuthenticated } from '../../helpers/auth'
 import { unixTimestamp } from '../../helpers/general'
 import Comments from './Comments'
 import Post from './Post'
@@ -13,6 +13,7 @@ const Profile = () => {
 
   const [profile, setProfile] = useState(null)
   const [error, setError] = useState(null)
+  const navigate = useNavigate()
   const [refresh, setRefresh] = useState(false)
   const { userId } = useParams()
   const [userAddress, setUserAddress] = useState(() => {
@@ -36,6 +37,7 @@ const Profile = () => {
   useEffect(() => {
     const getProfile = async () => {
       try {
+        if (!isAuthenticated()) navigate('/login')
         const { data } = await axios.get(`/api/profile${userAddress}`, {
           headers: {
             Authorization: `Bearer ${getToken()}`,

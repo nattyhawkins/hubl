@@ -115,6 +115,7 @@ const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refres
 
   return (
     <Card key={postId} className='post'>
+      <hr />
       <Card.Body className='pt-2 pb-0'>
         {/* If owner show edit & delete */}
         <div className='d-flex justify-content-between mb-3'>
@@ -187,7 +188,7 @@ const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refres
           </div>
         </div>
         <Collapse in={open}>
-          <div id={postId}>
+          <div id={postId} >
             <CommentForm commentField={commentField} setCommentField={setCommentField} error={error} setError={setError} handleCommentSubmit={handleCommentSubmit} />
             {commentHTML}
           </div>

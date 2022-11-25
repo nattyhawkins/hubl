@@ -93,11 +93,6 @@ const GroupSingle = () => {
       setError(err.response.data.message)
     }
   }
-
-
-
-
-
   //submit brand new post
   async function handlePostSubmit(e) {
     try {
