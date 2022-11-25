@@ -96,7 +96,7 @@ const Comments = ({ comment, groupId, postId, setRefresh, refresh }) => {
           {isOwner(owner._id) &&
             <div className="d-flex justify-content-end">
               <p title='edit comment' className="me-2 subtle post-btn" onClick={editComment}>•••</p>
-              <p title='delete comment' style={{ fontSize: '20px' }} className="subtle post-btn" onClick={deleteComment}>ⓧ</p>
+              <p title='delete comment' style={{ fontSize: '20px' }} className="subtle post-btn" onClick={deleteComment}>🆇</p>
             </div>}
         </div>
         {toEdit ?

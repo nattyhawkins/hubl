@@ -187,10 +187,15 @@ const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refres
             </div>
           </div>
         </div>
-        <Collapse in={open} className="d-flex flex-column align-items-end">
+        <Collapse in={open} >
           <div id={postId} >
-            <CommentForm commentField={commentField} setCommentField={setCommentField} error={error} setError={setError} handleCommentSubmit={handleCommentSubmit} />
-            {commentHTML}
+            <div className="d-flex flex-column align-items-end"> 
+              <CommentForm commentField={commentField} setCommentField={setCommentField} error={error} setError={setError} handleCommentSubmit={handleCommentSubmit} />
+
+              <div className='mt-4 d-flex flex-column align-items-end'>
+                {commentHTML}
+              </div>
+            </div>
           </div>
         </Collapse>
       </Card.Body>
