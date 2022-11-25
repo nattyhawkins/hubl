@@ -269,10 +269,10 @@ body {
 
     .username {
       padding-right: 10px;
-      color: $secondary;
+      color: lighten($secondary, 15%);
 
       &:hover {
-        color: lighten($secondary, 15%);
+        color: lighten($secondary, 30%);
       }
 
     }
