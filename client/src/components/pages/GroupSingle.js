@@ -160,7 +160,7 @@ const GroupSingle = () => {
                     <h5>Welcome to</h5>
                     <h1>{group.name}</h1>
                   </Col>
-                  <Col className="col-md-4 align-self-start justify-end d-flex flex-column justify-content-evenly" style={{ height: '250px' }}>
+                  <Col className="col-md-4 align-self-start justify-end d-flex flex-column justify-content-evenly">
                     <p className='bio'>{group.bio}</p>
                     <div className='d-flex align-items-center justify-content-between' style={{ width: '210px' }}>
                       {group && memberStatus === 204 ? 
@@ -180,10 +180,6 @@ const GroupSingle = () => {
               <PostForm postFields={postFields} setPostFields={setPostFields} error={error} setError={setError} handlePostSubmit={handlePostSubmit} />
               {group.posts && group.posts.sort((a, b) => (unixTimestamp(a.createdAt) > unixTimestamp(b.createdAt) ? -1 : 1)).map(post => {
                 const { tags, _id: postId, comments } = post
-                const tagsHTML = tags.map(tag => {
-                  const tagWithId = { tag: tag, id: uuid() }
-                  return <Card.Subtitle key={tagWithId.id} className="tag">#{tagWithId.tag}</Card.Subtitle>
-                })
                 const commentHTML = comments.sort((a, b) => (unixTimestamp(a.createdAt) > unixTimestamp(b.createdAt) ? -1 : 1)).map(comment => {
                   const { _id: commentId } = comment
                   return (
@@ -191,7 +187,7 @@ const GroupSingle = () => {
                   )
                 })
                 return (
-                  <Post key={postId} postId={postId} post={post} commentHTML={commentHTML} tagesHTML={tagsHTML} groupId={groupId} setRefresh={setRefresh} refresh={refresh} />
+                  <Post key={postId} postId={postId} post={post} commentHTML={commentHTML} groupId={groupId} setRefresh={setRefresh} refresh={refresh} />
                 )
               })}
             </Container>

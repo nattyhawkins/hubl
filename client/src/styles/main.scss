@@ -17,20 +17,31 @@ $button-colour: $secondary;
   }
 }
 
-body {
+body, html {
   min-height: 100vh;
+  min-width: 100vw;
+  margin: 0;
+}
+
+body {
+  
+  width: 100vw;
   background-color: $primary;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   position: relative;
-  margin: 0;
-  height: 100%;
+
 }
 
 .pageWrapper {
-  min-height: 100vh;
-  padding-bottom: 50px;
+  height: 100%;
+  width: 100%;
+  padding: 0 10px;
   height: 100%;
   position: relative;
+}
+.contentWrapper{
+  height: 100%;
+  width: 100%;
 }
 
 .theNavbar {
@@ -150,7 +161,6 @@ body {
 
     .add-btn {
       margin: 50px 0 70px 0;
-      border: 1px solid rgba(255, 255, 255, 0.3);
     }
 
     .group-form {
@@ -206,7 +216,7 @@ body {
       .group-create-btn {
         background-color: $primary;
         margin-bottom: 10px;
-        border: 1px solid rgba(255, 255, 255, 0.3);
+
       }
     }
   }
@@ -238,7 +248,7 @@ body {
     color: white;
     font-weight: 900;
     text-align: center;
-    text-shadow: 0 0 50px black, 0 0 50px black;
+    text-shadow: 1px 0 50px black, 0 0 50px black;
   }
 
 }

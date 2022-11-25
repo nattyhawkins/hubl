@@ -12,10 +12,10 @@ const PostForm = ({ postFields, setPostFields, error, setError, handlePostSubmit
   return (
     <Card className='post'>
       <Card.Body className='py-0'>
-        <form onSubmit={handlePostSubmit} className="d-flex" >
+        <form onSubmit={handlePostSubmit} className="d-flex " >
           <div className="w-100">
             <input type='text' name='title' onChange={handleChange} value={postFields.title} placeholder='Post-Title...' required />
-            <input type='text' name='message' onChange={handleChange} value={postFields.message} placeholder='Write a bit more...' required />
+            <input type='text' name='message' onChange={handleChange} value={postFields.message} placeholder='Write a bit more...' required className='mb-0'/>
             {error && <small className='text-danger'>{error}</small>}
           </div>
           <button className='btn' style={{ padding: '7px 15px' }}>Post</button>
