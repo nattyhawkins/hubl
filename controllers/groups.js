@@ -8,7 +8,6 @@ export const addGroup = async (req, res) => {
   try {
     const newOwnedGroup = { ...req.body, owner: req.currentUser._id }
     const newGroup = await Group.create(newOwnedGroup)
-    console.log(newGroup)
     res.status(201).json(newGroup)
   } catch (err) {
     sendErrors(res, err)
@@ -62,7 +61,6 @@ export const deleteGroup = async (req, res) => {
     const targetGroup = await findGroup(req, res)
     if (targetGroup && targetGroup.owner.equals(req.currentUser._id)) {
       await targetGroup.remove()
-      console.log('removed')
       return res.sendStatus(204)
     }
     throw new Unauthorised()
@@ -85,6 +83,7 @@ export const addPost = async (req, res) => {
     sendErrors(res, err)
   }
 }
+
 //delete post
 export const deletePost = async (req, res) => {
   try {
@@ -101,24 +100,11 @@ export const deletePost = async (req, res) => {
   }
 }
 
-
-// // get single post
-// export const getSinglePost = async (req, res) => {
-//   try {
-//     const post = await findPost(req, res, ['owner', 'posts.owner'])
-//     return res.json(post)
-//   } catch (err) {
-//     sendErrors(res, err)
-//   }
-// }
-
-
 // update post
 export const updatePost = async (req, res) => {
   try {
     const postObject = await findPost(req, res)
     const { post, group } = postObject
-    console.log('🚗 update post', post)
     if (post && post.owner.equals(req.currentUser._id)) {
       Object.assign(post, req.body)
       group.save()
@@ -180,7 +166,6 @@ export const likePost = async (req, res) => {
   try {
     const postObject = await findPost(req, res)
     const { post, group } = postObject
-    console.log('🚗 Liking post', post)
     if (post) {
       const existingLike = post.likes.find(like => like.owner.equals(req.currentUser._id))
       if (existingLike) {
@@ -203,7 +188,6 @@ export const likeComment = async (req, res) => {
   try {
     const commentObject = await findComment(req, res)
     const { comment, group } = commentObject
-    console.log('🚗 Liking comment', comment)
     if (comment) {
       const existingLike = comment.likes.find(like => like.owner.equals(req.currentUser._id))
       if (existingLike) {
@@ -223,36 +207,33 @@ export const likeComment = async (req, res) => {
 
 
 //profile
-
 export const getProfile = async (req, res) => {
   try {
-    const targetUser = await User.findById(req.params.userId).populate(['myGroups', 'myPosts', 'joinedGroups']).populate({ 
+    const targetUser = await User.findById(req.params.userId).populate(['myGroups', 'myPosts', 'joinedGroups']).populate({
       path: 'myPosts',
       populate: { path: 'posts.owner' },
-    }).populate({ 
+    }).populate({
       path: 'myPosts',
       populate: { path: 'posts', populate: { path: 'comments.owner' } },
     })
     if (!targetUser) throw new NotFound('Uh oh, User not found!')
     return res.json(targetUser)
   } catch (err) {
-    console.log(err)
     sendErrors(res, err)
   }
 }
 export const getMyProfile = async (req, res) => {
   try {
-    const targetUser = await User.findById(req.currentUser._id).populate(['myGroups', 'myPosts', 'joinedGroups']).populate({ 
+    const targetUser = await User.findById(req.currentUser._id).populate(['myGroups', 'myPosts', 'joinedGroups']).populate({
       path: 'myPosts',
       populate: { path: 'posts.owner' },
-    }).populate({ 
+    }).populate({
       path: 'myPosts',
       populate: { path: 'posts', populate: { path: 'comments.owner' } },
     })
     if (!targetUser) throw new NotFound('Uh oh, User not found! Are you logged in?')
     return res.json(targetUser)
   } catch (err) {
-    console.log(err)
     sendErrors(res, err)
   }
 }

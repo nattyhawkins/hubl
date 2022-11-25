@@ -28,6 +28,7 @@ const Comments = ({ comment, groupId, postId, setRefresh, refresh }) => {
       clearInterval(tick)
     }
   }, [])
+
   //Edit comment
   async function editComment(e) {
     setToEdit(!toEdit)
@@ -45,12 +46,10 @@ const Comments = ({ comment, groupId, postId, setRefresh, refresh }) => {
           Authorization: `Bearer ${getToken()}`,
         },
       })
-      console.log('Edit comment success')
       setRefresh(!refresh)
       setToEdit(false)
       setCommentField({ message: '' })
     } catch (err) {
-      console.log(err.message ? err.message : err.response.data.message)
       setError(err.message ? err.message : err.response.data.message)
     }
   }
@@ -63,11 +62,9 @@ const Comments = ({ comment, groupId, postId, setRefresh, refresh }) => {
           Authorization: `Bearer ${getToken()}`,
         },
       })
-      console.log('delete comment success')
       setRefresh(!refresh)
       setCommentField({ message: '' })
     } catch (err) {
-      console.log(err.response.data.message)
       setError(err.response.data.message)
     }
   }
@@ -82,10 +79,8 @@ const Comments = ({ comment, groupId, postId, setRefresh, refresh }) => {
         },
       })
       setLikeStatus(status)
-      console.log('like comment success')
       setRefresh(!refresh)
     } catch (err) {
-      console.log(err.message ? err.message : err.response.data.message)
       setError(err.message ? err.message : err.response.data.message)
     }
   }
@@ -130,7 +125,6 @@ const Comments = ({ comment, groupId, postId, setRefresh, refresh }) => {
         </div>
       </div>
     </div>
-
   )
 }
 export default Comments

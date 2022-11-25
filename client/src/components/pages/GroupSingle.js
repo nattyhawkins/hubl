@@ -40,7 +40,6 @@ const GroupSingle = () => {
       try {
         const { data } = await axios.get(`/api/groups/${groupId}`)
         setGroup(data)
-        console.log(data)
       } catch (err) {
         setError(err)
       }
@@ -74,12 +73,10 @@ const GroupSingle = () => {
           Authorization: `Bearer ${getToken()}`,
         },
       })
-      console.log('edit group success')
       setRefresh(!refresh)
       setToEdit(false)
       setGroupFields({ name: '', bio: '', image: '', groupImage: '' })
     } catch (err) {
-      console.log(err.response.data.message)
       setError(err.response.data.message)
     }
   }
@@ -92,12 +89,10 @@ const GroupSingle = () => {
           Authorization: `Bearer ${getToken()}`,
         },
       })
-      console.log('delete grp success')
       setRefresh(!refresh)
       setGroupFields({ name: '', bio: '', image: '', groupImage: '' })
       navigate('/')
     } catch (err) {
-      console.log(err.response.data.message)
       setError(err.response.data.message)
     }
   }
@@ -111,12 +106,9 @@ const GroupSingle = () => {
           Authorization: `Bearer ${getToken()}`,
         },
       })
-      console.log('post success')
-      console.log('whats group', group.owner._id)
       setRefresh(!refresh)
       setPostFields({ title: '', message: '', tags: [] })
     } catch (err) {
-      console.log(err.message ? err.message : err.response.data.message)
       setError(err.message ? err.message : err.response.data.message)
     }
   }
@@ -132,10 +124,8 @@ const GroupSingle = () => {
       })
       console.log(status)
       setMemberStatus(status)
-      console.log('join success')
       setRefresh(!refresh)
     } catch (err) {
-      console.log(err.message ? err.message : err.response.data.message)
       setError(err.message ? err.message : err.response.data.message)
     }
   }
