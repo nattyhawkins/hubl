@@ -9,7 +9,7 @@ import CommentForm from './CommentForm'
 
 
 
-const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refresh }) => {
+const Post = ({ postId, post, commentHTML, groupId, setRefresh, refresh }) => {
 
   const [open, setOpen] = useState(false)
   const [likeStatus, setLikeStatus] = useState(() => {
@@ -22,7 +22,6 @@ const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refres
   const [postFields, setPostFields] = useState({
     title: '',
     message: '',
-    tags: [],
   })
   const [commentField, setCommentField] = useState({
     message: '',
@@ -61,7 +60,6 @@ const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refres
     setPostFields({
       title: post.title,
       message: post.message,
-      tags: post.tags,
     })
   }
   //submit edit post
@@ -75,7 +73,7 @@ const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refres
       })
       setRefresh(!refresh)
       setToEdit(false)
-      setPostFields({ title: '', message: '', tags: [] })
+      setPostFields({ title: '', message: '' })
     } catch (err) {
       setError(err.response.data.message)
     }
@@ -90,7 +88,7 @@ const Post = ({ postId, post, commentHTML, tagsHTML, groupId, setRefresh, refres
         },
       })
       setRefresh(!refresh)
-      setPostFields({ title: '', message: '', tags: [] })
+      setPostFields({ title: '', message: '' })
     } catch (err) {
       setError(err.response.data.message)
     }

@@ -34,7 +34,7 @@ export const loginUser = async (req, res) => {
       sub: targetUser._id,
       username: targetUser.username,
     }
-    const token = jwt.sign(payload, process.env.secret, { expiresIn: '7 days' })
+    const token = jwt.sign(payload, process.env.SECRET, { expiresIn: '7 days' })
     return res.json({ message: `Welcome back ${targetUser.username}`, token: token })
   } catch (err) {
     sendErrors(res, err)
