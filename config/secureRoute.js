@@ -9,7 +9,7 @@ export default async (req, res, next) => {
     const auth = req.headers.authorization
     if (!auth) throw new Unauthorised('Missing headers')
     const token = auth.replace('Bearer ', '')
-    const payload = jwt.verify(token, process.env.secret)
+    const payload = jwt.verify(token, process.env.SECRET)
     const userToLogIn = await User.findById(payload.sub)
     if (!userToLogIn) throw new Unauthorised()
 
