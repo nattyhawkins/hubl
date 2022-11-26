@@ -45,7 +45,7 @@ router.route('/groups/:groupId/members')
   .post(secureRoute, joinGroup)
 
 router.route('/profile')
-  .patch(secureRoute, updateProfile)
+  .put(secureRoute, updateProfile)
   .get(secureRoute, getMyProfile)
 
 router.route('/profile/:userId')

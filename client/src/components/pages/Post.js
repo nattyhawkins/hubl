@@ -18,7 +18,9 @@ const Post = ({ postId, post, commentHTML, groupId, setRefresh, refresh }) => {
   })
   const [timeElapsed, setTimeElapsed] = useState(getTimeElapsed(post.createdAt))
   const [toEdit, setToEdit] = useState(false)
+  const [postError, setPostError] = useState(false)
   const [error, setError] = useState(false)
+  const [commentError, setCommentError] = useState(false)
   const [postFields, setPostFields] = useState({
     title: '',
     message: '',
@@ -40,6 +42,7 @@ const Post = ({ postId, post, commentHTML, groupId, setRefresh, refresh }) => {
   async function handleCommentSubmit(e) {
     try {
       e.preventDefault()
+      if (commentField.message.length > 500) throw new Error('500 Character limit exceeded')
       if (!getToken()) throw new Error('Please login')
       await axios.post(`/api/groups/${groupId}/posts/${postId}/comments`, commentField, {
         headers: {
@@ -50,7 +53,7 @@ const Post = ({ postId, post, commentHTML, groupId, setRefresh, refresh }) => {
       setCommentField({ message: '' })
       setOpen(true)
     } catch (err) {
-      setError(err.message ? err.message : err.response.data.message)
+      setCommentError(err.message ? err.message : err.response.data.message)
     }
   }
 
@@ -66,6 +69,7 @@ const Post = ({ postId, post, commentHTML, groupId, setRefresh, refresh }) => {
   async function handlePostSubmit(e) {
     try {
       e.preventDefault()
+      if (postFields.title.length > 100 || postFields.message.length > 250) throw new Error('Character limit exceeded')
       await axios.put(`/api/groups/${groupId}/posts/${postId}`, postFields, {
         headers: {
           Authorization: `Bearer ${getToken()}`,
@@ -75,7 +79,7 @@ const Post = ({ postId, post, commentHTML, groupId, setRefresh, refresh }) => {
       setToEdit(false)
       setPostFields({ title: '', message: '' })
     } catch (err) {
-      setError(err.response.data.message)
+      setPostError(err.message ? err.message : err.response.data.message)
     }
   }
   //delete post
@@ -106,7 +110,7 @@ const Post = ({ postId, post, commentHTML, groupId, setRefresh, refresh }) => {
       setLikeStatus(status)
       setRefresh(!refresh)
     } catch (err) {
-      setError(err.message ? err.message : err.response.data.message)
+      setError( err.response.data.message)
     }
   }
 
@@ -114,10 +118,10 @@ const Post = ({ postId, post, commentHTML, groupId, setRefresh, refresh }) => {
   return (
     <Card key={postId} className='post'>
       <hr />
-      <Card.Body className='pt-2 pb-0'>
+      <Card.Body className='pt-2 pb-0 px-0 px-sm-2 px-lg-4'>
         {/* If owner show edit & delete */}
         <div className='d-flex justify-content-between mb-3'>
-          <div className='d-xs-flex align-items-center justify-content-end'>
+          <div className='d-sm-flex align-items-center justify-content-end'>
             <Link to={`/profile/${post.owner._id}`} className="d-flex flex-column align-items-center">
               <Card.Title className="username mb-0" >@{post.owner.username}</Card.Title>
             </Link>
@@ -137,9 +141,10 @@ const Post = ({ postId, post, commentHTML, groupId, setRefresh, refresh }) => {
             <div className="profile-pic icon" style={{ backgroundImage: `url(${post.owner.image})` }} alt="profile"></div>
           </Link>
           <div className="ms-3" style={{ width: '100%' }}>
+            {error && <small className='text-warning'>{error}</small>}
             <div >
               {toEdit ?
-                <PostForm postFields={postFields} setPostFields={setPostFields} error={error} setError={setError} handlePostSubmit={handlePostSubmit} />
+                <PostForm postFields={postFields} setPostFields={setPostFields} postError={postError} setPostError={setPostError} handlePostSubmit={handlePostSubmit} />
                 :
                 <div className="textBox" style={{ maxWidth: '782px' }}>
                   <Card.Title>{post.title} </Card.Title>
@@ -188,7 +193,7 @@ const Post = ({ postId, post, commentHTML, groupId, setRefresh, refresh }) => {
         <Collapse in={open} >
           <div id={postId} >
             <div className="d-flex flex-column align-items-end"> 
-              <CommentForm commentField={commentField} setCommentField={setCommentField} error={error} setError={setError} handleCommentSubmit={handleCommentSubmit} />
+              <CommentForm commentField={commentField} setCommentField={setCommentField} commentError={commentError} setCommentError={setCommentError} handleCommentSubmit={handleCommentSubmit} />
 
               <div className='mt-4 d-flex flex-column align-items-end'>
                 {commentHTML}

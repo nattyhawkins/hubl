@@ -16,13 +16,13 @@ const GroupSingle = () => {
 
 
   const [group, setGroup] = useState([])
-  const [error, setError] = useState(false)
+  const [groupError, setGroupError] = useState(false)
+  const [postError, setPostError] = useState(false)
   const [refresh, setRefresh] = useState(false)
   const [toEdit, setToEdit] = useState(false)
   const [postFields, setPostFields] = useState({
     title: '',
     message: '',
-    tags: [],
   })
   const [memberStatus, setMemberStatus] = useState(204)
 
@@ -41,7 +41,7 @@ const GroupSingle = () => {
         const { data } = await axios.get(`/api/groups/${groupId}`)
         setGroup(data)
       } catch (err) {
-        setError(err)
+        setGroupError(err.message ? err.message : err.response.data.message)
       }
     }
     getGroup()
@@ -64,20 +64,23 @@ const GroupSingle = () => {
     })
   }
 
-
+  //submit edit group
   async function handleGroupSubmit(e) {
     try {
       e.preventDefault()
-      await axios.put(`api/groups/${groupId}`, groupFields, {
+      if (groupFields.bio.length > 200 || groupFields.name.length > 50) throw new Error('Character limit exceeded!')
+      const { data } = await axios.put(`api/groups/${groupId}`, groupFields, {
         headers: {
           Authorization: `Bearer ${getToken()}`,
         },
       })
+      console.log(data)
       setRefresh(!refresh)
       setToEdit(false)
       setGroupFields({ name: '', bio: '', image: '', groupImage: '' })
     } catch (err) {
-      setError(err.response.data.message)
+      console.log(err.message)
+      setGroupError(err.message ? err.message : err.response.data.message)
     }
   }
 
@@ -93,7 +96,7 @@ const GroupSingle = () => {
       setGroupFields({ name: '', bio: '', image: '', groupImage: '' })
       navigate('/')
     } catch (err) {
-      setError(err.response.data.message)
+      setGroupError(err.response.data.message)
     }
   }
   //submit brand new post
@@ -101,15 +104,17 @@ const GroupSingle = () => {
     try {
       e.preventDefault()
       if (!getToken()) throw new Error('Please login')
-      await axios.post(`api/groups/${groupId}/posts`, postFields, {
+      if (postFields.title.length > 100 || postFields.message.length > 250) throw new Error('Character limit exceeded')
+      const { data } = await axios.post(`api/groups/${groupId}/posts`, postFields, {
         headers: {
           Authorization: `Bearer ${getToken()}`,
         },
       })
+      console.log(data)
       setRefresh(!refresh)
-      setPostFields({ title: '', message: '', tags: [] })
+      setPostFields({ title: '', message: '' })
     } catch (err) {
-      setError(err.message ? err.message : err.response.data.message)
+      setPostError(err.message ? err.message : err.response.data.message)
     }
   }
 
@@ -126,12 +131,12 @@ const GroupSingle = () => {
       setMemberStatus(status)
       setRefresh(!refresh)
     } catch (err) {
-      setError(err.message ? err.message : err.response.data.message)
+      setGroupError(err.message ? err.message : err.response.data.message)
     }
   }
 
   return (
-    <main className='group-single'>
+    <main className='group-single '>
       {group ?
         <>
           <div className='banner d-flex flex-column align-items-end'>
@@ -153,14 +158,14 @@ const GroupSingle = () => {
             }
             <Container className='bannerContainer' style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.9)), url(${group.image ? group.image : group.groupImage})` }}>
               {toEdit ?
-                <GroupEditForm groupFields={groupFields} setGroupFields={setGroupFields} error={error} setError={setError} handleGroupSubmit={handleGroupSubmit} group={group} />
+                <GroupEditForm groupFields={groupFields} setGroupFields={setGroupFields} groupError={groupError} setError={setGroupError} handleGroupSubmit={handleGroupSubmit} group={group} />
                 :
                 <>
                   <Col className='col-md-8 title' >
                     <h5>Welcome to</h5>
                     <h1>{group.name}</h1>
                   </Col>
-                  <Col className="col-md-4 align-self-start justify-end d-flex flex-column justify-content-evenly">
+                  <Col className="col-md-4 align-self-start justify-end d-flex flex-column">
                     <p className='bio'>{group.bio}</p>
                     <div className='d-flex align-items-center justify-content-between' style={{ width: '210px' }}>
                       {group && memberStatus === 204 ? 
@@ -176,10 +181,10 @@ const GroupSingle = () => {
             </Container>
           </div>
           <Row>
-            <Container className='mainContainer'>
-              <PostForm postFields={postFields} setPostFields={setPostFields} error={error} setError={setError} handlePostSubmit={handlePostSubmit} />
+            <Container className='mainContainer py-4 px-sm-4 px-md-5'>
+              <PostForm postFields={postFields} setPostFields={setPostFields} postError={postError} setError={setGroupError} handlePostSubmit={handlePostSubmit} />
               {group.posts && group.posts.sort((a, b) => (unixTimestamp(a.createdAt) > unixTimestamp(b.createdAt) ? -1 : 1)).map(post => {
-                const { tags, _id: postId, comments } = post
+                const { _id: postId, comments } = post
                 const commentHTML = comments.sort((a, b) => (unixTimestamp(a.createdAt) > unixTimestamp(b.createdAt) ? -1 : 1)).map(comment => {
                   const { _id: commentId } = comment
                   return (
@@ -193,7 +198,7 @@ const GroupSingle = () => {
             </Container>
           </Row>
         </>
-        : <h1>{error.message}</h1>
+        : <h1>{groupError.message}</h1>
       }
     </main >
   )

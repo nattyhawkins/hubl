@@ -1,4 +1,4 @@
-import { Unauthorised, NotFound } from '../config/errors.js'
+import { Unauthorised, NotFound, CharacterLimit } from '../config/errors.js'
 import { findGroup, findPost, sendErrors, findComment } from '../config/helpers.js'
 import Group from '../models/group.js'
 import User from '../models/user.js'
@@ -6,6 +6,7 @@ import User from '../models/user.js'
 //POST GROUP
 export const addGroup = async (req, res) => {
   try {
+  //   if (req.body.name.length > 50 || req.body.bio.length > 500) throw new CharacterLimit('Character limit exceeded')
     const newOwnedGroup = { ...req.body, owner: req.currentUser._id }
     const newGroup = await Group.create(newOwnedGroup)
     res.status(201).json(newGroup)
@@ -262,6 +263,8 @@ export const updateProfile = async (req, res) => {
   try {
     const targetUser = await User.findById(req.currentUser._id)
     if (!targetUser) throw new NotFound('Uh oh, User not found!')
+    console.log(req.body.bio.length)
+    if (req.body.bio.length > 500) throw new CharacterLimit('Max 500 characters please!')
     Object.assign(targetUser, req.body)
     targetUser.save()
     return res.status(202).json(targetUser)

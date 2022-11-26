@@ -14,3 +14,12 @@ export class Unauthorised extends Error {
     this.status = 401
   }
 }
+
+export class CharacterLimit extends Error {
+  constructor(message){
+    super(message)
+    this.name = 'CharacterLimit'
+    this.message = message ? message : 'Character limit exceeded'
+    this.status = 400
+  }
+}

@@ -45,18 +45,20 @@ const Profile = () => {
         })
         setProfile(data)
       } catch (err) {
-        setError(err)
+        setError(err.response.data.message)
       }
     }
     getProfile()
 
   }, [refresh, userAddress])
 
+  //submit profile update
   async function handleSubmit(e) {
     try {
       e.preventDefault()
       if (!getToken()) throw new Error('Please login')
-      const { data } = await axios.patch('/api/profile', profileFields, {
+      if (profileFields.bio.length > 500) throw new Error('Exceeds 500 character limit')
+      const { data } = await axios.put('/api/profile', profileFields, {
         headers: {
           Authorization: `Bearer ${getToken()}`,
         },
@@ -65,6 +67,7 @@ const Profile = () => {
       setRefresh(!refresh)
       setToEditProfile(false)
     } catch (err) {
+      console.log(err)
       setError(err.message ? err.message : err.response.data.message)
     }
   }
@@ -85,10 +88,10 @@ const Profile = () => {
     <main className='group-single profile'>
       {profile &&
         <>
-          <div className='banner d-flex flex-column align-items-end'>
-            <button className="btn" style={{ color: 'white' }} onClick={() => (editProfile())} >•••</button>
-            <Container className='bannerContainer wider'>
-              <Col >
+          <div className='banner mt-4'>
+            
+            <Container className='bannerContainer wider d-flex align-items-center'>
+              <Col className='col-md-3 d-flex justify-content-center pe-4'>
                 {toEditProfile ?
                   <ImageUpload
                     groupFields={profileFields}
@@ -98,28 +101,30 @@ const Profile = () => {
                   :
                   <div className="profile-pic profile" style={{ backgroundImage: `url(${profile.image})` }} alt="profile"></div>
                 }
-                <div className='col-md-8 title d-flex align-items-end'>
-                  <h1>{profile.username}</h1>
-                </div>
               </Col>
-              <Col className="col-md-4 bio justify-end align-self-start">
-                {toEditProfile ?
-                  <form onSubmit={handleSubmit}>
-                    <input
-                      className='text-area w-100'
-                      type='text'
-                      name='bio'
-                      onChange={handleChange}
-                      value={profileFields.bio}
-                      placeholder='Don&apos;t be shy... Introduce yourself!'
-                      required />
-                    {error && <small className='text-danger'>{error}</small>}
-                    <br />
-                    <button className='uni-btn group-create-btn'>Submit</button>
-                  </form>
-                  :
-                  <p>{profile.bio}</p>
-                }
+              <Col className="col-md-9 justify-content-start">
+                <button className="btn p-0 post-btn" onClick={() => (editProfile())} >•••</button>
+                <h1 className='title'>{profile.username}</h1>
+                <div className='bio'>
+                  {toEditProfile ?
+                    <form onSubmit={handleSubmit}>
+                      <input
+                        className='text-area w-100'
+                        type='text'
+                        name='bio'
+                        onChange={handleChange}
+                        value={profileFields.bio}
+                        placeholder='Don&apos;t be shy... Introduce yourself!'
+                        required />
+                      {error && <small className='text-warning'>{error}</small>}
+                      <br />
+                      <button className='uni-btn group-create-btn mt-3'>Submit</button>
+                    </form>
+                    :
+                    <p>{profile.bio}</p>
+                  }
+                </div>
+                
               </Col>
             </Container>
           </div>

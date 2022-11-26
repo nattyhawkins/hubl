@@ -54,7 +54,7 @@ const Login = () => {
             value={formFields.password}
             required
           />
-          {error && <small className='text-danger'>{error}</small>}
+          {error && <small className='text-warning'>{error}</small>}
           <button className='uni-btn-primary mt-5 mb-4'>Log in</button>
         </form>
       </div>

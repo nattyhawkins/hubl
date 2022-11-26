@@ -81,7 +81,7 @@ const Register = () => {
             value={formFields.passwordConfirmation}
             required
           />
-          {error && <small className='text-danger'>{error}</small>}
+          {error && <small className='text-warning'>{error}</small>}
           <button className='uni-btn-primary mt-5 mb-4'>Register</button>
         </form>
         <div className='text'>

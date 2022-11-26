@@ -1,5 +1,5 @@
 $primary: rgb(0, 0, 0);
-$secondary: lighten(rgb(142, 0, 107), 10%);
+$secondary: rgb(222, 0, 166);
 $tertiary: rgb(255, 255, 255);
 $card: $primary;
 $accent: #ffbd59;
@@ -257,8 +257,7 @@ body {
 .mainContainer {
   max-width: 1000px;
   margin: 0 auto;
-  padding: 30px;
-
+  
 
   .card {
     background-color: $card;
@@ -354,12 +353,13 @@ body {
 
     .bannerContainer:not(.wider) {
       max-width: 1000px;
+      background-image: linear-gradient($secondary, $primary);
     }
 
     .bannerContainer {
       height: 250px;
       width: calc(100%);
-      background-image: linear-gradient($secondary, $primary);
+      
       background-size: cover;
       background-position: center;
 
@@ -368,7 +368,7 @@ body {
         color: $accent;
       }
 
-      h1 {
+      h1:not(.title) {
         font-size: 1.8em;
         margin: 0 20px 10px 0;
       }
@@ -572,27 +572,31 @@ footer {
 .profile {
   .banner {
     max-width: 1300px;
-
+  }
+  .btn{
+    color: $secondary;
   }
 
   .bannerContainer {
-    background-image: linear-gradient($primary, $secondary);
-
-    button {
-      width: 90px;
+    background-color: black;
+    .title{
+      color: $secondary;
+      font-size: 3.8em;
     }
 
+
     .bio {
-      border: 1px solid $tertiary;
-      border-radius: 15px;
+      font-style: italic;
+      border: none;
+      padding: 0;
     }
   }
 
   .profile-pic:not(.icon) {
-    width: 170px;
-    height: 170px;
+    width: 250px;
+    height: 250px;
     border-radius: 50%;
-    margin-left: 20px;
+    border: 5px solid $secondary;
   }
 }
 
@@ -626,14 +630,14 @@ footer {
     height: 200px;
 
     .title {
-      font-size: 1.7em;
+      font-size: 1.8em;
+      
     }
 
     .bio {
       max-width: calc(100% - 20px);
-      margin-top: 20px;
-      padding: 0 5px;
       font-size: 1.1em;
+      
     }
   }
 
