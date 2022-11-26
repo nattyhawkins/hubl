@@ -136,7 +136,7 @@ const Post = ({ postId, post, commentHTML, groupId, setRefresh, refresh }) => {
             }
           </div>
         </div>
-        <div className='d-flex justify-content-start' >
+        <div className='d-flex flex-column align-items-center justify-content-start flex-sm-row align-items-sm-start' >
           <Link to={`/profile/${post.owner._id}`} className="d-flex flex-column align-items-center">
             <div className="profile-pic icon" style={{ backgroundImage: `url(${post.owner.image})` }} alt="profile"></div>
           </Link>
@@ -155,13 +155,13 @@ const Post = ({ postId, post, commentHTML, groupId, setRefresh, refresh }) => {
             <div className='infoBox'>
               <div className='d-flex flex-column flex-sm-row align-items-sm-center' style={{ minHeight: '50px' }}>
                 {/* like box */}
-                <div className="d-flex align-items-center justify-content-end" style={{ width: '230px' }} onClick={handlePostLike}>
+                <div className="d-flex align-items-center justify-content-end" style={{ width: '200px' }} onClick={handlePostLike}>
                   {likeStatus === 204 ?
                     <p className='like-btn' >👍</p>
                     :
                     <p className='like-btn liked'>❤️</p>
                   }
-                  <div style={{ width: '190px' }}>
+                  <div style={{ width: '160px' }}>
                     <small >
                       {post.likes.length === 0 ? <> Be the first to like</>
                         :
@@ -173,9 +173,9 @@ const Post = ({ postId, post, commentHTML, groupId, setRefresh, refresh }) => {
                   </div>
                 </div>
                 {/* comment box */}
-                <div className="d-flex align-items-center justify-content-end" style={{ width: '260px' }} onClick={() => setOpen(!open)} aria-controls={postId} aria-expanded={open}>
+                <div className="d-flex align-items-center justify-content-end" style={{ width: '220px' }} onClick={() => setOpen(!open)} aria-controls={postId} aria-expanded={open}>
                   <p className='like-btn' >💬</p>
-                  <div style={{ width: '220px' }}>
+                  <div style={{ width: '175px' }}>
                     <small>
                       {post.comments.length === 0 ? <> Be the first to comment</>
                         :

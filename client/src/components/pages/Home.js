@@ -25,9 +25,7 @@ const GroupIndex = ({ groupId }) => {
     image: '',
     groupImage: '',
   })
-
   const [search, setSearch] = useState('')
-
   const navigate = useNavigate()
 
 

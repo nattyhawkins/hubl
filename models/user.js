@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true, minlength: 3 },
   bio: { type: String, maxlength: 500, default: 'Add bio here...' },
-  image: { type: String, default: '../../assets/profile-penguin.jpg' },
+  image: { type: String },
   // joinedGroups: [{ type: mongoose.Schema.ObjectId, ref: 'Group', required: true }],
 }, {
   strictPopulate: false,

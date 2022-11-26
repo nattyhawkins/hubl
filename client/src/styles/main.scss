@@ -35,7 +35,7 @@ body {
 .pageWrapper {
   height: 100%;
   width: 100%;
-  padding: 0 10px;
+  // padding: 0 10px;
   height: 100%;
   position: relative;
 }
@@ -354,10 +354,10 @@ body {
     .bannerContainer:not(.wider) {
       max-width: 1000px;
       background-image: linear-gradient($secondary, $primary);
+      height: 250px;
     }
 
     .bannerContainer {
-      height: 250px;
       width: calc(100%);
       
       background-size: cover;
@@ -368,7 +368,7 @@ body {
         color: $accent;
       }
 
-      h1:not(.title) {
+      h1:not(.name) {
         font-size: 1.8em;
         margin: 0 20px 10px 0;
       }
@@ -378,6 +378,7 @@ body {
       border-bottom: 1px solid lighten($accent, 25%);
       // border-bottom: 5px solid lighten($accent, 25%);
       max-height: calc(200px - 30px);
+      
       padding: 12px;
     }
   }
@@ -576,27 +577,29 @@ footer {
   .btn{
     color: $secondary;
   }
+  .name{
+    color: $secondary;
+    font-size: 1.5em;
+  }
 
   .bannerContainer {
     background-color: black;
-    .title{
-      color: $secondary;
-      font-size: 3.8em;
-    }
+    
 
 
     .bio {
       font-style: italic;
       border: none;
       padding: 0;
+      font-size: 0.9em;
+      max-width: 800px;
     }
   }
 
   .profile-pic:not(.icon) {
-    width: 250px;
-    height: 250px;
-    border-radius: 50%;
-    border: 5px solid $secondary;
+    width: 30vw;
+    height: 30vw;
+
   }
 }
 
@@ -605,12 +608,8 @@ footer {
   max-width: 1310px;
   width: calc(100% - 40px);
 
-  .row {
-    height: 300px;
-  }
 
   h2 {
-    text-align: left;
     color: white;
     margin: 0;
   }
@@ -623,7 +622,21 @@ footer {
 
 @media (min-width: 610px) {
 
-  .bannerContainer {
+  .profile-pic:not(.icon) {
+    width: 25vw;
+    height: 25vw;
+    max-width: 200px;
+    max-height: 200px;
+    border-radius: 50%;
+    // border: 5px solid $secondary;
+  }
+  .profile{
+    .name{font-size: 5vw}
+    .bio p{
+      font-size: 2.2vw;
+    }
+  }
+  .bannerContainer:not(.wider) {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
@@ -631,7 +644,6 @@ footer {
 
     .title {
       font-size: 1.8em;
-      
     }
 
     .bio {
@@ -650,7 +662,11 @@ footer {
 }
 
 @media (min-width: 768px) {
-
+  .profile{
+   .bio p{
+      font-size: 1.1em;
+    }
+}
   .home-page {
     margin-top: 1%;
 
@@ -721,5 +737,9 @@ footer {
 @media (min-width: 1000px) {
   .bannerContainer {
     border-radius: 15px;
+  }
+  .profile{
+    .name{font-size: 2.6em}
+
   }
 }
