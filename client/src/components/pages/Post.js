@@ -117,7 +117,7 @@ const Post = ({ postId, post, commentHTML, groupId, setRefresh, refresh }) => {
       <Card.Body className='pt-2 pb-0'>
         {/* If owner show edit & delete */}
         <div className='d-flex justify-content-between mb-3'>
-          <div className='d-flex align-items-center justify-content-end'>
+          <div className='d-xs-flex align-items-center justify-content-end'>
             <Link to={`/profile/${post.owner._id}`} className="d-flex flex-column align-items-center">
               <Card.Title className="username mb-0" >@{post.owner.username}</Card.Title>
             </Link>
@@ -148,21 +148,7 @@ const Post = ({ postId, post, commentHTML, groupId, setRefresh, refresh }) => {
               }
             </div>
             <div className='infoBox'>
-              <div className='d-flex align-items-center' style={{ height: '50px' }}>
-                {/* comment box */}
-                <div className="d-flex align-items-center justify-content-end" style={{ width: '260px' }} onClick={() => setOpen(!open)} aria-controls={postId} aria-expanded={open}>
-                  <p className='like-btn' >💬</p>
-                  <div style={{ width: '220px' }}>
-                    <small>
-                      {post.comments.length === 0 ? <> Be the first to comment</>
-                        :
-                        post.comments.length === 1 ? <> 1 Comment</>
-                          :
-                          <>{post.comments.length} Comments</>
-                      }
-                    </small>
-                  </div>
-                </div>
+              <div className='d-flex flex-column flex-sm-row align-items-sm-center' style={{ minHeight: '50px' }}>
                 {/* like box */}
                 <div className="d-flex align-items-center justify-content-end" style={{ width: '230px' }} onClick={handlePostLike}>
                   {likeStatus === 204 ?
@@ -177,6 +163,20 @@ const Post = ({ postId, post, commentHTML, groupId, setRefresh, refresh }) => {
                         post.likes.length === 1 ? <> 1 Like</>
                           :
                           <>{post.likes.length} Likes</>
+                      }
+                    </small>
+                  </div>
+                </div>
+                {/* comment box */}
+                <div className="d-flex align-items-center justify-content-end" style={{ width: '260px' }} onClick={() => setOpen(!open)} aria-controls={postId} aria-expanded={open}>
+                  <p className='like-btn' >💬</p>
+                  <div style={{ width: '220px' }}>
+                    <small>
+                      {post.comments.length === 0 ? <> Be the first to comment</>
+                        :
+                        post.comments.length === 1 ? <> 1 Comment</>
+                          :
+                          <>{post.comments.length} Comments</>
                       }
                     </small>
                   </div>
