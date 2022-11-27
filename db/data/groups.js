@@ -159,7 +159,7 @@ export default [
         tags: ['tv', 'event', 'chill'],
         comments: [
           {
-            message: '',
+            message: 'How about the new Tarantino!!',
           }
         ],
       }
