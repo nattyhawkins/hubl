@@ -138,7 +138,7 @@ const Profile = () => {
                     return (
                       <Col md='3' key={groupId} className='group-card my-2' >
                         <Link className='text-decoration-none' to={`/${groupId}`}>
-                          <Card style={{ backgroundImage: `url(${image})` }}>
+                          <Card style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(${image})` }}>
                             <div className='group-name'>{name}</div>
                           </Card>
                         </Link>
@@ -160,9 +160,9 @@ const Profile = () => {
                   {profile.joinedGroups.map(group => {
                     const { name, image, _id: groupId } = group
                     return (
-                      <Col md='3' key={groupId} className='group-card my-2' >
+                      <Col  md='3' key={groupId} className='group-card my-2' >
                         <Link className='text-decoration-none' to={`/${groupId}`}>
-                          <Card style={{ backgroundImage: `url(${image})` }}>
+                          <Card style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(${image})` }}>
                             <div className='group-name'>{name}</div>
                           </Card>
                         </Link>

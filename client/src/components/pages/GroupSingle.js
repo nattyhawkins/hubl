@@ -162,7 +162,7 @@ const GroupSingle = () => {
                 :
                 <>
                   <Col className='col-md-8 title' >
-                    <h5>Welcome to</h5>
+                    <h5 >Welcome to</h5>
                     <h1>{group.name}</h1>
                   </Col>
                   <Col className="col-md-4 align-self-start justify-end d-flex flex-column">

@@ -98,12 +98,12 @@ const GroupIndex = ({ groupId }) => {
             disabled={skip === 0}
           />
           {searchedGroups.length ?
-            <Row className='groups-row text-center'>
+            <Row className='groups-row text-center '>
               {searchedGroups.map(group => {
                 const { name, _id, image, groupImage } = group
                 return (
                   <Col md='4' key={_id} className='group-card' >
-                    <Link className='text-decoration-none' to={`${_id}`}>
+                    <Link className='text-decoration-none ' to={`${_id}`}>
                       <Card style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(${image ? image : groupImage})` }}>
                         <div className='group-name'>{name}</div>
                       </Card>

@@ -120,12 +120,17 @@ const Post = ({ postId, post, commentHTML, groupId, setRefresh, refresh }) => {
       <hr />
       <Card.Body className='pt-2 pb-0 px-0 px-sm-2 px-lg-4'>
         {/* If owner show edit & delete */}
-        <div className='d-flex justify-content-between mb-3'>
-          <div className='d-sm-flex align-items-center justify-content-end'>
-            <Link to={`/profile/${post.owner._id}`} className="d-flex flex-column align-items-center">
-              <Card.Title className="username mb-0" >@{post.owner.username}</Card.Title>
+        <div className='d-flex justify-content-between mb-2 mb-sm-3'>
+          <div className='d-flex align-items-center d-sm-block'>
+            <Link to={`/profile/${post.owner._id}`} className="d-sm-none flex-column align-items-center">
+              <div className="profile-pic icon small me-2" style={{ backgroundImage: `url(${post.owner.image})` }} alt="profile"></div>
             </Link>
-            <small>{timeElapsed}</small>
+            <div className='d-sm-flex align-items-center justify-content-end'>
+              <Link to={`/profile/${post.owner._id}`}>
+                <Card.Title className="username mb-0" >@{post.owner.username}</Card.Title>
+              </Link>
+              <small>{timeElapsed}</small>
+            </div>
           </div>
           <div className='d-flex justify-content-end' style={{ height: '20px' }}>
             {isOwner(post.owner._id) &&
@@ -137,7 +142,7 @@ const Post = ({ postId, post, commentHTML, groupId, setRefresh, refresh }) => {
           </div>
         </div>
         <div className='d-flex flex-column align-items-center justify-content-start flex-sm-row align-items-sm-start' >
-          <Link to={`/profile/${post.owner._id}`} className="d-flex flex-column align-items-center">
+          <Link to={`/profile/${post.owner._id}`} className="d-none d-sm-flex flex-column align-items-center">
             <div className="profile-pic icon" style={{ backgroundImage: `url(${post.owner.image})` }} alt="profile"></div>
           </Link>
           <div className="ms-sm-3" style={{ width: '100%' }}>
@@ -146,7 +151,7 @@ const Post = ({ postId, post, commentHTML, groupId, setRefresh, refresh }) => {
               {toEdit ?
                 <PostForm postFields={postFields} setPostFields={setPostFields} postError={postError} setPostError={setPostError} handlePostSubmit={handlePostSubmit} />
                 :
-                <div className="textBox" style={{ maxWidth: '782px' }}>
+                <div className="textBox m-0">
                   <Card.Title>{post.title} </Card.Title>
                   <Card.Text>{post.message}</Card.Text>
                 </div>
@@ -155,7 +160,7 @@ const Post = ({ postId, post, commentHTML, groupId, setRefresh, refresh }) => {
             <div className='infoBox'>
               <div className='d-flex flex-column flex-sm-row align-items-sm-center' style={{ minHeight: '50px' }}>
                 {/* like box */}
-                <div className="d-flex align-items-center justify-content-end" style={{ width: '200px' }} onClick={handlePostLike}>
+                <div className="d-flex align-items-center justify-content-end" style={{ width: '200px', height: '35px' }} onClick={handlePostLike}>
                   {likeStatus === 204 ?
                     <p className='like-btn' >👍</p>
                     :
@@ -173,7 +178,7 @@ const Post = ({ postId, post, commentHTML, groupId, setRefresh, refresh }) => {
                   </div>
                 </div>
                 {/* comment box */}
-                <div className="d-flex align-items-center justify-content-end" style={{ width: '220px' }} onClick={() => setOpen(!open)} aria-controls={postId} aria-expanded={open}>
+                <div className="d-flex align-items-center justify-content-end" style={{ width: '215px', height: '35px' }} onClick={() => setOpen(!open)} aria-controls={postId} aria-expanded={open}>
                   <p className='like-btn' >💬</p>
                   <div style={{ width: '175px' }}>
                     <small>
