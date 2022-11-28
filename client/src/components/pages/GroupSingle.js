@@ -3,12 +3,12 @@ import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Card, Col, Row, Container, Button } from 'react-bootstrap'
 import { v4 as uuid } from 'uuid'
-import Post from './Post'
+import Post from '../common/Post'
 import PostForm from '../common/PostForm'
 import { getToken, isOwner } from '../../helpers/auth'
 import { unixTimestamp } from '../../helpers/general'
-import Comments from './Comments'
 import GroupEditForm from '../common/GroupEditForm'
+import Comments from '../common/Comments'
 
 
 

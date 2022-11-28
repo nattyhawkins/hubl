@@ -4,7 +4,7 @@ import { Card, Collapse } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { getToken, isOwner } from '../../helpers/auth'
 import { getTimeElapsed } from '../../helpers/general'
-import PostForm from '../common/PostForm'
+import PostForm from './PostForm'
 import CommentForm from './CommentForm'
 
 
@@ -140,7 +140,7 @@ const Post = ({ postId, post, commentHTML, groupId, setRefresh, refresh }) => {
           <Link to={`/profile/${post.owner._id}`} className="d-flex flex-column align-items-center">
             <div className="profile-pic icon" style={{ backgroundImage: `url(${post.owner.image})` }} alt="profile"></div>
           </Link>
-          <div className="ms-3" style={{ width: '100%' }}>
+          <div className="ms-sm-3" style={{ width: '100%' }}>
             {error && <small className='text-warning'>{error}</small>}
             <div >
               {toEdit ?

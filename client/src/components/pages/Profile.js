@@ -1,14 +1,13 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { Card, Col, Container, Row } from 'react-bootstrap'
-import { Link, Navigate, useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { getToken, isAuthenticated } from '../../helpers/auth'
 import { unixTimestamp } from '../../helpers/general'
-import Comments from './Comments'
-import Post from './Post'
-import { v4 as uuid } from 'uuid'
+import Post from '../common/Post'
 import ImageUpload from '../common/ImageUpload'
 import defaultProfile from '../../../src/assets/profile-penguin.jpg'
+import Comments from '../common/Comments'
 const Profile = () => {
 
   const [profile, setProfile] = useState(null)
@@ -58,7 +57,7 @@ const Profile = () => {
       e.preventDefault()
       if (!getToken()) throw new Error('Please login')
       if (profileFields.bio.length > 500) throw new Error('Exceeds 500 character limit')
-      const { data } = await axios.put('/api/profile', profileFields, {
+      await axios.put('/api/profile', profileFields, {
         headers: {
           Authorization: `Bearer ${getToken()}`,
         },
@@ -185,11 +184,7 @@ const Profile = () => {
                 <Container className="mainContainer"> {profile.myPosts.map(object => {
                   const { groupId, posts } = object
                   return posts.sort((a, b) => (unixTimestamp(a.createdAt) > unixTimestamp(b.createdAt) ? -1 : 1)).map(post => {
-                    const { tags, _id: postId, comments } = post
-                    const tagsHTML = tags.map(tag => {
-                      const tagWithId = { tag: tag, id: uuid() }
-                      return <Card.Subtitle key={tagWithId.id} className="tag">#{tagWithId.tag}</Card.Subtitle>
-                    })
+                    const { _id: postId, comments } = post
                     const commentHTML = comments.sort((a, b) => (unixTimestamp(a.createdAt) > unixTimestamp(b.createdAt) ? -1 : 1)).map(comment => {
                       const { message, _id: commentId, owner } = comment
                       return (
@@ -197,7 +192,7 @@ const Profile = () => {
                       )
                     })
                     return (
-                      <Post key={postId} postId={postId} commentHTML={commentHTML} tagesHTML={tagsHTML} post={post} groupId={groupId} setRefresh={setRefresh} refresh={refresh} />
+                      <Post key={postId} postId={postId} commentHTML={commentHTML} post={post} groupId={groupId} setRefresh={setRefresh} refresh={refresh} />
                     )
                   })
                 })}</Container>

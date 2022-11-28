@@ -54,6 +54,12 @@ userSchema.virtual('myGroups', {
   foreignField: 'owner',
 })
 
+userSchema.virtual('joinedGroups', {
+  ref: 'Group',
+  localField: '_id',
+  foreignField: 'members.owner',
+})
+
 userSchema.virtual('myPosts', {
   ref: 'Group',
   localField: '_id',
@@ -68,12 +74,6 @@ userSchema.virtual('myPosts', {
     })
 
   },
-})
-
-userSchema.virtual('joinedGroups', {
-  ref: 'Group',
-  localField: '_id',
-  foreignField: 'members.owner',
 })
 
 export default mongoose.model('User', userSchema)

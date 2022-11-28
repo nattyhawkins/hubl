@@ -32,10 +32,14 @@ const GroupIndex = ({ groupId }) => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const { data } = await axios.get(`/api/groups?${search}&skip=${skip}&limit=6`)
-        setSearchedGroups(data)
+        const response = await axios.get(`/api/groups?${search}&skip=${skip}&limit=6`)
+        console.log(response)
+        // response.message && setError(response.message)
+        // if (response.status === 204) setError
+        setSearchedGroups(response.data)
       } catch (err) {
-        setError(true)
+        console.log()
+        setError(err.message ? err.message : err.response.data.message)
       }
     }
     getData()
@@ -48,13 +52,11 @@ const GroupIndex = ({ groupId }) => {
         const { data } = await axios.get('/api/groups')
         setGroups(data)
       } catch (err) {
-        setError(true)
+        setError(err.message ? err.message : err.response.data.message)
       }
     }
     getData()
   }, [])
-
-
 
   const pageUp = async () => {
     try {
@@ -69,7 +71,7 @@ const GroupIndex = ({ groupId }) => {
       const result = skip - 6
       setSkip(result)
     } catch (err) {
-      setError(true)
+      setError(err.message)
     }
   }
 
@@ -77,7 +79,7 @@ const GroupIndex = ({ groupId }) => {
     try {
       setSkip(0)
     } catch (err) {
-      setError(true)
+      setError(err.message)
     }
   }
 
@@ -88,6 +90,7 @@ const GroupIndex = ({ groupId }) => {
         <h2 className='text-center'>Find your new crew!</h2>
         <SearchBar
           setSearch={setSearch} />
+        {/* {error && <small className='text-warning pt-3'>{error}</small>} */}
         <Container className='groups-container'>
           <button className='btn-left'
             style={{ backgroundImage: `url(${arrow})` }}

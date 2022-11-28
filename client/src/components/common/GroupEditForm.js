@@ -1,7 +1,7 @@
 import ImageUpload from './ImageUpload'
 
 
-const GroupEditForm = ({ groupFields, setGroupFields, groupError, setGroupError, handleGroupSubmit, group }) => {
+const GroupEditForm = ({ groupFields, setGroupFields, groupError, setGroupError, handleGroupSubmit }) => {
 
   function handleChange(e) {
     setGroupFields({ ...groupFields, [e.target.name]: e.target.value })

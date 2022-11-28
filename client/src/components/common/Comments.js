@@ -4,7 +4,7 @@ import { Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { getToken, isOwner } from '../../helpers/auth'
 import { getTimeElapsed } from '../../helpers/general'
-import CommentForm from './CommentForm'
+import CommentForm from '../common/CommentForm'
 
 
 const Comments = ({ comment, groupId, postId, setRefresh, refresh }) => {

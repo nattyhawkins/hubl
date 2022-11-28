@@ -14,7 +14,6 @@ const commentSchema = new mongoose.Schema({
   timestamps: true,
 })
 
-
 const postSchema = new mongoose.Schema({
   title: { type: String, required: true, maxlength: 100 },
   message: { type: String, maxlength: 500 },
