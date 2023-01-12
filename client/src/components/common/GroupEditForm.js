@@ -1,11 +1,11 @@
 import ImageUpload from './ImageUpload'
 
 
-const GroupEditForm = ({ groupFields, setGroupFields, error, setError, handleGroupSubmit, group }) => {
+const GroupEditForm = ({ groupFields, setGroupFields, groupError, setGroupError, handleGroupSubmit }) => {
 
   function handleChange(e) {
     setGroupFields({ ...groupFields, [e.target.name]: e.target.value })
-    if (error) setError('')
+    if (groupError) setGroupError('')
   }
 
   return (
@@ -52,9 +52,9 @@ const GroupEditForm = ({ groupFields, setGroupFields, error, setError, handleGro
             setGroupFields={setGroupFields}
             imageKey={'groupImage'}
           />
+          {groupError && <small className='text-warning pt-3'>{groupError}</small>}
         </div>
       </div>
-      {error && <small className='text-danger'>{error}</small>}
       <button className='uni-btn group-edit-btn'>Finish Edit</button>
     </form>
   )

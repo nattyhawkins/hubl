@@ -1,4 +1,4 @@
-import { Unauthorised, NotFound } from '../config/errors.js'
+import { Unauthorised, NotFound, CharacterLimit } from '../config/errors.js'
 import { findGroup, findPost, sendErrors, findComment } from '../config/helpers.js'
 import Group from '../models/group.js'
 import User from '../models/user.js'
@@ -6,6 +6,7 @@ import User from '../models/user.js'
 //POST GROUP
 export const addGroup = async (req, res) => {
   try {
+  //   if (req.body.name.length > 50 || req.body.bio.length > 500) throw new CharacterLimit('Character limit exceeded')
     const newOwnedGroup = { ...req.body, owner: req.currentUser._id }
     const newGroup = await Group.create(newOwnedGroup)
     res.status(201).json(newGroup)
@@ -21,18 +22,19 @@ export const getAllGroups = async (req, res) => {
     const allGroups = await Group.find({}).populate('owner')
     if (req.query.search) {
       filteredGroups = allGroups.filter(group => group.name.toLowerCase().includes(req.query.search.toLowerCase()))
+      console.log(filteredGroups.length)
+      if (filteredGroups.length === 0) throw new NotFound('No matches')
     }
-    const groupMap = filteredGroups && filteredGroups.length > 0 ? filteredGroups.map(group => group.name) : []
+    const groupMap = filteredGroups ? filteredGroups.map(group => group.name) : []
     const filter = groupMap.length > 0 ? { name: groupMap } : {}
     const groups = await Group.find(filter, null, { skip: req.query.skip, limit: req.query.limit }).populate('owner')
     return res.json(groups)
-  } catch (err) {
+  } catch (err) { 
     sendErrors(res, err)
   }
 }
 
 //GET 1 GROUP
-// ? NEED TO ADD comments.owner TO POPULATE comment owners
 export const getSingleGroup = async (req, res) => {
   try {
     const group = await findGroup(req, res, ['owner', 'posts.owner', 'posts.comments.owner'])
@@ -224,13 +226,15 @@ export const getProfile = async (req, res) => {
 }
 export const getMyProfile = async (req, res) => {
   try {
-    const targetUser = await User.findById(req.currentUser._id).populate(['myGroups', 'myPosts', 'joinedGroups']).populate({
-      path: 'myPosts',
-      populate: { path: 'posts.owner' },
-    }).populate({
-      path: 'myPosts',
-      populate: { path: 'posts', populate: { path: 'comments.owner' } },
-    })
+    const targetUser = await User.findById(req.currentUser._id)
+      .populate(['myGroups', 'myPosts', 'joinedGroups'])
+      .populate({
+        path: 'myPosts',
+        populate: { path: 'posts.owner' },
+      }).populate({
+        path: 'myPosts',
+        populate: { path: 'posts', populate: { path: 'comments.owner' } },
+      })
     if (!targetUser) throw new NotFound('Uh oh, User not found! Are you logged in?')
     return res.json(targetUser)
   } catch (err) {
@@ -262,6 +266,8 @@ export const updateProfile = async (req, res) => {
   try {
     const targetUser = await User.findById(req.currentUser._id)
     if (!targetUser) throw new NotFound('Uh oh, User not found!')
+    console.log(req.body.bio.length)
+    if (req.body.bio.length > 500) throw new CharacterLimit('Max 500 characters please!')
     Object.assign(targetUser, req.body)
     targetUser.save()
     return res.status(202).json(targetUser)

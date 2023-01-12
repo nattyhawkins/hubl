@@ -50,6 +50,19 @@ export default [
           message: 'haha this is a funny comment',
         }
       ],
+    },
+    {
+      title: 'Get into crypto event',
+      message: 'Who wants to come to a crypto networking event at central perk on thursday?? There’ll be a live performer!',
+      tags: ['crypto', 'money', 'learning', 'what is'],
+      comments: [
+        {
+          message: 'Will be there!',
+        },
+        {
+          message: 'can\'t wait!',
+        }
+      ],
     }],
   },
   {
@@ -88,6 +101,19 @@ export default [
           },
           {
             message: 'we always meet at our club house and then head off with our group bus, see you there!',
+          }
+        ],
+      },
+      {
+        title: 'MISSING OWL',
+        message: 'Has anyone seen a white owl responding to the name Hedwig?',
+        tags: ['event', 'bird', 'watching'],
+        comments: [
+          {
+            message: 'Have you checked the aviary?',
+          },
+          {
+            message: 'I\'ll keep an eye out!',
           }
         ],
       },
@@ -159,7 +185,7 @@ export default [
         tags: ['tv', 'event', 'chill'],
         comments: [
           {
-            message: '',
+            message: 'How about the new Tarantino!!',
           }
         ],
       }

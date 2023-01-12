@@ -20,7 +20,7 @@ const SearchBar = ({ setSearch }) => {
         <form onSubmit={handleSearch}>
           <input className='text-center mb-2 search-input' onChange={handleInput}
             type='search'
-            placeholder='Search your wildest dreams...'
+            placeholder='Search groups'
             name='search'
             value={searchInput} />
         </form>

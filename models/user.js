@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true, minlength: 3 },
   bio: { type: String, maxlength: 500, default: 'Add bio here...' },
-  image: { type: String, default: '../../assets/profile-penguin.jpg' },
+  image: { type: String },
   // joinedGroups: [{ type: mongoose.Schema.ObjectId, ref: 'Group', required: true }],
 }, {
   strictPopulate: false,
@@ -54,6 +54,12 @@ userSchema.virtual('myGroups', {
   foreignField: 'owner',
 })
 
+userSchema.virtual('joinedGroups', {
+  ref: 'Group',
+  localField: '_id',
+  foreignField: 'members.owner',
+})
+
 userSchema.virtual('myPosts', {
   ref: 'Group',
   localField: '_id',
@@ -66,14 +72,7 @@ userSchema.virtual('myPosts', {
       })
       return { posts: myPostsArray, groupId }
     })
-
   },
-})
-
-userSchema.virtual('joinedGroups', {
-  ref: 'Group',
-  localField: '_id',
-  foreignField: 'members.owner',
 })
 
 export default mongoose.model('User', userSchema)

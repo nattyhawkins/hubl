@@ -1,9 +1,9 @@
-import { NotFound, Unauthorised } from './errors.js'
+import { CharacterLimit, NotFound, Unauthorised } from './errors.js'
 import { CastError } from 'mongoose'
 import Group from '../models/group.js'
 
 export const sendErrors = (res, err) => {
-  if (err instanceof NotFound || err instanceof Unauthorised) {
+  if (err instanceof NotFound || err instanceof Unauthorised || err instanceof CharacterLimit ) {
     return res.status(err.status).json({ message: err.message })
   } else if (err instanceof CastError) {
     return res.status(400).json({ message: err.message })
@@ -12,6 +12,7 @@ export const sendErrors = (res, err) => {
   } else if (err.name === 'JsonWebTokenError') {
     return res.status(401).json({ message: err.message })
   } else {
+    console.log('herer', err)
     res.status(500).json({ message: err.message })
   }
 }

@@ -1,14 +1,11 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
-
-import { Container, Row, Col, Card, Collapse } from 'react-bootstrap/'
-
+import { Container, Row, Col, Card, Collapse, Spinner } from 'react-bootstrap/'
 import SearchBar from '../common/SearchBar'
 import arrow from '../../assets/arrow-white.png'
 import GroupForm from '../common/GroupForm'
 import { isAuthenticated } from '../../helpers/auth'
-import Footer from '../common/Footer'
 
 
 
@@ -25,19 +22,20 @@ const GroupIndex = ({ groupId }) => {
     image: '',
     groupImage: '',
   })
-
   const [search, setSearch] = useState('')
-
   const navigate = useNavigate()
 
 
   useEffect(() => {
     const getData = async () => {
       try {
-        const { data } = await axios.get(`/api/groups?${search}&skip=${skip}&limit=6`)
-        setSearchedGroups(data)
+        setSearchedGroups([])
+        const response = await axios.get(`/api/groups?${search}&skip=${skip}&limit=6`)
+        console.log(response)
+        setSearchedGroups(response.data)
       } catch (err) {
-        setError(true)
+        console.log(err.response.data.message)
+        setError(err.response.status === 404 ? err.response.data.message : 'Uh oh! Something went wrong...')
       }
     }
     getData()
@@ -50,13 +48,11 @@ const GroupIndex = ({ groupId }) => {
         const { data } = await axios.get('/api/groups')
         setGroups(data)
       } catch (err) {
-        setError(true)
+        setError(err.message ? err.message : err.response.data.message)
       }
     }
     getData()
   }, [])
-
-
 
   const pageUp = async () => {
     try {
@@ -71,7 +67,7 @@ const GroupIndex = ({ groupId }) => {
       const result = skip - 6
       setSkip(result)
     } catch (err) {
-      setError(true)
+      setError(err.message)
     }
   }
 
@@ -79,7 +75,7 @@ const GroupIndex = ({ groupId }) => {
     try {
       setSkip(0)
     } catch (err) {
-      setError(true)
+      setError(err.message)
     }
   }
 
@@ -90,19 +86,20 @@ const GroupIndex = ({ groupId }) => {
         <h2 className='text-center'>Find your new crew!</h2>
         <SearchBar
           setSearch={setSearch} />
+        {/* {error && <small className='text-warning pt-3'>{error}</small>} */}
         <Container className='groups-container'>
           <button className='btn-left'
             style={{ backgroundImage: `url(${arrow})` }}
             onClick={pageDown}
             disabled={skip === 0}
           />
-          {searchedGroups.length ?
+          {searchedGroups.length > 0 ?
             <Row className='groups-row text-center'>
               {searchedGroups.map(group => {
                 const { name, _id, image, groupImage } = group
                 return (
-                  <Col md='4' key={_id} className='group-card' >
-                    <Link className='text-decoration-none' to={`${_id}`}>
+                  <Col md='4' key={_id} className='group-card my-2' >
+                    <Link className='text-decoration-none ' to={`${_id}`}>
                       <Card style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(${image ? image : groupImage})` }}>
                         <div className='group-name'>{name}</div>
                       </Card>
@@ -112,7 +109,10 @@ const GroupIndex = ({ groupId }) => {
               })}
             </Row>
             :
-            error ? <p>something went wrong...</p> : <p>loading...</p>
+            error ? 
+              <h4 className='w-100 text-center err'>{error}</h4>
+              : 
+              <div className='w-100 d-flex justify-content-center' ><Spinner variant='warning'/></div>
           }
           <button
             className='btn-right'
@@ -145,13 +145,12 @@ const GroupIndex = ({ groupId }) => {
           </div>
           :
           <button
-            className='uni-btn text-center login-btn'
+            className='uni-btn text-center login-btn my-3'
             onClick={() => navigate('/login')}>
             Login to create a Group
           </button>
         }
       </main>
-      <Footer />
     </>
   )
 

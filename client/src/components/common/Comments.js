@@ -4,14 +4,14 @@ import { Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { getToken, isOwner } from '../../helpers/auth'
 import { getTimeElapsed } from '../../helpers/general'
-import CommentForm from './CommentForm'
+import CommentForm from '../common/CommentForm'
 
 
 const Comments = ({ comment, groupId, postId, setRefresh, refresh }) => {
   const { owner, message, _id: commentId } = comment
   const [timeElapsed, setTimeElapsed] = useState(getTimeElapsed(comment.createdAt))
   const [toEdit, setToEdit] = useState(false)
-  const [error, setError] = useState(false)
+  const [commentError, setCommentError] = useState(false)
   const [likeStatus, setLikeStatus] = useState(() => {
     if (getToken() && comment.likes.some(like => isOwner(like.owner))) return 202
     return 204
@@ -41,6 +41,7 @@ const Comments = ({ comment, groupId, postId, setRefresh, refresh }) => {
     try {
       e.preventDefault()
       if (!getToken()) throw new Error('Please login')
+      if (commentField.message.length > 500) throw new Error('500 Character limit exceeded')
       await axios.put(`/api/groups/${groupId}/posts/${postId}/comments/${commentId}`, commentField, {
         headers: {
           Authorization: `Bearer ${getToken()}`,
@@ -50,7 +51,7 @@ const Comments = ({ comment, groupId, postId, setRefresh, refresh }) => {
       setToEdit(false)
       setCommentField({ message: '' })
     } catch (err) {
-      setError(err.message ? err.message : err.response.data.message)
+      setCommentError(err.message ? err.message : err.response.data.message)
     }
   }
   //delete comment
@@ -65,7 +66,7 @@ const Comments = ({ comment, groupId, postId, setRefresh, refresh }) => {
       setRefresh(!refresh)
       setCommentField({ message: '' })
     } catch (err) {
-      setError(err.response.data.message)
+      setCommentError(err.response.data.message)
     }
   }
 
@@ -81,7 +82,7 @@ const Comments = ({ comment, groupId, postId, setRefresh, refresh }) => {
       setLikeStatus(status)
       setRefresh(!refresh)
     } catch (err) {
-      setError(err.message ? err.message : err.response.data.message)
+      setCommentError(err.message ? err.message : err.response.data.message)
     }
   }
 
@@ -100,7 +101,7 @@ const Comments = ({ comment, groupId, postId, setRefresh, refresh }) => {
             </div>}
         </div>
         {toEdit ?
-          <CommentForm commentField={commentField} setCommentField={setCommentField} error={error} setError={setError} handleCommentSubmit={handleCommentSubmit} />
+          <CommentForm commentField={commentField} setCommentField={setCommentField} commentError={commentError} setCommentError={setCommentError} handleCommentSubmit={handleCommentSubmit} />
           :
           <>
             <Card.Text className='mb-0'>{message}</Card.Text>

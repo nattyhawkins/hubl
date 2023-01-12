@@ -14,9 +14,8 @@ const commentSchema = new mongoose.Schema({
   timestamps: true,
 })
 
-
 const postSchema = new mongoose.Schema({
-  title: { type: String, required: true, maxlength: 250 },
+  title: { type: String, required: true, maxlength: 100 },
   message: { type: String, maxlength: 500 },
   tags: [{ type: String }],
   owner: { type: mongoose.Schema.ObjectId, ref: 'User', required: true },
@@ -28,7 +27,7 @@ const postSchema = new mongoose.Schema({
 
 export const groupSchema = new mongoose.Schema({
   name: { type: String, required: true, unique: true, maxlength: 50 },
-  bio: { type: String, maxlength: 500 },
+  bio: { type: String, maxlength: 200 },
   image: { type: String },
   groupImage: { type: String },
   owner: { type: mongoose.Schema.ObjectId, ref: 'User', required: true },

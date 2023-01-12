@@ -16,11 +16,12 @@ const GroupForm = ({ groupFields, setGroupFields, error, setError, groups }) => 
     if (error) setError('')
   }
 
-
+  //submit new group
   async function handleSubmit(e) {
     try {
       e.preventDefault()
       if (!getToken()) throw new Error('Please login to create a group')
+      if (groupFields.bio.length > 200 || groupFields.name.length > 50) throw new Error('Character limit exceeded!')
       if (groups.some(group => group.name === groupFields.name)) throw new Error('Group already exists')
       const { data } = await axios.post('api/groups', groupFields, {
         headers: {
@@ -33,10 +34,6 @@ const GroupForm = ({ groupFields, setGroupFields, error, setError, groups }) => 
       setError(err.message ? err.message : err.response.data.message)
     }
   }
-
-
-
-
 
   return (
     <Card className='group-form'>
@@ -72,7 +69,7 @@ const GroupForm = ({ groupFields, setGroupFields, error, setError, groups }) => 
           imageKey={'groupImage'}
         />
         <br />
-        {error && <small className='text-danger'>{error}</small>}
+        {error && <small className='text-warning'>{error}</small>}
         <br />
         <button className='uni-btn group-create-btn'>Create Group</button>
       </form>

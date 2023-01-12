@@ -1,13 +1,13 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { Card, Col, Container, Row } from 'react-bootstrap'
-import { Link, Navigate, useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { getToken, isAuthenticated } from '../../helpers/auth'
 import { unixTimestamp } from '../../helpers/general'
-import Comments from './Comments'
-import Post from './Post'
-import { v4 as uuid } from 'uuid'
+import Post from '../common/Post'
 import ImageUpload from '../common/ImageUpload'
+import defaultProfile from '../../../src/assets/profile-penguin.jpg'
+import Comments from '../common/Comments'
 
 const Profile = () => {
 
@@ -45,18 +45,20 @@ const Profile = () => {
         })
         setProfile(data)
       } catch (err) {
-        setError(err)
+        setError(err.response.data.message)
       }
     }
     getProfile()
 
   }, [refresh, userAddress])
 
+  //submit profile update
   async function handleSubmit(e) {
     try {
       e.preventDefault()
       if (!getToken()) throw new Error('Please login')
-      const { data } = await axios.patch('/api/profile', profileFields, {
+      if (profileFields.bio.length > 500) throw new Error('Exceeds 500 character limit')
+      await axios.put('/api/profile', profileFields, {
         headers: {
           Authorization: `Bearer ${getToken()}`,
         },
@@ -65,6 +67,7 @@ const Profile = () => {
       setRefresh(!refresh)
       setToEditProfile(false)
     } catch (err) {
+      console.log(err)
       setError(err.message ? err.message : err.response.data.message)
     }
   }
@@ -85,75 +88,96 @@ const Profile = () => {
     <main className='group-single profile'>
       {profile &&
         <>
-          <div className='banner d-flex flex-column align-items-end'>
-            <button className="btn" style={{ color: 'white' }} onClick={() => (editProfile())} >•••</button>
-            <Container className='bannerContainer wider'>
-              <Col >
-                {toEditProfile ?
-                  <ImageUpload
-                    groupFields={profileFields}
-                    setGroupFields={setProfileFields}
-                    imageKey={'image'}
-                  />
-                  :
-                  <div className="profile-pic profile" style={{ backgroundImage: `url(${profile.image})` }} alt="profile"></div>
-                }
-                <div className='col-md-8 title d-flex align-items-end'>
-                  <h1>{profile.username}</h1>
+          <Row className='banner px-md-2'>
+            <Container className='px-0 px-sm-2'>
+              <div className='bannerContainer wider justify-content-start align-items-center'>
+                <div className='d-flex justify-content-center'>
+                  {toEditProfile ?
+                    <ImageUpload
+                      groupFields={profileFields}
+                      setGroupFields={setProfileFields}
+                      imageKey={'image'}
+                    />
+                    :
+                    <div className="profile-pic profile" style={{ backgroundImage: profile.image ? `url(${profile.image})` : `url(${defaultProfile})` }} alt="profile"></div>
+                  }
                 </div>
-              </Col>
-              <Col className="col-md-4 bio justify-end align-self-start">
-                {toEditProfile ?
-                  <form onSubmit={handleSubmit}>
-                    <input
-                      className='text-area w-100'
-                      type='text'
-                      name='bio'
-                      onChange={handleChange}
-                      value={profileFields.bio}
-                      placeholder='Don&apos;t be shy... Introduce yourself!'
-                      required />
-                    {error && <small className='text-danger'>{error}</small>}
-                    <br />
-                    <button className='uni-btn group-create-btn'>Submit</button>
-                  </form>
-                  :
-                  <p>{profile.bio}</p>
-                }
-              </Col>
+                <div className="px-2 py-md-0 d-flex flex-column align-items-center text-center">
+                  <button className="btn p-0 post-btn" onClick={() => (editProfile())} >•••</button>
+                  <h1 className='name'>{profile.username}</h1>
+                  <div className='bio'>
+                    {toEditProfile ?
+                      <form onSubmit={handleSubmit}>
+                        <input
+                          className='text-area w-100'
+                          type='text'
+                          name='bio'
+                          onChange={handleChange}
+                          value={profileFields.bio}
+                          placeholder='Don&apos;t be shy... Introduce yourself!'
+                          required />
+                        {error && <small className='text-warning'>{error}</small>}
+                        <br />
+                        <button className='uni-btn group-create-btn mt-3'>Submit</button>
+                      </form>
+                      :
+                      <p>{profile.bio}</p>
+                    }
+                  </div>
+                  
+                </div>
+              </div>
             </Container>
-          </div>
+          </Row>
           <Row>
-            <Container className="profileContainer">
-              <Row className='groups-row text-center mt-5' >
+            <Container className="profileContainer px-0 px-sm-0">
+              <Row className='  text-center mt-3 d-flex flex-column align-items-center' >
                 <h2>My Created Groups</h2>
-                {profile.myGroups.map(group => {
-                  const { name, image, _id: groupId } = group
-                  return (
-                    <Col md='3' key={groupId} className='group-card' >
-                      <Link className='text-decoration-none' to={`/${groupId}`}>
-                        <Card style={{ backgroundImage: `url(${image})` }}>
-                          <div className='group-name'>{name}</div>
-                        </Card>
-                      </Link>
-                    </Col>
-                  )
-                })}
+                <Row className=' groups-row d-flex justify-content-center my-3'>
+                  {profile.myGroups.map(group => {
+                    const { name, image, _id: groupId } = group
+                    return (
+                      <Col md='3' key={groupId} className='group-card my-2' >
+                        <Link className='text-decoration-none' to={`/${groupId}`}>
+                          <Card style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(${image})` }}>
+                            <div className='group-name'>{name}</div>
+                          </Card>
+                        </Link>
+                      </Col>
+                    )
+                  })}
+                  <Col md='3'className='group-card my-2' >
+                    <Link className='text-decoration-none' to={'/'}>
+                      <Card style={{ backgroundColor: 'rgba(255,255,255,0.1)' }}>
+                        <div className='group-name'>＋</div>
+                      </Card>
+                    </Link>
+                  </Col>
+                </Row>
               </Row>
-              <Row className='d-flex  text-center mb-4 flex-wrap h-10'>
+              <Row className=' text-center mb-4 mt-3 h-10 d-flex flex-column align-items-center'>
                 <h2>Group Memberships</h2>
-                {profile.joinedGroups.map(group => {
-                  const { name, image, _id: groupId } = group
-                  return (
-                    <Col md='3' key={groupId} className='group-card' >
-                      <Link className='text-decoration-none' to={`/${groupId}`}>
-                        <Card style={{ backgroundImage: `url(${image})` }}>
-                          <div className='group-name'>{name}</div>
-                        </Card>
-                      </Link>
-                    </Col>
-                  )
-                })}
+                <Row className='d-flex groups-row justify-content-center flex-wrap my-3'>
+                  {profile.joinedGroups.map(group => {
+                    const { name, image, _id: groupId } = group
+                    return (
+                      <Col  md='3' key={groupId} className='group-card my-2' >
+                        <Link className='text-decoration-none' to={`/${groupId}`}>
+                          <Card style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(${image})` }}>
+                            <div className='group-name'>{name}</div>
+                          </Card>
+                        </Link>
+                      </Col>
+                    )
+                  })}
+                  <Col md='3'className='group-card my-2' >
+                    <Link className='text-decoration-none' to={'/'}>
+                      <Card style={{ backgroundColor: 'rgba(255,255,255,0.1)' }}>
+                        <div className='group-name'> ＋ </div>
+                      </Card>
+                    </Link>
+                  </Col>
+                </Row>
               </Row>
               <hr />
               <Row className='groups-row mt-5'>
@@ -161,11 +185,7 @@ const Profile = () => {
                 <Container className="mainContainer"> {profile.myPosts.map(object => {
                   const { groupId, posts } = object
                   return posts.sort((a, b) => (unixTimestamp(a.createdAt) > unixTimestamp(b.createdAt) ? -1 : 1)).map(post => {
-                    const { tags, _id: postId, comments } = post
-                    const tagsHTML = tags.map(tag => {
-                      const tagWithId = { tag: tag, id: uuid() }
-                      return <Card.Subtitle key={tagWithId.id} className="tag">#{tagWithId.tag}</Card.Subtitle>
-                    })
+                    const { _id: postId, comments } = post
                     const commentHTML = comments.sort((a, b) => (unixTimestamp(a.createdAt) > unixTimestamp(b.createdAt) ? -1 : 1)).map(comment => {
                       const { message, _id: commentId, owner } = comment
                       return (
@@ -173,7 +193,7 @@ const Profile = () => {
                       )
                     })
                     return (
-                      <Post key={postId} postId={postId} commentHTML={commentHTML} tagesHTML={tagsHTML} post={post} groupId={groupId} setRefresh={setRefresh} refresh={refresh} />
+                      <Post key={postId} postId={postId} commentHTML={commentHTML} post={post} groupId={groupId} setRefresh={setRefresh} refresh={refresh} />
                     )
                   })
                 })}</Container>

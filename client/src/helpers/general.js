@@ -3,7 +3,6 @@ import moment from 'moment'
 export function unixTimestamp(timestamp){
   return moment(timestamp).format('X')
 }  
-
 export function getTimeElapsed(timestamp) {
   const now = new Date()
   const mins = Math.round((unixTimestamp(now) - unixTimestamp(timestamp)) / 60)
