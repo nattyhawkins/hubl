@@ -8,6 +8,7 @@ import Post from '../common/Post'
 import ImageUpload from '../common/ImageUpload'
 import defaultProfile from '../../../src/assets/profile-penguin.jpg'
 import Comments from '../common/Comments'
+
 const Profile = () => {
 
   const [profile, setProfile] = useState(null)

@@ -1,14 +1,11 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
-
 import { Container, Row, Col, Card, Collapse, Spinner } from 'react-bootstrap/'
-
 import SearchBar from '../common/SearchBar'
 import arrow from '../../assets/arrow-white.png'
 import GroupForm from '../common/GroupForm'
 import { isAuthenticated } from '../../helpers/auth'
-import Footer from '../common/Footer'
 
 
 
