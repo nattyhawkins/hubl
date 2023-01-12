@@ -30,6 +30,7 @@ const GroupIndex = ({ groupId }) => {
     const getData = async () => {
       try {
         setSearchedGroups([])
+        setError(false)
         const response = await axios.get(`/api/groups?${search}&skip=${skip}&limit=6`)
         console.log(response)
         setSearchedGroups(response.data)
@@ -93,9 +94,9 @@ const GroupIndex = ({ groupId }) => {
             onClick={pageDown}
             disabled={skip === 0}
           />
-          {searchedGroups.length > 0 ?
-            <Row className='groups-row text-center'>
-              {searchedGroups.map(group => {
+          <Row className='groups-row text-center'>
+            {searchedGroups.length > 0 ?
+              searchedGroups.map(group => {
                 const { name, _id, image, groupImage } = group
                 return (
                   <Col md='4' key={_id} className='group-card my-2' >
@@ -106,14 +107,13 @@ const GroupIndex = ({ groupId }) => {
                     </Link>
                   </Col>
                 )
-              })}
-            </Row>
-            :
-            error ? 
-              <h4 className='w-100 text-center err'>{error}</h4>
-              : 
-              <div className='w-100 d-flex justify-content-center' ><Spinner variant='warning'/></div>
-          }
+              })
+              :
+              error ? 
+                <h4 className='w-100 text-center err'>{error}</h4>
+                : 
+                <div className='w-100 d-flex justify-content-center' ><Spinner variant='warning'/></div>}
+          </Row>
           <button
             className='btn-right'
             style={{ backgroundImage: `url(${arrow})` }}
