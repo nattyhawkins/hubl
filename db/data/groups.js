@@ -48,18 +48,20 @@ export default [
         },
         {
           message: 'haha this is a funny comment',
+        }
+      ],
+    },
+    {
+      title: 'Get into crypto event',
+      message: 'Who wants to come to a crypto networking event at central perk on thursday?? There’ll be a live performer!',
+      tags: ['crypto', 'money', 'learning', 'what is'],
+      comments: [
+        {
+          message: 'Will be there!',
         },
         {
-          title: 'Get into crypto event',
-          message: 'Who wants to come to a crypto networking event at central perk on thursday?? There’ll be a live performer!',
-          tags: ['crypto', 'money', 'learning', 'what is'],
-          comments: [
-            {
-              message: 'Will be there!',
-            },
-            {
-              message: 'can\'t wait!',
-            },
+          message: 'can\'t wait!',
+        }
       ],
     }],
   },

@@ -1,8 +1,6 @@
 
 import { Buffer } from 'buffer'
 
-
-
 const tokenName = 'hubble-token'
 
 export const setToken = (token) => {

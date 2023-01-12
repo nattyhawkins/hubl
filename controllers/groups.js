@@ -24,6 +24,7 @@ export const getAllGroups = async (req, res) => {
       filteredGroups = allGroups.filter(group => group.name.toLowerCase().includes(req.query.search.toLowerCase()))
       console.log(filteredGroups.length)
       if (filteredGroups.length === 0) return res.json({ message: 'no matches' })
+      // if (filteredGroups.length === 0) throw new NotFound('No matches')
     }
     const groupMap = filteredGroups ? filteredGroups.map(group => group.name) : []
     const filter = groupMap.length > 0 ? { name: groupMap } : {}
@@ -226,13 +227,15 @@ export const getProfile = async (req, res) => {
 }
 export const getMyProfile = async (req, res) => {
   try {
-    const targetUser = await User.findById(req.currentUser._id).populate(['myGroups', 'myPosts', 'joinedGroups']).populate({
-      path: 'myPosts',
-      populate: { path: 'posts.owner' },
-    }).populate({
-      path: 'myPosts',
-      populate: { path: 'posts', populate: { path: 'comments.owner' } },
-    })
+    const targetUser = await User.findById(req.currentUser._id)
+      .populate(['myGroups', 'myPosts', 'joinedGroups'])
+      .populate({
+        path: 'myPosts',
+        populate: { path: 'posts.owner' },
+      }).populate({
+        path: 'myPosts',
+        populate: { path: 'posts', populate: { path: 'comments.owner' } },
+      })
     if (!targetUser) throw new NotFound('Uh oh, User not found! Are you logged in?')
     return res.json(targetUser)
   } catch (err) {

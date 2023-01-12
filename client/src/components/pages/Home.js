@@ -33,12 +33,9 @@ const GroupIndex = ({ groupId }) => {
     const getData = async () => {
       try {
         const response = await axios.get(`/api/groups?${search}&skip=${skip}&limit=6`)
-        console.log(response)
-        // response.message && setError(response.message)
-        // if (response.status === 204) setError
         setSearchedGroups(response.data)
       } catch (err) {
-        console.log()
+        console.log(err.message)
         setError(err.message ? err.message : err.response.data.message)
       }
     }

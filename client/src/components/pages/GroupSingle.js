@@ -47,6 +47,7 @@ const GroupSingle = () => {
     getGroup()
   }, [groupId, refresh])
 
+  // check if user is already a member of group on page load
   useEffect(() => {
     console.log(group)
     if (getToken() && group.members && group.members.some(member => isOwner(member.owner))) return setMemberStatus(200)

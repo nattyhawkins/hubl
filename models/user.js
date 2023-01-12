@@ -72,7 +72,6 @@ userSchema.virtual('myPosts', {
       })
       return { posts: myPostsArray, groupId }
     })
-
   },
 })
 
