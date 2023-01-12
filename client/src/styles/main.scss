@@ -18,14 +18,14 @@ $button-colour: $secondary;
 }
 
 body, html {
-  min-height: 100vh;
-  min-width: 100vw;
+  height: 100vh;
+  width: 100vw;
   margin: 0;
 }
 
 body {
   
-  width: 100vw;
+  // width: 100vw;
   background-color: $primary;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   position: relative;
@@ -591,6 +591,11 @@ footer {
     color: $secondary;
     font-size: 1.5em;
   }
+  .row{
+    max-width: 100vw;
+    margin-right: 0;
+    margin-left: 0;
+  }
 
   .bannerContainer {
     background-color: black;
@@ -617,7 +622,7 @@ footer {
 .profileContainer {
   max-width: 1310px;
   width: calc(100% - 40px);
-
+  max-width: 100vw;
 
   h2 {
     color: white;
@@ -645,6 +650,7 @@ footer {
     .bio p{
       font-size: 2.2vw;
     }
+    
   }
   .bannerContainer:not(.wider) {
     display: flex;

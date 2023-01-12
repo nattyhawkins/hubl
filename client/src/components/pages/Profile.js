@@ -154,7 +154,7 @@ const Profile = () => {
                   </Col>
                 </Row>
               </Row>
-              <Row className=' text-center mb-4 h-10 d-flex flex-column align-items-center'>
+              <Row className=' text-center mb-4 mt-3 h-10 d-flex flex-column align-items-center'>
                 <h2>Group Memberships</h2>
                 <Row className='d-flex groups-row justify-content-center flex-wrap my-3'>
                   {profile.joinedGroups.map(group => {

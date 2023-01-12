@@ -32,11 +32,13 @@ const GroupIndex = ({ groupId }) => {
   useEffect(() => {
     const getData = async () => {
       try {
+        setSearchedGroups([])
         const response = await axios.get(`/api/groups?${search}&skip=${skip}&limit=6`)
+        console.log(response)
         setSearchedGroups(response.data)
       } catch (err) {
-        console.log(err.message)
-        setError(err.message ? err.message : err.response.data.message)
+        console.log(err.response.data.message)
+        setError(err.response.status === 404 ? err.response.data.message : 'Uh oh! Something went wrong...')
       }
     }
     getData()
@@ -94,7 +96,7 @@ const GroupIndex = ({ groupId }) => {
             onClick={pageDown}
             disabled={skip === 0}
           />
-          {searchedGroups.length ?
+          {searchedGroups.length > 0 ?
             <Row className='groups-row text-center'>
               {searchedGroups.map(group => {
                 const { name, _id, image, groupImage } = group
@@ -110,7 +112,10 @@ const GroupIndex = ({ groupId }) => {
               })}
             </Row>
             :
-            error ? <h4 className='w-100 text-center err'>No results</h4> : <div className='w-100 d-flex justify-content-center' ><Spinner variant='warning'/></div>
+            error ? 
+              <h4 className='w-100 text-center err'>{error}</h4>
+              : 
+              <div className='w-100 d-flex justify-content-center' ><Spinner variant='warning'/></div>
           }
           <button
             className='btn-right'

@@ -12,6 +12,7 @@ const ImageUpload = ({ groupFields, setGroupFields, imageKey, setError }) => {
       formData.append('upload_preset', process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET)
       const { data } = await axios.post(process.env.REACT_APP_CLOUDINARY_URL, formData)
       setGroupFields({ ...groupFields, [imageKey]: data.secure_url })
+      console.log(data)
     } catch (err) {
       setError(err.message ? err.message : err.response.data.message)
     }
@@ -26,7 +27,7 @@ const ImageUpload = ({ groupFields, setGroupFields, imageKey, setError }) => {
       <input
         className='upload-input text-center'
         type='file'
-        onChange={handleChange}
+        onChange={(e) => handleChange(e)}
       />
     </div>
   )

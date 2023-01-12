@@ -195,7 +195,7 @@ export const getAllGroups = async (req, res) => {
     const allGroups = await Group.find({}).populate('owner')
     if (req.query.search) {
       filteredGroups = allGroups.filter(group => group.name.toLowerCase().includes(req.query.search.toLowerCase()))
-      if (filteredGroups.length === 0) return res.json({ message: 'no matches' })
+      if (filteredGroups.length === 0) throw new NotFound('No matches')
     }
     const groupMap = filteredGroups ? filteredGroups.map(group => group.name) : []
     const filter = groupMap.length > 0 ? { name: groupMap } : {}
@@ -276,9 +276,8 @@ Error handling with try-catches
 
 
 ## Bugs
-- Search function should handle a search that returns no matches
 - Join group / create group prompt cards in profile just link to homepage rather than specifically to the new group form
-- Error handling is not flawless
+- Error handling is not flawless i.e. liking but not logged in
 - Footer doesn't stay at bottom of homepage on smaller screens
 - Some responsive styling issues
 - Sometimes the photo upload doesn't work
