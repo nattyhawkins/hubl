@@ -21,7 +21,7 @@ const ImageUpload = ({ groupFields, setGroupFields, imageKey, setError }) => {
 
   return (
     <div className='field'>
-      <label>or upload a group image:</label>
+      <label>or upload an image:</label>
       <br />
       <input
         className='upload-input text-center'

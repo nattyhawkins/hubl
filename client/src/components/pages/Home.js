@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
 
-import { Container, Row, Col, Card, Collapse } from 'react-bootstrap/'
+import { Container, Row, Col, Card, Collapse, Spinner } from 'react-bootstrap/'
 
 import SearchBar from '../common/SearchBar'
 import arrow from '../../assets/arrow-white.png'
@@ -95,11 +95,11 @@ const GroupIndex = ({ groupId }) => {
             disabled={skip === 0}
           />
           {searchedGroups.length ?
-            <Row className='groups-row text-center '>
+            <Row className='groups-row text-center'>
               {searchedGroups.map(group => {
                 const { name, _id, image, groupImage } = group
                 return (
-                  <Col md='4' key={_id} className='group-card' >
+                  <Col md='4' key={_id} className='group-card my-2' >
                     <Link className='text-decoration-none ' to={`${_id}`}>
                       <Card style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(${image ? image : groupImage})` }}>
                         <div className='group-name'>{name}</div>
@@ -110,7 +110,7 @@ const GroupIndex = ({ groupId }) => {
               })}
             </Row>
             :
-            error ? <p>something went wrong...</p> : <p>loading...</p>
+            error ? <h4 className='w-100 text-center err'>No results</h4> : <div className='w-100 d-flex justify-content-center' ><Spinner variant='warning'/></div>
           }
           <button
             className='btn-right'
@@ -143,13 +143,12 @@ const GroupIndex = ({ groupId }) => {
           </div>
           :
           <button
-            className='uni-btn text-center login-btn'
+            className='uni-btn text-center login-btn my-3'
             onClick={() => navigate('/login')}>
             Login to create a Group
           </button>
         }
       </main>
-      <Footer />
     </>
   )
 
