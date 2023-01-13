@@ -8,7 +8,6 @@ import GroupForm from '../common/GroupForm'
 import { isAuthenticated } from '../../helpers/auth'
 
 
-
 const GroupIndex = ({ groupId }) => {
 
   const [open, setOpen] = useState(false)
