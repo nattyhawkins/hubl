@@ -28,7 +28,7 @@ HUBL is a social media platform that allows registered users to join or create/e
 - Install dependencies by running `npm i` in Terminal
 - `mongod --dbpath ~/data/db` to start the database
 - Start the server by running `nodemon`
-- `cd client` to go to frontend folder
+- Split terminal and run `client` to go to frontend folder
 - `npm run start`
 
 
