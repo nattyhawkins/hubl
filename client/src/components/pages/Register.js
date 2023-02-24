@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom'
 
 const Register = () => {
 
-
   const navigate = useNavigate()
 
   const [formFields, setFormFields] = useState({
@@ -15,10 +14,6 @@ const Register = () => {
   })
 
   const [error, setError] = useState(false)
-
-
-
-
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -38,9 +33,6 @@ const Register = () => {
     setFormFields(updatedFormFields)
     if (error) setError('')
   }
-
-
-
 
   return (
     <main className='auth-pages'>

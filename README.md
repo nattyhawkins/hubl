@@ -23,6 +23,14 @@ HUBL is a social media platform that allows registered users to join or create/e
 - Cloudinary
 
 
+## Code Installation
+- Clone or download the repo
+- Install dependencies by running `npm i` in Terminal
+- `mongod --dbpath ~/data/db` to start the database
+- Start the server by running `nodemon`
+- `cd client` to go to frontend folder
+- `npm run start`
+
 
 ## Brief
 The project must:
