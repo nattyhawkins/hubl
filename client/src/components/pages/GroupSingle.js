@@ -1,8 +1,7 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { Card, Col, Row, Container, Button } from 'react-bootstrap'
-import { v4 as uuid } from 'uuid'
+import { Col, Row, Container, Button } from 'react-bootstrap'
 import Post from '../common/Post'
 import PostForm from '../common/PostForm'
 import { getToken, isOwner } from '../../helpers/auth'
@@ -10,28 +9,25 @@ import { unixTimestamp } from '../../helpers/general'
 import GroupEditForm from '../common/GroupEditForm'
 import Comments from '../common/Comments'
 
-
-
 const GroupSingle = () => {
-
 
   const [group, setGroup] = useState([])
   const [groupError, setGroupError] = useState(false)
   const [postError, setPostError] = useState(false)
   const [refresh, setRefresh] = useState(false)
   const [toEdit, setToEdit] = useState(false)
+  const [memberStatus, setMemberStatus] = useState(204)
   const [postFields, setPostFields] = useState({
     title: '',
     message: '',
   })
-  const [memberStatus, setMemberStatus] = useState(204)
-
   const [groupFields, setGroupFields] = useState({
     name: '',
     bio: '',
     image: '',
     groupImage: '',
   })
+  
   const { groupId } = useParams()
   const navigate = useNavigate()
 

@@ -8,6 +8,8 @@ import Post from '../common/Post'
 import ImageUpload from '../common/ImageUpload'
 import defaultProfile from '../../../src/assets/profile-penguin.jpg'
 import Comments from '../common/Comments'
+import BlankCard from '../common/BlankCard'
+import GroupSet from '../common/GroupSet'
 
 const Profile = () => {
 
@@ -133,51 +135,11 @@ const Profile = () => {
             <Container className="profileContainer px-0 px-sm-0">
               <Row className='  text-center mt-3 d-flex flex-column align-items-center' >
                 <h2>My Created Groups</h2>
-                <Row className=' groups-row d-flex justify-content-center my-3'>
-                  {profile.myGroups.map(group => {
-                    const { name, image, _id: groupId } = group
-                    return (
-                      <Col md='3' key={groupId} className='group-card my-2' >
-                        <Link className='text-decoration-none' to={`/${groupId}`}>
-                          <Card style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(${image})` }}>
-                            <div className='group-name'>{name}</div>
-                          </Card>
-                        </Link>
-                      </Col>
-                    )
-                  })}
-                  <Col md='3'className='group-card my-2' >
-                    <Link className='text-decoration-none' to={'/'}>
-                      <Card style={{ backgroundColor: 'rgba(255,255,255,0.1)' }}>
-                        <div className='group-name'>＋</div>
-                      </Card>
-                    </Link>
-                  </Col>
-                </Row>
+                <GroupSet groups={profile.myGroups} />
               </Row>
               <Row className=' text-center mb-4 mt-3 h-10 d-flex flex-column align-items-center'>
                 <h2>Group Memberships</h2>
-                <Row className='d-flex groups-row justify-content-center flex-wrap my-3'>
-                  {profile.joinedGroups.map(group => {
-                    const { name, image, _id: groupId } = group
-                    return (
-                      <Col  md='3' key={groupId} className='group-card my-2' >
-                        <Link className='text-decoration-none' to={`/${groupId}`}>
-                          <Card style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(${image})` }}>
-                            <div className='group-name'>{name}</div>
-                          </Card>
-                        </Link>
-                      </Col>
-                    )
-                  })}
-                  <Col md='3'className='group-card my-2' >
-                    <Link className='text-decoration-none' to={'/'}>
-                      <Card style={{ backgroundColor: 'rgba(255,255,255,0.1)' }}>
-                        <div className='group-name'> ＋ </div>
-                      </Card>
-                    </Link>
-                  </Col>
-                </Row>
+                <GroupSet groups={profile.joinedGroups} />
               </Row>
               <hr />
               <Row className='groups-row mt-5'>
@@ -187,7 +149,7 @@ const Profile = () => {
                   return posts.sort((a, b) => (unixTimestamp(a.createdAt) > unixTimestamp(b.createdAt) ? -1 : 1)).map(post => {
                     const { _id: postId, comments } = post
                     const commentHTML = comments.sort((a, b) => (unixTimestamp(a.createdAt) > unixTimestamp(b.createdAt) ? -1 : 1)).map(comment => {
-                      const { message, _id: commentId, owner } = comment
+                      const { _id: commentId } = comment
                       return (
                         <Comments key={commentId} comment={comment} groupId={groupId} postId={postId} setRefresh={setRefresh} refresh={refresh} />
                       )
