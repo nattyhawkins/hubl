@@ -3,11 +3,9 @@
 
 HUBL is a social media platform that allows registered users to join or create/edit/delete groups of some chosen topic of interest and create/edit/delete posts within the groups, as well as comment on other posts. Users can personalise their profiles and visit other users profiles, where various user activity is saved.
 
-[View site here](https://hubl-social.herokuapp.com)
+[View site here!](https://hubl-social.herokuapp.com) | Created with [Alex Ullmann](https://github.com/a-ullmann)
 
 ![hubl](/client/src/assets/readme/home.png)
-
-Created with [Alex Ullmann](https://github.com/a-ullmann)
 
 ## Technologies
 - Node.js
