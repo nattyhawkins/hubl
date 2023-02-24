@@ -7,6 +7,8 @@ HUBL is a social media platform that allows registered users to join or create/e
 
 ![hubl](/client/src/assets/readme/home.png)
 
+Created with [Alex Ullmann](https://github.com/a-ullmann)
+
 ## Technologies
 - Node.js
 - Packages including moment for formatting time
