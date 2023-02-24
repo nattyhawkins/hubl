@@ -8,7 +8,6 @@ import Post from '../common/Post'
 import ImageUpload from '../common/ImageUpload'
 import defaultProfile from '../../../src/assets/profile-penguin.jpg'
 import Comments from '../common/Comments'
-import BlankCard from '../common/BlankCard'
 import GroupSet from '../common/GroupSet'
 
 const Profile = () => {
@@ -87,10 +86,10 @@ const Profile = () => {
   }
 
   return (
-    <main className='group-single profile'>
+    <main className='group-single profile pb-5'>
       {profile &&
         <>
-          <Row className='banner px-md-2'>
+          <Row className='banner px-md-2 '>
             <Container className='px-0 px-sm-2'>
               <div className='bannerContainer wider justify-content-start align-items-center'>
                 <div className='d-flex justify-content-center'>
