@@ -1,7 +1,7 @@
 # HUBL
 #### Full-stack  |  Pair  |  8 days
 
-HUBL is a social media platform that allows registered users to join or create/edit/delete groups of some chosen topic of interest and create/edit/delete posts within the groups, as well as comment on other posts. Users can personalise their profiles and visit other users profiles, where various user activity is saved.
+HUBL is a social media platform that allows registered users to join or create groups of some chosen topic of interest, as well as posting within groups and commenting on posts. Users can personalise their profiles and visit other users profiles, where various user activity is saved.
 
 [View site here!](https://hubl-social.herokuapp.com) | Created with [Alex Ullmann](https://github.com/a-ullmann)
 
@@ -9,18 +9,20 @@ HUBL is a social media platform that allows registered users to join or create/e
 
 ## Technologies
 - Node.js
-- Packages including moment for formatting time
 - Nodemon
-- Mongoose
 - MongoDB
-- Bootstrap
+- Mongoose
+- Express
 - React.js
+- Bootstrap
 - HTML5
 - CSS3
 - SASS
 - JWT
+- Moment.js
 - Axios
 - Cloudinary
+
 
 
 ## Code Installation
@@ -28,7 +30,7 @@ HUBL is a social media platform that allows registered users to join or create/e
 - Install dependencies by running `npm i` in Terminal
 - `mongod --dbpath ~/data/db` to start the database
 - Start the server by running `nodemon`
-- Split terminal and run `client` to go to frontend folder
+- Split terminal and run `client` to go to front end folder
 - `npm run start`
 
 
@@ -54,19 +56,19 @@ Alex and I met for a standup zoom call every morning to prioritise tasks for the
 
 ## Build Process
 ### Set up
-I began by setting up a GitHub repo that Alex forked so we could get to grips with the process of group projects on Git. With our development and feature branches ready to go, I created the project file using git clone and created the main file skeleton for the backend. For the front end we used a react template on which I made the main pages accessible with react-router-dom’s Browser Router. This meant we could split up the workload with a backbone to build on, each choosing a section to own, reducing merge conflicts.
+I began by setting up a GitHub repo that Alex forked so we could get to grips with the process of collaborating via Git. With our development and feature branches ready to go, I created the project file using git clone and the main file skeleton for the back end. For the front end we used a React template on which I made the main pages accessible with react-router-dom’s Browser Router. This meant we could split up the workload with a backbone to build on, each choosing a section to own, reducing merge conflicts.
 
 ### Backend
 My first task was to get the server up and running: connecting with Mongoose in the index.js file, converting the request body to JSON, directing well defined traffic to the router and otherwise catching strays. I checked that the server could receive requests from Insomnia before moving on to the user model schema with Mongoose.
 
 The user schema required some tampering as one of the more complex models:
-A password confirmation virtual field and setter, taking the corresponding value passed by the user carried in the body of the request on registration
-On registration or if password is modified:
-Adding some custom pre-validation to confirm the passwords match
-Hashing the accepted password with a Bcrypt generated ‘salt’ and saving to the user
-Comparing password matches stored password on login
+- A password confirmation virtual field and setter, taking the corresponding value passed by the user carried in the body of the request on registration
+- On registration or if password is modified:
+- Adding some custom pre-validation to confirm the passwords match
+- Hashing the accepted password with a Bcrypt generated ‘salt’ and saving to the user
+- Comparing password matches stored password on login
 
-Next, I completed the rest of the request infrastructure: the router and controller functions. The Express router was simple enough as we had already planned out all our endpoints in the planning stage. I started with the authentication controllers, registering and logging in users, and testing in Insomnia before circling back to begin building model schemas for groups, posts, and comments. I set the owner field on each model as a referenced relationship to the User model, whereas any relationships between themselves were embedded, i.e. posts on groups.
+Next, I completed the rest of the request infrastructure: the router and controller functions. The Express router was simple enough as we had already planned out all our endpoints. I started with the authentication controllers, registering and logging in users, and testing in Insomnia before circling back to begin building model schemas for groups, posts, and comments. I set the owner field on each model as a referenced relationship to the User model, whereas any relationships between themselves were embedded, i.e. posts on groups.
 
 We had some fun writing seeds for the database to have something to interact with when testing our controllers in Insomnia. These controllers took a while longer and were shared between us. Writing reusable functions to retrieve a single group, post or comment, populating foreign fields where appropriate, made this process much more efficient.
 
