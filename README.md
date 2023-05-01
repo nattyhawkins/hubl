@@ -1,7 +1,7 @@
 # HUBL
-#### Full-stack  |  Pair  |  8 days
+#### Full-stack  |  Pair  |  8 days |  GA
 
-HUBL is a social media platform that allows registered users to join or create groups of some chosen topic of interest, as well as posting within groups and commenting on posts. Users can personalise their profiles and visit other users profiles, where various user activity is saved.
+HUBL is a MERN stack social media platform that allows registered users to join or create groups of some chosen topic of interest, as well as posting within groups and commenting on posts. Users can personalise their profiles and visit other users profiles, where various user activity is saved.
 
 [View site here!](https://hubl-social.herokuapp.com) | Created with [Alex Ullmann](https://github.com/a-ullmann)
 
@@ -9,11 +9,11 @@ HUBL is a social media platform that allows registered users to join or create g
 
 ## Technologies
 - Node.js
-- Nodemon
 - MongoDB
-- Mongoose
 - Express
 - React.js
+- Mongoose
+- Nodemon
 - Bootstrap
 - HTML5
 - CSS3
